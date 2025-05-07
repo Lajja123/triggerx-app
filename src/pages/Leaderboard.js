@@ -15,10 +15,15 @@ const Leaderboard = () => {
     contributors: [],
   });
   const [searchTerm, setSearchTerm] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState({
+    pointsSort: 'highToLow', // 'highToLow' or 'lowToHigh'
+    tasksSort: 'highToLow', // 'highToLow' or 'lowToHigh'
+    dateRange: 'all', // 'all', 'week', 'month', 'year'
+  });
   const baseUrl = 'https://app.triggerx.network';
 
 
-  // useEffect(() => {
   //   // Update meta tags when activeTab changes
   //   document.title = 'TriggerX | Leaderboard';
   //   document.querySelector('meta[name="description"]').setAttribute('content', 'Automate Tasks Effortlessly');
@@ -123,22 +128,49 @@ const Leaderboard = () => {
     }, 2000);
   };
 
-  // Filter data based on search term
+  // Filter data based on search term and filters
   const getFilteredData = (dataList) => {
-    if (!searchTerm) return dataList;
+    let filtered = [...dataList];
 
-    return dataList.filter(item => {
+    // Apply search filter
+    if (searchTerm) {
+      filtered = filtered.filter(item => {
+        if (activeTab === "keeper") {
+          return (
+            (item.operator && item.operator.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            (item.address && item.address.toLowerCase().includes(searchTerm.toLowerCase()))
+          );
+        } else if (activeTab === "developer") {
+          return item.address && item.address.toLowerCase().includes(searchTerm.toLowerCase());
+        } else {
+          return item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase());
+        }
+      });
+    }
+
+    // Apply points sorting
+    if (filters.pointsSort === 'highToLow') {
+      filtered.sort((a, b) => b.points - a.points);
+    } else {
+      filtered.sort((a, b) => a.points - b.points);
+    }
+
+    // Apply tasks/jobs sorting
+    if (filters.tasksSort === 'highToLow') {
       if (activeTab === "keeper") {
-        return (
-          (item.operator && item.operator.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          (item.address && item.address.toLowerCase().includes(searchTerm.toLowerCase()))
-        );
+        filtered.sort((a, b) => b.performed - a.performed);
       } else if (activeTab === "developer") {
-        return item.address && item.address.toLowerCase().includes(searchTerm.toLowerCase());
-      } else {
-        return item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase());
+        filtered.sort((a, b) => b.tasksExecuted - a.tasksExecuted);
       }
-    });
+    } else {
+      if (activeTab === "keeper") {
+        filtered.sort((a, b) => a.performed - b.performed);
+      } else if (activeTab === "developer") {
+        filtered.sort((a, b) => a.tasksExecuted - b.tasksExecuted);
+      }
+    }
+
+    return filtered;
   };
 
   // Use filtered data for tables
@@ -263,7 +295,7 @@ const Leaderboard = () => {
             ))
             : !isLoading && (
               <tr>
-                <td colSpan="6" className="text-center text-[#A2A2A2] py-5 h-[650px] ">
+                <td colSpan="6" className="text-center text-[#A2A2A2] py-5">
                   No keeper data available
                 </td>
               </tr>
@@ -362,7 +394,7 @@ const Leaderboard = () => {
             ))
             : !isLoading && (
               <tr>
-                <td colSpan="4" className="text-center text-[#A2A2A2] py-5 h-[650px] ">
+                <td colSpan="4" className="text-center text-[#A2A2A2] py-5">
                   No developer data available
                 </td>
               </tr>
@@ -409,7 +441,7 @@ const Leaderboard = () => {
             ))
             : !isLoading && (
               <tr>
-                <td colSpan="3" className="text-center text-[#A2A2A2] py-5 h-[650px] ">
+                <td colSpan="3" className="text-center text-[#A2A2A2] py-5">
                   No contributor data available
                 </td>
               </tr>
@@ -418,6 +450,87 @@ const Leaderboard = () => {
       </table>
     );
   };
+
+  // Render filter dropdown
+  const renderFilterDropdown = () => {
+    if (!showFilters) return null;
+
+    return (
+      <div 
+        className="absolute right-0 mt-2 w-64 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg shadow-lg z-50 p-4"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="space-y-4">
+          <div>
+            <label className="block text-[#A2A2A2] mb-2 text-start">Sort by Points</label>
+            <select
+              value={filters.pointsSort}
+              onChange={(e) => setFilters(prev => ({ ...prev, pointsSort: e.target.value }))}
+              className="w-full bg-[#2A2A2A] text-[#EDEDED] rounded-lg px-3 py-2"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <option value="highToLow">High to Low</option>
+              <option value="lowToHigh">Low to High</option>
+            </select>
+          </div>
+
+          {(activeTab === "keeper" || activeTab === "developer") && (
+            <div>
+              <label className="block text-[#A2A2A2] mb-2 text-start">Sort by Tasks/Jobs</label>
+              <select
+                value={filters.tasksSort}
+                onChange={(e) => setFilters(prev => ({ ...prev, tasksSort: e.target.value }))}
+                className="w-full bg-[#2A2A2A] text-[#EDEDED] rounded-lg px-3 py-2"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <option value="highToLow">High to Low</option>
+                <option value="lowToHigh">Low to High</option>
+              </select>
+            </div>
+          )}
+
+          <div>
+            <label className="block text-[#A2A2A2] mb-2 text-start">Time Period</label>
+            <select
+              value={filters.dateRange}
+              onChange={(e) => setFilters(prev => ({ ...prev, dateRange: e.target.value }))}
+              className="w-full bg-[#2A2A2A] text-[#EDEDED] rounded-lg px-3 py-2"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <option value="all">All Time</option>
+              <option value="week">Last Week</option>
+              <option value="month">Last Month</option>
+              <option value="year">Last Year</option>
+            </select>
+          </div>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowFilters(false);
+            }}
+            className="w-full bg-[#C07AF6] hover:bg-[#a46be0] text-white rounded-lg px-4 py-2 transition-colors"
+          >
+            Apply Filters
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  // Add click outside handler
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showFilters && !event.target.closest('.filter-dropdown')) {
+        setShowFilters(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showFilters]);
 
   return (
     <>
@@ -442,30 +555,51 @@ const Leaderboard = () => {
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center">
           Leaderboard
         </h1>
-
-        {/* <div className="max-w-[1600px] w-[85%] mx-auto flex items-center justify-end mt-8 mb-4">
-          <div className="relative">
+        <div className="flex justify-between  w-[85%] max-w-[1600px]  mx-auto items-end">
+          <div className=" mt-8 ">
+            <h2 className="text-2xl font-semibold text-[#C07AF6] mb-2">Points & Fair Use</h2>
+            <ul className="list-disc pl-6 text-[#EDEDED] mb-2">
+              <li>Operator and developer points are tracked separately and do not affect each other's rewards.</li>
+              <li>Each wallet has a maximum point cap to ensure fair participation and prevent scripted job farming.</li>
+            </ul>
+            <p className="text-[#A2A2A2] text-sm mt-2">The system is designed to reward genuine contributions.</p>
+          </div>
+          <div className="flex justify-center items-end  mb-8 ">
+          <div className="flex items-center  max-w-xl ">
             <input
               type="text"
               placeholder="Search"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-[#141414] text-white border border-gray-700 rounded-full py-2 px-6 pr-12 focus:outline-none"
+              onChange={e => setSearchTerm(e.target.value)}
+              className="flex-1 bg-[#181818] text-[#EDEDED] border border-[#A2A2A2]  placeholder-[#A2A2A2] rounded-l-full px-6 py-3 focus:outline-none  text-lg shadow-none"
             />
-            <button className="absolute right-4 top-2.5">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z"
-                  stroke="#C07AF6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <button className="bg-[#C07AF6] hover:bg-[#a46be0] transition-colors  w-14 h-14 flex items-center justify-center -ml-5 z-10 border border-[#A2A2A2] rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth="2">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </button>
+            <button 
+              onClick={() => setShowFilters(!showFilters)}
+              className="ml-4 w-14 h-14 rounded-full border border-[#A2A2A2] flex items-center justify-center bg-transparent hover:bg-[#232323] transition-colors relative filter-dropdown"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth="2">
+                <line x1="4" y1="21" x2="4" y2="14" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+                <line x1="4" y1="10" x2="4" y2="3" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+                <line x1="12" y1="21" x2="12" y2="12" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+                <line x1="12" y1="8" x2="12" y2="3" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+                <line x1="20" y1="21" x2="20" y2="16" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+                <line x1="20" y1="12" x2="20" y2="3" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+                <circle cx="4" cy="12" r="2" fill="#C07AF6" />
+                <circle cx="12" cy="10" r="2" fill="#C07AF6" />
+                <circle cx="20" cy="14" r="2" fill="#C07AF6" />
+              </svg>
+              {renderFilterDropdown()}
+            </button>
           </div>
-          <button className="ml-2 bg-[#141414] text-white p-2.5 rounded-full border border-gray-700">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 6H21M7 12H17M11 18H13" stroke="#C07AF6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-        </div> */}
-
+        </div>
+        </div>
+       
         <div className="max-w-[1600px] w-[85%] mx-auto flex justify-between items-center my-10 bg-[#181818F0] p-2 rounded-lg">
           <button
             className={`w-[33%] text-[#FFFFFF] font-bold md:text-lg xs:text-sm p-4 rounded-lg ${activeTab === "keeper"
@@ -497,23 +631,25 @@ const Leaderboard = () => {
         </div>
         <div className="overflow-x-auto">
           <div
-            className="h-[650px]  overflow-y-auto max-w-[1600px] mx-auto w-[85%] bg-[#141414] px-5 rounded-lg"
+            className="max-w-[1600px] mx-auto w-[85%] bg-[#141414] px-5 rounded-lg"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
             }}
           >
             {/* Only render the table when not loading */}
-            {!isLoading &&
-              (activeTab === "keeper"
-                ? renderKeeperTable()
-                : activeTab === "developer"
-                  ? renderDeveloperTable()
-                  : renderContributorTable())}
+            {!isLoading && (
+              <div className={filteredKeepers.length > 0 || filteredDevelopers.length > 0 || filteredContributors.length > 0 ? "h-[650px] overflow-y-auto" : "h-auto"}>
+                {activeTab === "keeper"
+                  ? renderKeeperTable()
+                  : activeTab === "developer"
+                    ? renderDeveloperTable()
+                    : renderContributorTable()}
+              </div>
+            )}
 
             {/* Display loading or error states */}
             {isLoading && <LeaderboardSkeleton activeTab={activeTab} />}
-
 
             {error && !isLoading && (
               <div className="flex justify-center h-[500px] items-center">
