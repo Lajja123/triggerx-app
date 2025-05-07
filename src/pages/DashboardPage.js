@@ -534,18 +534,7 @@ function DashboardPage() {
 
   return (
     <div>
-      <Toaster
-        position="center"
-        className="mt-10"
-        toastOptions={{
-          style: {
-            background: "#0a0a0a", // Dark background
-            color: "#fff", // White text
-            borderRadius: "8px",
-            border: "1px gray solid",
-          },
-        }}
-      />
+     
       <div className="min-h-screen  text-white md:mt-[20rem] mt-[10rem]">
         <div className="fixed inset-0  pointer-events-none" />
         <div className="fixed  pointer-events-none" />

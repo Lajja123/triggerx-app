@@ -5,9 +5,9 @@ import { Toaster } from "react-hot-toast";
 import ERC20ABI from "../artifacts/ERC20.json";
 import { useAccount, useBalance } from "wagmi";
 import TransactionModal from "./Stake-Reward/TransactionModal";
-import ClaimModal from "./Stake-Reward/ClaimModal";
 import StakingRewardsABI from "../artifacts/StakingReword.json";
 import { Copy, Check } from "lucide-react";
+import ClaimETH from "./ClaimETH";
 
 // Contract addresses and Static Data
 const TOKEN_ADDRESS = process.env.REACT_APP_STAKER_TOKEN_ADDRESS;
@@ -298,66 +298,6 @@ const StakingReward = () => {
     }
   };
 
-  const handleClaim = () => {
-    setShowClaimModal(true);
-  };
-
-  const confirmClaim = async () => {
-    try {
-      if (!address) {
-        toast.error("Wallet not connected. Please connect your wallet first.");
-        throw new Error("Wallet not connected");
-      }
-
-      let networkName = "op_sepolia";
-      if (chainId === 84532n) {
-        networkName = "base_sepolia";
-      }
-
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/api/claim-fund`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            wallet_address: address,
-            network: networkName,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to claim ETH");
-      }
-
-      const data = await response.json();
-      console.log("Claim successful:", data);
-
-      // Refresh balance in the background
-      // refetchBalance();
-      setTimeout(async () => {
-        await refetchBalance();
-      }, 2000);
-
-      // Return true immediately to close the modal
-      return true;
-    } catch (error) {
-      console.error("Claim error:", error);
-      if (
-        error.message?.includes("rejected") ||
-        error.message?.includes("denied")
-      ) {
-        toast.error("Transaction was rejected");
-      } else {
-        toast.error(error.message || "Failed to claim ETH");
-      }
-      throw error;
-    }
-  };
-
   const approveTokens = async (amount) => {
     if (!signer || !address) return false;
 
@@ -570,7 +510,18 @@ const StakingReward = () => {
 
   return (
     <div className=" ">
-
+      <Toaster
+        position="center"
+        className="mt-10"
+        toastOptions={{
+          style: {
+            background: "#0a0a0a",
+            color: "#fff",
+            borderRadius: "8px",
+            border: "1px gray solid",
+          },
+        }}
+      />
       <div className="max-w-[1600px] mx-auto  px-3 sm:px-5 py-6 ">
         {/* Static Content */}
         <div className=" mb-6">
@@ -635,15 +586,7 @@ const StakingReward = () => {
               <div className="space-y-6">
                 <div className="flex flex-wrap gap-4">
                   {!hasSufficientBalance ? (
-                    <button
-                      onClick={handleClaim}
-                      className="bg-[#F8FF7C] text-black px-8 py-3 rounded-lg transition-all text-lg flex items-center hover:bg-[#E1E85A] hover:shadow-md hover:shadow-[#F8FF7C]/20 hover:-translate-y-0.5"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                      </svg>
-                      Claim ETH
-                    </button>
+                    <ClaimETH onBalanceUpdate={refetchBalance} />
                   ) : hasSufficientBalance &&
                     !hasSufficientTokenBalance &&
                     chainId === 11155420n ? (
@@ -719,15 +662,6 @@ const StakingReward = () => {
           onConfirm={handleConfirm}
           modalType={modalType}
           modalData={modalData}
-        />
-
-        <ClaimModal
-          isOpen={showClaimModal}
-          onClose={() => setShowClaimModal(false)}
-          onConfirm={confirmClaim}
-          address={address}
-          claimAmount={ETHClaimAmount}
-          networkName={getNetworkName()}
         />
 
         {isConnected && stakingContract && (
