@@ -775,6 +775,13 @@ const ApiCreation = () => {
                                             {"{"}
                                             <div className="ml-4">
                                               <span className="text-[#FF616D]">
+                                                "job_title"
+                                              </span>
+                                              :{" "}
+                                              <span className="text-[#C3E88D]">
+                                                "Test"
+                                              </span>,<br />
+                                              <span className="text-[#FF616D]">
                                                 "user_address"
                                               </span>
                                               :{" "}
@@ -1697,6 +1704,54 @@ const ApiCreation = () => {
                                               <span className="text-[#C3E88D]">
                                                 "[1, 2, 3]"
                                               </span>
+                                              <span className="text-[#FF616D]">
+                                                "target_chain_id"
+                                              </span>
+                                              :{" "}
+                                              <span className="text-[#C3E88D]">
+                                                "11155420"
+
+                                              </span>
+                                              ,<br />
+                                              <span className="text-[#FF616D]">
+                                                "target_contract_address"
+                                              </span>
+                                              :{" "}
+                                              <span className="text-[#C3E88D]">
+                                                "0x8668BBdF66af1dE89EcddaB9F31Bf1E59FA8109d"
+
+                                              </span>
+                                              ,<br />
+                                              <span className="text-[#FF616D]">
+                                                "target_function"
+                                              </span>
+                                              :{" "}
+                                              <span className="text-[#C3E88D]">
+                                                "maintainBalances"
+
+
+                                              </span>
+                                              ,<br />
+                                              <span className="text-[#FF616D]">
+                                                "token_amount"
+                                              </span>
+                                              :{" "}
+                                              <span className="text-[#C3E88D]">
+                                                "0"
+
+
+                                              </span>
+                                              ,<br />
+                                              <span className="text-[#FF616D]">
+                                                "next_execution_timestamp"
+                                              </span>
+                                              :{" "}
+                                              <span className="text-[#C3E88D]">
+                                                "2025-06-03T08:08:39.126Z"
+
+
+                                              </span>
+                                              ,<br />
                                             </div>
                                             {"}"}
                                           </div>

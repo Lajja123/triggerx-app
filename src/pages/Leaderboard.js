@@ -134,7 +134,7 @@ const Leaderboard = () => {
             ? data.map((user) => ({
               address: user.user_address,
               totalJobs: user.total_jobs,
-              tasksExecuted: user.tasks_completed, // If you don't have a separate attested field
+              tasksExecuted: user.total_tasks,
               points: user.user_points,
             }))
             : [];
@@ -531,8 +531,8 @@ const Leaderboard = () => {
               key={page}
               onClick={() => setCurrentPage(page)}
               className={`w-10 h-10 rounded-lg flex items-center justify-center border ${currentPage === page
-                  ? "border-[#C07AF6] text-white bg-[#271039] font-bold"
-                  : "border-[#EDEDED] text-white hover:bg-white hover:border-white hover:text-black"
+                ? "border-[#C07AF6] text-white bg-[#271039] font-bold"
+                : "border-[#EDEDED] text-white hover:bg-white hover:border-white hover:text-black"
                 } transition`}
             >
               {page}

@@ -45,7 +45,7 @@ const LeaderboardTable = ({
 
   const renderSortIcon = (columnKey) => {
     if (!columnKey) return null;
-    
+
     if (sortConfig.key === columnKey) {
       return sortConfig.direction === 'asc' ? (
         <Tooltip title="Sort ascending">
@@ -182,13 +182,10 @@ const LeaderboardTable = ({
             {getColumns().map((column, index) => (
               <th
                 key={column.key}
-                className={`px-6 py-5 text-left text-[#FFFFFF] font-bold text-xs md:text-lg ${
-                  column.sortable ? 'cursor-pointer select-none' : ''
-                } ${
-                  index === 0 ? 'rounded-tl-lg rounded-bl-lg' : ''
-                } ${
-                  index === getColumns().length - 1 ? 'rounded-tr-lg rounded-br-lg' : ''
-                }`}
+                className={`px-6 py-5 text-left text-[#FFFFFF] font-bold text-xs md:text-lg ${column.sortable ? 'cursor-pointer select-none' : ''
+                  } ${index === 0 ? 'rounded-tl-lg rounded-bl-lg' : ''
+                  } ${index === getColumns().length - 1 ? 'rounded-tr-lg rounded-br-lg' : ''
+                  }`}
                 onClick={() => column.sortable && onSort(column.key)}
               >
                 {column.label}
@@ -211,13 +208,10 @@ const LeaderboardTable = ({
                 {getColumns().map((column, colIndex) => (
                   <td
                     key={column.key}
-                    className={`bg-[#1A1A1A] px-6 py-5 text-[#A2A2A2] md:text-md lg:text-lg xs:text-[12px] border ${
-                      colIndex === 0 ? 'border-r-0 rounded-tl-lg rounded-bl-lg' : ''
-                    } ${
-                      colIndex === getColumns().length - 1 ? 'border-l-0 rounded-tr-lg rounded-br-lg' : ''
-                    } ${
-                      colIndex !== 0 && colIndex !== getColumns().length - 1 ? 'border-l-0 border-r-0' : ''
-                    } border-[#2A2A2A]`}
+                    className={`bg-[#1A1A1A] px-6 py-5 text-[#A2A2A2] md:text-md lg:text-lg xs:text-[12px] border ${colIndex === 0 ? 'border-r-0 rounded-tl-lg rounded-bl-lg' : ''
+                      } ${colIndex === getColumns().length - 1 ? 'border-l-0 rounded-tr-lg rounded-br-lg' : ''
+                      } ${colIndex !== 0 && colIndex !== getColumns().length - 1 ? 'border-l-0 border-r-0' : ''
+                      } border-[#2A2A2A]`}
                   >
                     {renderCell(item, column)}
                   </td>
