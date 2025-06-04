@@ -104,8 +104,8 @@ const Leaderboard = () => {
             ? data.map((keeper) => ({
               operator: keeper.keeper_name,
               address: keeper.keeper_address,
-              performed: keeper.tasks_executed,
-              attested: keeper.tasks_executed, // If you don't have a separate attested field
+              performed: keeper.no_executed_tasks,
+              attested: keeper.no_attested_tasks, // If you don't have a separate attested field
               points: keeper.keeper_points,
             }))
             : [];

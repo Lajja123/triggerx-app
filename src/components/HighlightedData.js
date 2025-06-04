@@ -9,15 +9,15 @@ const HighlightedData = ({ data, type, onCopyAddress, copyStatus, onViewProfile 
         return (
           <>
             <h4 className="bg-[#181818] rounded-lg px-3 sm:px-4 py-2 border border-[#5F5F5F]  md:w-full sm:w-auto">
-              <div className="text-gray-400 text-sm sm:text-md mb-1">Performed</div>
+              <div className="text-gray-400 text-sm sm:text-md mb-1 lg:text-lg">Performed</div>
               <div className="text-white font-semibold text-sm sm:text-base">{data.performed}</div>
             </h4>
             <h4 className="bg-[#181818] rounded-lg px-3 sm:px-4 py-2 border border-[#5F5F5F]  md:w-full sm:w-auto">
-              <div className="text-gray-400 text-sm sm:text-md mb-1">Attested</div>
+              <div className="text-gray-400 text-sm sm:text-md mb-1 lg:text-lg">Attested</div>
               <div className="text-white font-semibold text-sm sm:text-base">{data.attested}</div>
             </h4>
             <h4 className="bg-[#181818] rounded-lg px-3 sm:px-4 py-2 border border-[#5F5F5F]  md:w-full sm:w-auto">
-              <div className="text-gray-400 text-sm sm:text-md mb-1">Points</div>
+              <div className="text-gray-400 text-sm sm:text-md mb-1 lg:text-lg">Points</div>
               <div className="text-white font-bold text-sm sm:text-base">{Number(data.points).toFixed(2)}</div>
             </h4>
           </>
@@ -26,15 +26,15 @@ const HighlightedData = ({ data, type, onCopyAddress, copyStatus, onViewProfile 
         return (
           <>
             <h4 className="bg-[#181818] rounded-lg px-3 sm:px-4 py-2 border border-[#5F5F5F] ">
-              <div className="text-gray-400 text-sm sm:text-md mb-1">Total Jobs</div>
+              <div className="text-gray-400 text-sm sm:text-md mb-1 lg:text-lg">Total Jobs</div>
               <div className="text-white font-semibold text-sm sm:text-base">{data.totalJobs}</div>
             </h4>
             <h4 className="bg-[#181818] rounded-lg px-3 sm:px-4 py-2 border border-[#5F5F5F] ">
-              <div className="text-gray-400 text-sm sm:text-md mb-1">Tasks Executed</div>
+              <div className="text-gray-400 text-sm sm:text-md mb-1 lg:text-lg">Tasks Executed</div>
               <div className="text-white font-semibold text-sm sm:text-base">{data.tasksExecuted}</div>
             </h4>
             <h4 className="bg-[#181818] rounded-lg px-3 sm:px-4 py-2 border border-[#5F5F5F]  ">
-              <div className="text-gray-400 text-sm sm:text-md mb-1">Points</div>
+              <div className="text-gray-400 text-sm sm:text-md mb-1 lg:text-lg">Points</div>
               <div className="text-white font-semibold text-sm sm:text-base">{Number(data.points).toFixed(2)}</div>
             </h4>
           </>
@@ -42,7 +42,7 @@ const HighlightedData = ({ data, type, onCopyAddress, copyStatus, onViewProfile 
       case 'contributor':
         return (
           <h4 className="bg-[#181818] rounded-lg px-3 sm:px-4 py-2 border border-[#5F5F5F]  md:w-full sm:w-auto">
-            <div className="text-gray-400 text-sm sm:text-md mb-1">Points</div>
+            <div className="text-gray-400 text-sm sm:text-md mb-1 lg:text-lg">Points</div>
             <div className="text-white font-semibold text-sm sm:text-base">{Number(data.points).toFixed(2)}</div>
           </h4>
         );
