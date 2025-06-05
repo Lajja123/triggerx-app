@@ -11,6 +11,10 @@
   --background: #0a0a0a;
   --foreground: #ededed;
 }
+.font{
+ font-family: var(--font-actay);
+
+}
 
 body {
   color: var(--foreground);
