@@ -141,47 +141,10 @@ function DashboardPage() {
     };
   }, []);
 
-  const baseUrl = "https://app.triggerx.network";
-
-  useEffect(() => {
-    // Update meta tags when activeTab changes
-    document.title = "TriggerX | Dashboard";
-    document
-      .querySelector('meta[name="description"]')
-      .setAttribute("content", "Automate Tasks Effortlessly");
-
-    // Update Open Graph meta tags
-    document
-      .querySelector('meta[property="og:title"]')
-      .setAttribute("content", "TriggerX | Dashboard");
-    document
-      .querySelector('meta[property="og:description"]')
-      .setAttribute("content", "Automate Tasks Effortlessly");
-    document
-      .querySelector('meta[property="og:image"]')
-      .setAttribute("content", `${baseUrl}/images/dashboard-og.png`);
-    document
-      .querySelector('meta[property="og:url"]')
-      .setAttribute("content", `${baseUrl}/leaderboard`);
-
-    // Update Twitter Card meta tags
-    document
-      .querySelector('meta[name="twitter:title"]')
-      .setAttribute("content", "TriggerX | Dashboard");
-    document
-      .querySelector('meta[name="twitter:description"]')
-      .setAttribute("content", "Automate Tasks Effortlessly");
-    document
-      .querySelector('meta[name="twitter:image"]')
-      .setAttribute("content", `${baseUrl}/images/dashboard-og.png`);
-  }, [baseUrl]);
-
   useEffect(() => {
     const initializeProvider = async () => {
-      // console.log("Initializing provider...");
       if (typeof window.ethereum !== "undefined") {
-        // Check if we're already connected before creating provider
-        // This avoids triggering connection prompts
+    
         if (address) {
           const ethProvider = new ethers.BrowserProvider(window.ethereum);
           setProvider(ethProvider);
@@ -206,7 +169,7 @@ function DashboardPage() {
         window.ethereum.removeListener("chainChanged", initializeProvider);
       }
     };
-  }, [address]); // Add address as dependency
+  }, [address]);
 
   useEffect(() => {
     // Only fetch job details if provider exists and user is connected (address exists)
@@ -215,23 +178,6 @@ function DashboardPage() {
     }
   }, [provider, address]);
 
-  useEffect(() => {
-    const logo = logoRef.current;
-    if (logo) {
-      logo.style.transform = "rotateY(0deg)";
-      logo.style.transition = "transform 1s ease-in-out";
-
-      const rotateLogo = () => {
-        logo.style.transform = "rotateY(360deg)";
-        setTimeout(() => {
-          logo.style.transform = "rotateY(0deg)";
-        }, 1000);
-      };
-
-      const interval = setInterval(rotateLogo, 5000);
-      return () => clearInterval(interval);
-    }
-  }, []);
 
   useEffect(() => {
     fetchTGBalance();
@@ -282,7 +228,6 @@ function DashboardPage() {
       jobsData.forEach((job) => {
         jobMap[job.job_data.job_id] = job;
       });
-      console.log("Job Map:", jobMap); // Debug log
 
       // Build the linkedJobsMap
       const linkedJobsMap = {};
@@ -298,7 +243,47 @@ function DashboardPage() {
           while (nextJobId !== -1) {
             const nextJob = jobMap[nextJobId];
             if (!nextJob) break; // in case of missing data
-            linkedJobs.push(nextJob);
+
+            // Process the linked job data similarly to the main jobs
+            const typeSpecificData = nextJob.time_job_data || nextJob.event_job_data || nextJob.condition_job_data || {};
+
+            const processedLinkedJob = {
+              id: nextJob.job_data.job_id,
+              title: nextJob.job_data.job_title,
+              jobTitle: nextJob.job_data.job_title,
+              type: mapJobType(nextJob.job_data.job_type),
+              status: "Active", // Or derive status if available in raw data
+              // linkedJobs: [], // Linked jobs of linked jobs are not currently displayed/processed
+              taskDefinitionId: nextJob.job_data.task_definition_id,
+              userId: nextJob.job_data.user_id,
+              priority: nextJob.job_data.priority, // Assuming priority and security are in job_data
+              security: nextJob.job_data.security,
+              linkJobId: nextJob.job_data.link_job_id,
+              chainStatus: nextJob.job_data.chain_status,
+              custom: nextJob.job_data.custom,
+              timeFrame: typeSpecificData.time_frame || {},
+              recurring: typeSpecificData.recurring,
+              timeInterval: typeSpecificData.time_interval || {},
+              triggerChainId: typeSpecificData.trigger_chain_id,
+              triggerContractAddress: typeSpecificData.trigger_contract_address,
+              triggerEvent: typeSpecificData.trigger_event,
+              scriptIPFSUrl: typeSpecificData.script_ipfs_url,
+              scriptTriggerFunction: typeSpecificData.script_trigger_function,
+              targetChainId: typeSpecificData.target_chain_id,
+              targetContractAddress: typeSpecificData.target_contract_address,
+              targetFunction: typeSpecificData.target_function,
+              argType: typeSpecificData.arg_type,
+              arguments: typeSpecificData.arguments,
+              scriptTargetFunction: typeSpecificData.script_target_function,
+              abi: typeSpecificData.abi,
+              cost_prediction: nextJob.job_data.job_cost_prediction,
+              createdAt: nextJob.job_data.created_at,
+              lastExecutedAt: nextJob.job_data.last_executed_at,
+              taskIds: nextJob.job_data.task_ids,
+              feeUsed: nextJob.job_data.fee_used
+            };
+
+            linkedJobs.push(processedLinkedJob);
             nextJobId = nextJob.job_data.link_job_id;
           }
 
@@ -320,37 +305,25 @@ function DashboardPage() {
           const job = {
             id: jobDetail.job_data.job_id,
             title: jobDetail.job_data.job_title,
-            jobTitle: jobDetail.job_data.job_title, // Ensure we're setting both title and jobTitle
+            jobTitle: jobDetail.job_data.job_title,
             type: mapJobType(jobDetail.job_data.job_type),
-            status: "Active", // Only including jobs where status is false
+            status: "Active",
             linkedJobs: linkedJobsMap[jobDetail.job_data.job_id] || [],
             taskDefinitionId: jobDetail.job_data.task_definition_id,
             userId: jobDetail.job_data.user_id,
-            priority: jobDetail.job_data.priority,
-            security: jobDetail.job_data.security,
             linkJobId: jobDetail.job_data.link_job_id,
             chainStatus: jobDetail.job_data.chain_status,
             custom: jobDetail.job_data.custom,
             timeFrame: typeSpecificData.time_frame || {},
-            recurring: typeSpecificData.recurring,
             timeInterval: typeSpecificData.time_interval || {},
-            triggerChainId: typeSpecificData.trigger_chain_id,
-            triggerContractAddress: typeSpecificData.trigger_contract_address,
-            triggerEvent: typeSpecificData.trigger_event,
-            scriptIPFSUrl: typeSpecificData.script_ipfs_url,
-            scriptTriggerFunction: typeSpecificData.script_trigger_function,
             targetChainId: typeSpecificData.target_chain_id,
             targetContractAddress: typeSpecificData.target_contract_address,
             targetFunction: typeSpecificData.target_function,
             argType: typeSpecificData.arg_type,
-            arguments: typeSpecificData.arguments,
-            scriptTargetFunction: typeSpecificData.script_target_function,
             abi: typeSpecificData.abi,
-            jobCostPrediction: typeSpecificData.job_cost_prediction,
+            cost_prediction: jobDetail.job_data.job_cost_prediction, // Get from job_data
             createdAt: jobDetail.job_data.created_at,
             lastExecutedAt: jobDetail.job_data.last_executed_at,
-            taskIds: jobDetail.job_data.task_ids,
-            feeUsed: jobDetail.job_data.fee_used
           };
           console.log("Processed job object:", job); // Debug log
           return job;
@@ -373,9 +346,9 @@ function DashboardPage() {
   };
 
   // Helper function to map job type ID to label
-  const mapJobType = (jobTypeId) => {
-    // Convert jobTypeId to string to handle both string and number types
-    const typeId = String(jobTypeId);
+  const mapJobType = (taskDefinitionId) => {
+    // Convert taskDefinitionId to string to handle both string and number types
+    const typeId = String(taskDefinitionId);
 
     switch (typeId) {
       case "1":
@@ -534,14 +507,12 @@ function DashboardPage() {
         selectedJob.apiEndpoint
       );
 
-      // console.log("Job updated successfully:", result);
       toast.success("Job updated successfully");
 
       // Refresh job details after update
       await fetchJobDetails();
       handleCloseModal();
     } catch (error) {
-      // console.error("Error updating job:", error);
       toast.error("Error updating job");
     }
   };
@@ -587,10 +558,8 @@ function DashboardPage() {
       );
 
       const [_, tgBalance] = await stakeRegistryContract.getStake(userAddress);
-      // console.log("Raw TG Balance:", tgBalance.toString());
       setTgBalance(ethers.formatEther(tgBalance));
     } catch (error) {
-      // console.error("Error fetching TG balance:", error);
     }
   };
 
@@ -616,11 +585,8 @@ function DashboardPage() {
         ["function stake(uint256 amount) external payable returns (uint256)"],
         signer
       );
-      // console.log("Stake contract:", stakingContract);
 
       const stakeAmountInWei = ethers.parseEther(stakeAmount.toString());
-      // console.log("Stake Amount in Wei:", stakeAmountInWei.toString());
-
       if (stakeAmountInWei === 0n) {
         // ✅ Correct way to check if BigInt is zero
         throw new Error("Stake amount must be greater than zero.");
@@ -663,6 +629,26 @@ function DashboardPage() {
       return (num / 1000).toFixed(2) + "K";
     }
     return num.toFixed(2);
+  };
+
+  // Add new helper function for date formatting
+  const formatDate = (dateString) => {
+    if (!dateString) return 'Not specified';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  // Add new helper function for text truncation
+  const truncateText = (text, maxLength = 20) => {
+    if (!text) return 'Not specified';
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
   };
 
   // Add pagination helper functions
@@ -750,15 +736,18 @@ function DashboardPage() {
     if (selectedType === "all") {
       return jobDetails;
     }
-    return jobDetails.filter(job => job.type === selectedType);
+    return jobDetails.filter(job => mapJobType(job.taskDefinitionId) === selectedType);
   };
 
   return (
-    <div className="min-h-screen  text-white md:mt-[20rem] mt-[10rem]">
+    <div className="min-h-screen mt-[10rem] lg:mt-[17rem] max-w-[1600px] w-[85%] mx-auto">
+      <h1 className="text-3xl sm:text-4xl lg:text-7xl font-[300]  bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-white text-center">
+        Dashboard      </h1>
+
       <div className="fixed inset-0  pointer-events-none" />
       <div className="fixed  pointer-events-none" />
 
-      <div className=" mx-auto px-6 py-8 lg:my-30 md:my-30 my-20 sm:my-20 ">
+      <div className=" mx-auto  lg:my-15 md:my-20 my-20 sm:my-20 ">
         <div className="flex max-w-[1600px] mx-auto justify-evenly gap-10 lg:flex-row flex-col ">
           <div className="lg:w-[75%] w-full">
             <div className="bg-[#141414] backdrop-blur-xl rounded-2xl p-8">
@@ -829,9 +818,9 @@ function DashboardPage() {
 
                 {getFilteredJobs().length > 0 ? (
                   <>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 xl:grid-cols-3">
                       {getPaginatedData(getFilteredJobs()).map((job, index) => (
-                        <div key={job.id} className={`bg-[#1A1A1A] rounded-xl  border ${expandedJobs[job.id] ? 'bg-gradient-to-r from-[#D9D9D924] to-[#14131324] border-2 border-white shadow-lg' : 'border-[#2A2A2A] hover:border-[#3A3A3A]'} transition-all duration-300 relative ${expandedJobDetails[job.id] ? 'h-auto' : 'h-[265px]'}`}>
+                        <div key={job.id} className={`bg-[#1A1A1A] rounded-xl border ${expandedJobs[job.id] ? 'bg-gradient-to-r from-[#D9D9D924] to-[#14131324] border-2 border-white shadow-lg' : 'border-[#2A2A2A] hover:border-[#3A3A3A]'} transition-all duration-300 relative ${expandedJobDetails[job.id] ? 'h-auto' : 'h-[310px]'} hover:transform hover:scale-[1.02] transition-transform duration-300 ease`}>
                           <div>
                             <div className={`flex justify-between items-center mb-4 p-3  ${expandedJobs[job.id] ? 'border-b border-white ' : 'border-[#2A2A2A] border-b hover:border-[#3A3A3A]'}`} >
                               <h3 className="text-[#FBF197] font-bold text-lg ">{job.jobTitle}</h3>
@@ -864,6 +853,15 @@ function DashboardPage() {
                             </div>
                             <div className={` space-y-2  px-3 `}>
                               <div className="flex items-center justify-between gap-2 py-1.5">
+                                <span className="text-sm text-white font-bold">Job Type :</span>
+                                <div className="flex items-center gap-2">
+
+                                  <span className="text-[#A2A2A2] text-sm">
+                                    {mapJobType(job.taskDefinitionId)}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="flex items-center justify-between gap-2 py-1.5">
                                 <span className="text-sm text-white font-bold">Job Status :</span>
                                 <span className=" text-[#A2A2A2] text-sm  ">
                                   {job.status}
@@ -871,7 +869,7 @@ function DashboardPage() {
                               </div>
                               <div className="flex items-center justify-between gap-2 py-1.5">
                                 <span className="text-sm text-white font-bold">TG Used :</span>
-                                <span className="text-[#A2A2A2] text-sm">{job.job_cost_prediction}</span>
+                                <span className="text-[#A2A2A2] text-sm">{parseFloat(job.cost_prediction).toFixed(2)}</span>
                               </div>
                               <div className="flex items-center justify-between gap-2 py-1.5">
                                 <span className="text-sm text-white font-bold">Timeframe :</span>
@@ -882,14 +880,14 @@ function DashboardPage() {
 
                               {expandedJobDetails[job.id] && (
                                 <div className=" space-y-2 text-[#A2A2A2] text-sm">
-                                  <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Avg Type :</span><span className="text-[#A2A2A2] text-sm">{job.argType || 'None'}</span></div>
+                                  <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Avg Type :</span><span className="text-[#A2A2A2] text-sm">{job.argType}</span></div>
                                   <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Interval :</span><span className="text-[#A2A2A2] text-sm"> {job.timeInterval}</span></div>
 
                                   <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target Contract :</span><span className="text-[#A2A2A2] text-sm"> {sliceAddress(job.targetContractAddress)} </span></div>
-                                  <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white"> Trigger Contract :</span><span className="text-[#A2A2A2] text-sm"> {sliceAddress(job.triggerContractAddress)} </span></div>
-                                  <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target Function :</span><span className="text-[#A2A2A2] text-sm"> {job.targetFunction || 'Not specified'}</span></div>
-                                  <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">  Trigger Event :</span><span className="text-[#A2A2A2] text-sm"> {job.trigger_event || 'Not specified'}</span></div>
-                                  <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">  Last Execution :</span><span className="text-[#A2A2A2] text-sm"> {job.last_executed_at || 'Never'}</span></div>
+                                  <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Created At:</span><span className="text-[#A2A2A2] text-sm"> {formatDate(job.createdAt)}</span></div>
+                                  <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target Function :</span><span className="text-[#A2A2A2] text-sm"> {truncateText(job.targetFunction)}</span></div>
+                                  <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target ChainId :</span><span className="text-[#A2A2A2] text-sm"> {job.targetChainId}</span></div>
+                                  {/* <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Last Execution :</span><span className="text-[#A2A2A2] text-sm"> {job.lastExecutedAt}</span></div> */}
                                 </div>
                               )}
                             </div>
@@ -936,7 +934,7 @@ function DashboardPage() {
 
                     </div>
                     {/* Linked Jobs Section */}
-                    {getPaginatedData(getFilteredJobs()).map((job) => (
+                    {getPaginatedData(getFilteredJobs()).map((job, index) => (
                       job.linkedJobs && job.linkedJobs.length > 0 && expandedJobs[job.id] && (
                         <div key={`linked-${job.id}`} className={`rounded-lg   `}>
                           <h4
@@ -945,46 +943,60 @@ function DashboardPage() {
                           >
                             Linked Jobs
                           </h4>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-6  xl:grid-cols-3">
                             {job.linkedJobs.map((linkedJob) => (
-                              <div key={linkedJob.job_id} className={`bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] hover:border-[#3A3A3A] transition-all duration-300 ${expandedLinkedJobDetails[linkedJob.job_id] ? 'h-auto' : 'h-[280px]'}`}>
+                              <div key={linkedJob.job_id} className={`bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] hover:border-[#3A3A3A] transition-all duration-300 ${expandedLinkedJobDetails[linkedJob.job_id] ? 'h-auto' : 'h-[320px]'} hover:transform hover:scale-[1.02] transition-transform duration-300 ease`}>
                                 <div className="flex flex-row justify-between items-start gap-3 sm:gap-4">
                                   <div className="flex-1">
                                     <div className="border-[#2A2A2A] border-b p-3 mb-4">
-                                      <h3 className="text-[#FBF197] font-bold text-lg">{mapJobType(linkedJob.title)}</h3>
+                                      <h3 className="text-[#FBF197] font-bold text-lg">{linkedJob.jobTitle || linkedJob.title}</h3>
                                     </div>
                                     <div className="space-y-2 p-3">
                                       <div className="flex items-center justify-between gap-2 py-1">
+                                        <span className="text-sm text-white">Job Type :</span>
+                                        <div className="flex items-center gap-2">
+                                          <img
+                                            src={
+                                              mapJobType(linkedJob.taskDefinitionId) === "Time-based"
+                                                ? timeBasedSvg
+                                                : mapJobType(linkedJob.taskDefinitionId) === "Event-based"
+                                                  ? eventBasedSvg
+                                                  : conditionBasedSvg
+                                            }
+                                            alt={mapJobType(linkedJob.taskDefinitionId)}
+                                            className="w-4 h-4"
+                                          />
+                                          <span className="text-[#A2A2A2] text-sm">
+                                            {mapJobType(linkedJob.taskDefinitionId)}
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <div className="flex items-center justify-between gap-2 py-1">
                                         <span className="text-sm text-white">Job Status :</span>
                                         <span className=" text-[#A2A2A2] rounded-full text-xs sm:text-sm  whitespace-nowrap">
-                                          {linkedJob.type || 'Not specified'}
+                                          {linkedJob.status}
                                         </span>
                                       </div>
                                       <div className="flex items-center justify-between gap-2 py-2 py-1">
                                         <span className="text-sm text-white">TG Used :</span>
-                                        <span className="text-[#A2A2A2] text-sm">{linkedJob.fee_used || '0'}</span>
+                                        <span className="text-[#A2A2A2] text-sm">{parseFloat(linkedJob.cost_prediction).toFixed(2)}</span>
                                       </div>
                                       <div className="flex items-center justify-between gap-2 py-1">
                                         <span className="text-sm text-white">Timeframe :</span>
                                         <span className="text-[#A2A2A2] text-sm">
-                                          {linkedJob.timeframe ?
-                                            `${linkedJob.time_frame.days || 0}d ${linkedJob.time_frame.hours || 0}h ${linkedJob.time_frame.minutes || 0}m`
-                                            : 'Not specified'}
+                                          {linkedJob.timeFrame}
                                         </span>
                                       </div>
                                       {expandedLinkedJobDetails[linkedJob.job_id] && (
                                         <div className=" space-y-2 text-[#A2A2A2] text-sm">
-                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Avg Type :</span><span className="text-[#A2A2A2] text-sm">{linkedJob.arg_type || 'None'}</span></div>
-                                          <div className="flex items-center justify-between gap-2  py-1"><span className="text-sm text-white">Interval :</span><span className="text-[#A2A2A2] text-sm"> {linkedJob.timeInterval ?
-                                            `${linkedJob.time_interval.hours || 0}h ${linkedJob.time_interval.minutes || 0}m ${linkedJob.time_interval.seconds || 0}s`
-                                            : 'Not specified'}</span></div>
+                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Avg Type :</span><span className="text-[#A2A2A2] text-sm">{linkedJob.argType}</span></div>
+                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Interval :</span><span className="text-[#A2A2A2] text-sm"> {linkedJob.timeInterval}</span></div>
 
-                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white"> Trigger Contract :</span><span className="text-[#A2A2A2] text-sm"> {sliceAddress(linkedJob.trigger_contract_address)} </span></div>
-                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target Contract :</span><span className="text-[#A2A2A2] text-sm"> {sliceAddress(linkedJob.target_contract_address)} </span></div>
-                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target Function :</span><span className="text-[#A2A2A2] text-sm"> {linkedJob.target_function || 'Not specified'}</span></div>
-                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">  Trigger Event :</span><span className="text-[#A2A2A2] text-sm"> {linkedJob.trigger_event || 'Not specified'}</span></div>
-                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">  Last Execution :</span><span className="text-[#A2A2A2] text-sm"> {linkedJob.last_executed_at || 'Never'}</span></div>
-
+                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target Contract :</span><span className="text-[#A2A2A2] text-sm"> {sliceAddress(linkedJob.targetContractAddress)} </span></div>
+                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Created At:</span><span className="text-[#A2A2A2] text-sm"> {formatDate(linkedJob.createdAt)}</span></div>
+                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target Function :</span><span className="text-[#A2A2A2] text-sm"> {truncateText(linkedJob.targetFunction)}</span></div>
+                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target ChainId :</span><span className="text-[#A2A2A2] text-sm"> {linkedJob.targetChainId}</span></div>
+                                          {/* <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Last Execution :</span><span className="text-[#A2A2A2] text-sm"> {linkedJob.lastExecutedAt}</span></div> */}
                                         </div>
                                       )}
                                     </div>
@@ -1150,15 +1162,13 @@ function DashboardPage() {
                   </div>
                   <div className="flex justify-start items-center gap-7">
                     <p className="font-semibold text-[#A2A2A2] bg-[#242323] py-3 px-4 rounded-md xl:text-md text-sm ">
-                      {
-                        jobDetails.filter((job) => job.status === "Active")
-                          .length
-                      }
+                      {jobDetails.reduce((total, job) => total + (job.linkedJobs?.length || 0), 0)}
                     </p>
                     <p className="text-[#A2A2A2] xl:text-lg text-sm  font-bold tracking-wider">
-                      Active Jobs
+                      Linked Jobs
                     </p>
                   </div>
+
                 </div>
               </div>
             </div>

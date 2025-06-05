@@ -45,7 +45,7 @@ const LeaderboardTable = ({
 
   const renderSortIcon = (columnKey) => {
     if (!columnKey) return null;
-    
+
     if (sortConfig.key === columnKey) {
       return sortConfig.direction === 'asc' ? (
         <Tooltip title="Sort ascending">
@@ -69,12 +69,14 @@ const LeaderboardTable = ({
       case 'operator':
         return item.operator;
       case 'address':
+        if (!item.address) return 'null';
         return (
           <div className="flex items-center">
-            <span className="truncate max-w-[180px] md:max-w-[220px] lg:max-w-[250px]">
-              {item.address
-                ? `${item.address.substring(0, 5)}...${item.address.substring(item.address.length - 4)}`
-                : ''}
+            <span className="truncate max-w-[180px] md:max-w-[220px] lg:max-w-[250px] lg:hidden md:hidden  ">
+              {`${item.address.substring(0, 5)}...${item.address.substring(item.address.length - 4)}`}
+            </span>
+            <span className="truncate lg:block md:block hidden ">
+              {`${item.address.substring(0, 15)}...${item.address.substring(item.address.length - 4)}`}
             </span>
             <button
               onClick={() => onCopyAddress(item.address)}
@@ -174,21 +176,41 @@ const LeaderboardTable = ({
     </tr>
   );
 
+  const renderMobileCards = () => (
+    <div className="flex flex-col gap-4 md:hidden items-center">
+      {data.length > 0 ? (
+        data.map((item, idx) => (
+          <div
+            key={idx}
+            className={`bg-[#1A1A1A] rounded-xl p-4 shadow-md border border-[#2A2A2A] w-full `}
+          >
+            {getColumns().map((column) => (
+              <div key={column.key} className="flex justify-between items-center py-2">
+                <span className="text-sm text-white font-bold">{column.label}:</span>
+                <span className=" text-[#A2A2A2] text-sm ">{renderCell(item, column)}</span>
+              </div>
+            ))}
+          </div>
+        ))
+      ) : (
+        renderEmptyState()
+      )}
+    </div>
+  );
+
   return (
     <div className="bg-[#141414] p-3 sm:p-7 rounded-lg overflow-auto">
-      <table className="w-full border-separate border-spacing-y-4 max-h-[650px] h-auto">
+      {/* Desktop Table */}
+      <table className="w-full border-separate border-spacing-y-4 max-h-[650px] h-auto hidden md:table">
         <thead className="sticky top-0 bg-[#303030] text-nowrap">
           <tr>
             {getColumns().map((column, index) => (
               <th
                 key={column.key}
-                className={`px-6 py-5 text-left text-[#FFFFFF] font-bold text-xs md:text-lg ${
-                  column.sortable ? 'cursor-pointer select-none' : ''
-                } ${
-                  index === 0 ? 'rounded-tl-lg rounded-bl-lg' : ''
-                } ${
-                  index === getColumns().length - 1 ? 'rounded-tr-lg rounded-br-lg' : ''
-                }`}
+                className={`px-6 py-5 text-left text-[#FFFFFF] font-bold text-xs md:text-lg ${column.sortable ? 'cursor-pointer select-none' : ''
+                  } ${index === 0 ? 'rounded-tl-lg rounded-bl-lg' : ''
+                  } ${index === getColumns().length - 1 ? 'rounded-tr-lg rounded-br-lg' : ''
+                  }`}
                 onClick={() => column.sortable && onSort(column.key)}
               >
                 {column.label}
@@ -211,13 +233,10 @@ const LeaderboardTable = ({
                 {getColumns().map((column, colIndex) => (
                   <td
                     key={column.key}
-                    className={`bg-[#1A1A1A] px-6 py-5 text-[#A2A2A2] md:text-md lg:text-lg xs:text-[12px] border ${
-                      colIndex === 0 ? 'border-r-0 rounded-tl-lg rounded-bl-lg' : ''
-                    } ${
-                      colIndex === getColumns().length - 1 ? 'border-l-0 rounded-tr-lg rounded-br-lg' : ''
-                    } ${
-                      colIndex !== 0 && colIndex !== getColumns().length - 1 ? 'border-l-0 border-r-0' : ''
-                    } border-[#2A2A2A]`}
+                    className={`bg-[#1A1A1A] px-6 py-5 text-[#A2A2A2] md:text-md lg:text-lg xs:text-[12px] border ${colIndex === 0 ? 'border-r-0 rounded-tl-lg rounded-bl-lg' : ''
+                      } ${colIndex === getColumns().length - 1 ? 'border-l-0 rounded-tr-lg rounded-br-lg' : ''
+                      } ${colIndex !== 0 && colIndex !== getColumns().length - 1 ? 'border-l-0 border-r-0' : ''
+                      } border-[#2A2A2A]`}
                   >
                     {renderCell(item, column)}
                   </td>
@@ -229,6 +248,10 @@ const LeaderboardTable = ({
           )}
         </tbody>
       </table>
+      {/* Mobile Cards */}
+      <div className="block md:hidden">
+        {renderMobileCards()}
+      </div>
     </div>
   );
 };

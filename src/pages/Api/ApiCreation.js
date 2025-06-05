@@ -68,35 +68,35 @@ const ApiCreation = () => {
       <div className="p-8 ">
         <h2 className="text-xl font-semibold mb-4">Quick Start Guide</h2>
         <ol className="space-y-4">
-          <li className="flex flex-row gap-5 items-center">
-            <div className="border border-[#C07AF6] bg-[#371B58] py-2 px-4 flex items-center justify-center rounded-lg">
+          <li className="flex flex-row gap-5 sm:gap-5 items-center">
+            <div className="border border-[#C07AF6] bg-[#371B58] w-10 h-10 flex items-center justify-center rounded-lg text-lg font-semibold">
               1
             </div>
-            <span className="text-md">
+            <span className="w-full text-xs sm:text-sm md:text-base">
               Generate an API key in the "API Key Generator" tab
             </span>
           </li>
           <li className="flex flex-row gap-5 items-center">
-            <div className="border border-[#C07AF6] bg-[#371B58] py-2 px-3 flex items-center justify-center rounded-lg">
+            <div className="border border-[#C07AF6] bg-[#371B58] w-10 h-10 flex items-center justify-center rounded-lg text-lg font-semibold">
               2
             </div>
-            <span className="text-md">
+            <span className="md:text-base w-full sm:text-sm text-sm">
               Review the API documentation for available endpoints
             </span>
           </li>
           <li className="flex flex-row gap-5 items-center">
-            <div className="border border-[#C07AF6] bg-[#371B58] py-2 px-3 flex items-center justify-center rounded-lg">
+            <div className="border border-[#C07AF6] bg-[#371B58] w-10 h-10 flex items-center justify-center rounded-lg text-lg font-semibold">
               3
             </div>
-            <span className="text-md">
+            <span className="md:text-base w-full sm:text-sm text-sm">
               Make API requests using your generated key
             </span>
           </li>
           <li className="flex flex-row gap-5 items-center">
-            <div className="border border-[#C07AF6] bg-[#371B58] py-2 px-3 flex items-center justify-center rounded-lg">
+            <div className="border border-[#C07AF6] bg-[#371B58] w-10 h-10 flex items-center justify-center rounded-lg text-lg font-semibold">
               4
             </div>
-            <span className="text-md">Monitor your usage and rate limits</span>
+            <span className="md:text-base w-full sm:text-sm text-sm">Monitor your usage and rate limits</span>
           </li>
         </ol>
       </div>
@@ -123,9 +123,9 @@ const ApiCreation = () => {
         API Documentation & Key Management
       </h1>
 
-      <div className="max-w-[1600px] w-[95%] sm:w-[85%] mx-auto flex justify-between items-center my-8 sm:my-12 bg-[#181818F0] p-2 rounded-lg">
+      <div className="max-w-[1600px] w-[95%] sm:w-[85%] mx-auto flex flex-col md:flex-row justify-between items-center my-8 sm:my-12 bg-[#181818F0] p-2 rounded-lg">
         <button
-          className={`w-[50%] text-[#FFFFFF] font-bold md:text-lg xs:text-sm p-4 rounded-lg ${activeTab === "documetation"
+          className={`w-full text-[#FFFFFF] font-bold md:text-lg xs:text-sm p-4 rounded-lg ${activeTab === "documetation"
             ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] border border-[#4B4A4A]"
             : "bg-transparent"
             }`}
@@ -134,7 +134,7 @@ const ApiCreation = () => {
           Documentation
         </button>
         <button
-          className={`w-[50%] text-[#FFFFFF] font-bold md:text-lg xs:text-sm p-4 rounded-lg ${activeTab === "apikey"
+          className={`w-full text-[#FFFFFF] font-bold md:text-lg xs:text-sm p-4 rounded-lg ${activeTab === "apikey"
             ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] border border-[#4B4A4A]"
             : "bg-transparent"
             }`}
@@ -182,7 +182,7 @@ const ApiCreation = () => {
                             Generate New API Key
                           </span>
                         </button>
-                        <div className="flex items-center gap-4 mb-6 bg-[#242424] rounded-lg ">
+                        <div className="flex items-center justify-between mb-6 bg-[#242424] rounded-lg ">
                           <input
                             type="text"
                             value={apiKey.key}
@@ -232,10 +232,10 @@ const ApiCreation = () => {
           <div className="text-white ">
             <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 bg-[#141414] p-4 sm:p-4  border border-[#4B4A4A] rounded-xl">
               <div className="flex-1 space-y-4 ">
-                <div className="mb-8">
+                <div className="">
                   <div className="flex flex-col sm:flex-col items-start sm:items-start justify-between gap-2 p-4">
                     {" "}
-                    <h2 className="text-2xl sm:text-3xl font-bold">
+                    <h2 className="text-md sm:text-3xl font-bold text-[#FBF197]">
                       API Documentation
                     </h2>
                     <p className="mt-5 text-gray-400">
@@ -252,7 +252,7 @@ const ApiCreation = () => {
                     msOverflowStyle: "none",
                   }}
                 >
-                  <div className=" flex-1 space-y-4  p-4 rounded-xl">
+                  <div className=" flex-1 space-y-4  rounded-xl">
                     {activeTab === "documetation" && (
                       <div className="px-2 sm:px-0">
                         <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
@@ -319,6 +319,7 @@ const ApiCreation = () => {
                           {/* Column 2: API Details */}
                           {/* {create job api} */}
                           <div className="w-full lg:w-[70%] space-y-4">
+
                             {expandedSection === "createautomationjob" && (
                               <div className="space-y-6 ">
                                 <div className="">
@@ -357,14 +358,14 @@ const ApiCreation = () => {
                                 {/* Headers Section */}
                                 <div>
                                   <h4 className="text-md  mb-2">Headers</h4>
-                                  <div className="bg-[#242424] p-3 rounded-lg">
-                                    <table className="w-full text-sm">
+                                  <div className="bg-[#242424] p-3 rounded-lg overflow-auto ">
+                                    <table className="w-full text-sm  ">
                                       <tbody>
                                         <tr>
                                           <td className="py-2 text-gray-400 w-1/3">
                                             TriggerX-Api-Key
                                           </td>
-                                          <td className="text-[#C3E88D] ">
+                                          <td className="text-[#C3E88D] pl-4">
                                             string
                                           </td>
                                           <td className="text-red-400 pl-4">
@@ -375,7 +376,7 @@ const ApiCreation = () => {
                                           <td className="py-2 text-gray-400">
                                             Content-Type
                                           </td>
-                                          <td className="text-[#C3E88D]  ">
+                                          <td className="text-[#C3E88D] pl-4 ">
                                             application/json
                                           </td>
                                           <td className="text-red-400 pl-4">
@@ -387,118 +388,6 @@ const ApiCreation = () => {
                                   </div>
                                 </div>
 
-                                {/* Query Parameters */}
-                                {/* <div>
-                                  <h4 className="text-md mb-2  border-[#4B4A4A] border-b pb-4 mb-4 ">
-                                    Query Parameters
-                                  </h4>
-                                  <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
-                                      <div className="flex items-center gap-2 mb-2">
-                                        <span className="text-[#FF616D]">
-                                          stake_amount
-                                        </span>
-                                        <span className="text-[#C3E88D]">
-                                          boolean
-                                        </span>
-                                      </div>
-                                      <p className="text-gray-400 text-sm">
-                                        Enable partial results if query is too
-                                        large
-                                      </p>
-                                    </div>
-
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
-                                      <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-[#FF616D]">
-                                          token_amount
-                                        </span>
-                                        <span className="text-[#C3E88D]">
-                                          string
-                                        </span>
-                                      </div>
-                                      <p className="text-gray-400 text-sm">
-                                        Comma-separated list of columns to
-                                        return
-                                      </p>
-                                    </div>
-
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
-                                      <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-[#FF616D]">
-                                          time_interval
-                                        </span>
-                                        <span className="text-[#C3E88D]">
-                                          string
-                                        </span>
-                                      </div>
-                                      <p className="text-gray-400 text-sm">
-                                        Comma-separated list of columns to
-                                        return
-                                      </p>
-                                    </div>
-
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
-                                      <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-[#FF616D]">
-                                          priority
-                                        </span>
-                                        <span className="text-[#C3E88D]">
-                                          string
-                                        </span>
-                                      </div>
-                                      <p className="text-gray-400 text-sm">
-                                        Comma-separated list of columns to
-                                        return
-                                      </p>
-                                    </div>
-
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
-                                      <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-[#FF616D]">
-                                          security
-                                        </span>
-                                        <span className="text-[#C3E88D]">
-                                          string
-                                        </span>
-                                      </div>
-                                      <p className="text-gray-400 text-sm">
-                                        Comma-separated list of columns to
-                                        return
-                                      </p>
-                                    </div>
-
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
-                                      <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-[#FF616D]">
-                                          trigger_event
-                                        </span>
-                                        <span className="text-[#C3E88D]">
-                                          string
-                                        </span>
-                                      </div>
-                                      <p className="text-gray-400 text-sm">
-                                        Comma-separated list of columns to
-                                        return
-                                      </p>
-                                    </div>
-
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
-                                      <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-[#FF616D]">
-                                          job_cost_prediction
-                                        </span>
-                                        <span className="text-[#C3E88D]">
-                                          string
-                                        </span>
-                                      </div>
-                                      <p className="text-gray-400 text-sm">
-                                        Comma-separated list of columns to
-                                        return
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div> */}
 
                                 {/* Query Parameters */}
                                 <div>
@@ -554,7 +443,7 @@ const ApiCreation = () => {
 
                                 {/* Response Section */}
                                 <div>
-                                  <div className="flex items-center gap-2 justify-between my-5  border-[#4B4A4A] border-b pb-4 mb-4">
+                                  <div className=" flex items-center gap-2 justify-between pb-4  border-[#4B4A4A] border-b">
                                     <div>
                                       <h4 className="text-md ">Response</h4>
                                     </div>
@@ -735,7 +624,8 @@ const ApiCreation = () => {
                                     </div>
 
                                     {/* Language Tabs */}
-                                    <div className="flex border-b border-[#333333]">
+                                    <div className="flex border-b border-[#333333] overflow-o
+                                    auto">
                                       {["cURL"].map((lang) => (
                                         <button
                                           key={lang}
@@ -755,7 +645,7 @@ const ApiCreation = () => {
                                     <div className="p-4 bg-[#242424]">
                                       {activeLanguage === "cURL" && (
                                         <pre
-                                          className="text-sm overflow-x-auto whitespace-pre-wrap"
+                                          className="text-sm  whitespace-pre-wrap"
                                           style={{
                                             scrollbarWidth: "thin",
                                             "&::-webkit-scrollbar": {
@@ -774,6 +664,13 @@ const ApiCreation = () => {
                                           <div className="text-sm">
                                             {"{"}
                                             <div className="ml-4">
+                                              <span className="text-[#FF616D]">
+                                                "job_title"
+                                              </span>
+                                              :{" "}
+                                              <span className="text-[#C3E88D]">
+                                                "Test"
+                                              </span>,<br />
                                               <span className="text-[#FF616D]">
                                                 "user_address"
                                               </span>
@@ -952,9 +849,9 @@ const ApiCreation = () => {
                                   </div>
 
                                   {/* Response Section */}
-                                  <div className="mt-5 bg-[#1A1A1A] rounded-lg border border-[#333333] ">
-                                    <div className="flex items-center justify-between p-4 border-b border-[#333333]">
-                                      <h3 className="text-xl font-bold">
+                                  <div className="mt-4 bg-[#1A1A1A] rounded-lg border border-[#333333] ">
+                                    <div>
+                                      <h3 className="text-xl font-bold p-4">
                                         Response
                                       </h3>
                                     </div>
@@ -1115,19 +1012,19 @@ const ApiCreation = () => {
                               </div>
                             )}
                             {expandedSection === "retrievejobdata" && (
-                              <div className="space-y-6 w-[80%]">
+                              <div className="space-y-6 ">
                                 <div className="">
-                                  <h3 className="text-xl font-bold pb-4">
+                                  <h3 className="text-sm font-bold pb-4">
                                     Retrive Job Data
                                   </h3>
-                                  <p className=" text-gray-400 text-md">
+                                  <p className="text-gray-400 text-md">
                                     Fetches detailed information about a specific automation job using its unique ID. Returns comprehensive data including job status, configuration, execution history, and associated parameters.
                                   </p>
                                 </div>
 
                                 <div>
-                                  <div className="flex items-center gap-2 bg-[#242424] rounded-md">
-                                    <code className="flex-1 p-3 rounded-lg text-sm">
+                                  <div className="flex items-center gap-2 bg-[#242424] rounded-md overflow-auto">
+                                    <code className="flex-1 p-3 rounded-lg text-sm  ">
                                       <span className="px-3 py-2 bg-blue-500 text-xs rounded-full mr-3">
                                         GET
                                       </span>
@@ -1153,14 +1050,14 @@ const ApiCreation = () => {
                                 {/* Headers Section */}
                                 <div>
                                   <h4 className="text-md  mb-2">Headers</h4>
-                                  <div className="bg-[#242424] p-3 rounded-lg">
-                                    <table className="w-full text-sm">
+                                  <div className="bg-[#242424] p-3 rounded-lg overflow-auto">
+                                    <table className="w-full text-sm ">
                                       <tbody>
                                         <tr>
                                           <td className="py-2 text-gray-400 w-1/3">
                                             TriggerX-Api-Key
                                           </td>
-                                          <td className="text-[#C3E88D] ">
+                                          <td className="text-[#C3E88D] pl-4 ">
                                             string
                                           </td>
                                           <td className="text-red-400 pl-4">
@@ -1171,7 +1068,7 @@ const ApiCreation = () => {
                                           <td className="py-2 text-gray-400">
                                             Content-Type
                                           </td>
-                                          <td className="text-[#C3E88D]">
+                                          <td className="text-[#C3E88D] pl-4">
                                             application/json
                                           </td>
                                           <td className="text-red-400 pl-4">
@@ -1237,7 +1134,7 @@ const ApiCreation = () => {
 
                                 {/* Response Section */}
                                 <div>
-                                  <div className="flex items-center gap-2 justify-between my-5  border-[#4B4A4A] border-b pb-4 mb-4">
+                                  <div className="flex items-center gap-2 justify-between pb-4  border-[#4B4A4A] border-b">
                                     <div>
                                       <h4 className="text-md ">Response</h4>
                                     </div>
@@ -1460,7 +1357,8 @@ const ApiCreation = () => {
                                     </div>
 
                                     {/* Language Tabs */}
-                                    <div className="flex border-b border-[#333333]">
+                                    <div className="flex border-b border-[#333333] overflow-o
+                                    auto">
                                       {["cURL"].map((lang) => (
                                         <button
                                           key={lang}
@@ -1554,7 +1452,7 @@ const ApiCreation = () => {
                                   </div>
 
                                   {/* Response Section */}
-                                  <div className="mt-5 bg-[#1A1A1A] rounded-lg border border-[#333333] overflow-hidden">
+                                  <div className="mt-4 bg-[#1A1A1A] rounded-lg border border-[#333333] overflow-hidden">
                                     <div className="flex items-center justify-between p-4 border-b border-[#333333]">
                                       <h3 className="text-xl font-bold">
                                         Response
@@ -1562,7 +1460,7 @@ const ApiCreation = () => {
                                     </div>
 
                                     {/* Status Code Tabs */}
-                                    <div className="flex border-b border-[#333333]">
+                                    <div className="flex border-b border-[#333333] overflow-scroll md:overflow-hidden">
                                       {[
                                         { code: "200", color: "bg-green-500" },
                                         { code: "400", color: "bg-yellow-500" },
@@ -1590,7 +1488,7 @@ const ApiCreation = () => {
 
                                     <div className="p-4 bg-[#242424]">
                                       {activeStatus === "200" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap">
+                                        <pre className="text-sm whitespace-pre-wrap">
                                           <div className="text-sm">
                                             {"{"}
                                             <div className="ml-4">
@@ -1697,6 +1595,54 @@ const ApiCreation = () => {
                                               <span className="text-[#C3E88D]">
                                                 "[1, 2, 3]"
                                               </span>
+                                              <span className="text-[#FF616D]">
+                                                "target_chain_id"
+                                              </span>
+                                              :{" "}
+                                              <span className="text-[#C3E88D]">
+                                                "11155420"
+
+                                              </span>
+                                              ,<br />
+                                              <span className="text-[#FF616D]">
+                                                "target_contract_address"
+                                              </span>
+                                              :{" "}
+                                              <span className="text-[#C3E88D]">
+                                                "0x8668BBdF66af1dE89EcddaB9F31Bf1E59FA8109d"
+
+                                              </span>
+                                              ,<br />
+                                              <span className="text-[#FF616D]">
+                                                "target_function"
+                                              </span>
+                                              :{" "}
+                                              <span className="text-[#C3E88D]">
+                                                "maintainBalances"
+
+
+                                              </span>
+                                              ,<br />
+                                              <span className="text-[#FF616D]">
+                                                "token_amount"
+                                              </span>
+                                              :{" "}
+                                              <span className="text-[#C3E88D]">
+                                                "0"
+
+
+                                              </span>
+                                              ,<br />
+                                              <span className="text-[#FF616D]">
+                                                "next_execution_timestamp"
+                                              </span>
+                                              :{" "}
+                                              <span className="text-[#C3E88D]">
+                                                "2025-06-03T08:08:39.126Z"
+
+
+                                              </span>
+                                              ,<br />
                                             </div>
                                             {"}"}
                                           </div>
@@ -1774,7 +1720,7 @@ const ApiCreation = () => {
                             )}
 
                             {expandedSection === "joblastexecutedtimeapi" && (
-                              <div className="space-y-6 w-[80%]">
+                              <div className="space-y-6 ">
                                 <div className="">
                                   <h3 className="text-xl font-bold pb-4">
                                     Job Last Executed Time API
@@ -1785,9 +1731,9 @@ const ApiCreation = () => {
                                 </div>
 
                                 <div>
-                                  <div className="flex items-center gap-2 bg-[#242424] rounded-md">
+                                  <div className="flex items-center gap-2 bg-[#242424] rounded-md overflow-auto">
                                     <code className="flex-1 p-3 rounded-lg text-sm">
-                                      <span className="px-3 py-2 bg-green-500 text-xs rounded-full mr-3">
+                                      <span className="px-3 py-2 bg-green-500 text-xs  mr-3">
                                         PUT
                                       </span>
                                       https://data.triggerx.network/api/jobs/
@@ -1812,14 +1758,14 @@ const ApiCreation = () => {
                                 {/* Headers Section */}
                                 <div>
                                   <h4 className="text-md  mb-2">Headers</h4>
-                                  <div className="bg-[#242424] p-3 rounded-lg">
+                                  <div className="bg-[#242424] p-3 rounded-lg  overflow-auto">
                                     <table className="w-full text-sm">
                                       <tbody>
                                         <tr>
                                           <td className="py-2 text-gray-400 w-1/3">
                                             TriggerX-Api-Key
                                           </td>
-                                          <td className="text-[#C3E88D]">
+                                          <td className="text-[#C3E88D] pl-4">
                                             string
                                           </td>
                                           <td className="text-red-400 pl-4">
@@ -1830,7 +1776,7 @@ const ApiCreation = () => {
                                           <td className="py-2 text-gray-400">
                                             Content-Type
                                           </td>
-                                          <td className="text-[#C3E88D]  ">
+                                          <td className="text-[#C3E88D] pl-4 ">
                                             application/json
                                           </td>
                                           <td className="text-red-400 pl-4">
@@ -1961,7 +1907,8 @@ const ApiCreation = () => {
                                     </div>
 
                                     {/* Language Tabs */}
-                                    <div className="flex border-b border-[#333333]">
+                                    <div className="flex border-b border-[#333333] overflow-o
+                                    auto">
                                       {["cURL"].map((lang) => (
                                         <button
                                           key={lang}
@@ -2051,7 +1998,7 @@ const ApiCreation = () => {
                                   </div>
 
                                   {/* Response Section */}
-                                  <div className="mt-5 bg-[#1A1A1A] rounded-lg border border-[#333333] overflow-hidden">
+                                  <div className=" mt-4 bg-[#1A1A1A] rounded-lg border border-[#333333] overflow-hidden">
                                     <div className="flex items-center justify-between p-4 border-b border-[#333333]">
                                       <h3 className="text-xl font-bold">
                                         Response
@@ -2059,7 +2006,7 @@ const ApiCreation = () => {
                                     </div>
 
                                     {/* Status Code Tabs */}
-                                    <div className="flex border-b border-[#333333]">
+                                    <div className="flex border-b border-[#333333] overflow-scroll md:overflow-hidden">
                                       {[
                                         { code: "200", color: "bg-green-500" },
                                         { code: "400", color: "bg-yellow-500" },
@@ -2175,7 +2122,7 @@ const ApiCreation = () => {
                               </div>
                             )}
                             {expandedSection === "getjobsbyuseraddressapi" && (
-                              <div className="space-y-6 w-[80%]">
+                              <div className="space-y-6 ">
                                 <div className="">
                                   <h3 className="text-xl font-bold pb-4">
                                     Get Jobs By User Address API
@@ -2190,7 +2137,7 @@ const ApiCreation = () => {
 
                                 <div>
                                   <div className="flex items-center gap-2 bg-[#242424] rounded-md">
-                                    <code className="flex-1 p-3 rounded-lg text-sm">
+                                    <code className="flex-1 p-3 rounded-lg text-sm  overflow-auto ">
                                       <span className="px-3 py-2 bg-blue-500 text-xs rounded-full mr-3">
                                         GET
                                       </span>
@@ -2216,14 +2163,14 @@ const ApiCreation = () => {
                                 {/* Headers Section */}
                                 <div>
                                   <h4 className="text-md  mb-2">Headers</h4>
-                                  <div className="bg-[#242424] p-3 rounded-lg">
+                                  <div className="bg-[#242424] p-3 rounded-lg  overflow-auto">
                                     <table className="w-full text-sm">
                                       <tbody>
                                         <tr>
                                           <td className="py-2 text-gray-400 w-1/3">
                                             TriggerX-Api-Key
                                           </td>
-                                          <td className="text-[#C3E88D]  ">
+                                          <td className="text-[#C3E88D]  pl-4">
                                             string
                                           </td>
                                           <td className="text-red-400 pl-4">
@@ -2231,10 +2178,10 @@ const ApiCreation = () => {
                                           </td>
                                         </tr>
                                         <tr >
-                                          <td className="py-2 text-gray-400">
+                                          <td className="py-2 text-gray-400 pl-4">
                                             Content-Type
                                           </td>
-                                          <td className="text-[#C3E88D]  ">
+                                          <td className="text-[#C3E88D]  pl-4">
                                             application/json
                                           </td>
                                           <td className="text-red-400 pl-4">
@@ -2322,7 +2269,7 @@ const ApiCreation = () => {
 
                                 {/* Response Section */}
                                 <div>
-                                  <div className="flex items-center gap-2 justify-between my-5  border-[#4B4A4A] border-b pb-4 mb-4">
+                                  <div className=" flex items-center gap-2 justify-between pb-4  border-[#4B4A4A] border-b">
                                     <div>
                                       <h4 className="text-md ">Response</h4>
                                     </div>
@@ -2340,7 +2287,7 @@ const ApiCreation = () => {
                                         <option value="404">404 </option>
                                         <option value="500">500 </option>
                                       </select>
-                                      <span className="text-[#C3E88D] ml-3">
+                                      <span className="text-[#C3E88D] lg:block hidden">
                                         application/json
                                       </span>
                                     </div>
@@ -2501,7 +2448,8 @@ const ApiCreation = () => {
                                     </div>
 
                                     {/* Language Tabs */}
-                                    <div className="flex border-b border-[#333333]">
+                                    <div className="flex border-b border-[#333333] overflow-o
+                                    auto">
                                       {["cURL"].map((lang) => (
                                         <button
                                           key={lang}
@@ -2571,7 +2519,7 @@ const ApiCreation = () => {
                                   </div>
 
                                   {/* Response Section */}
-                                  <div className="mt-5 bg-[#1A1A1A] rounded-lg border border-[#333333] overflow-hidden">
+                                  <div className="mt-4 bg-[#1A1A1A] rounded-lg border border-[#333333] overflow-hidden">
                                     <div className="flex items-center justify-between p-4 border-b border-[#333333]">
                                       <h3 className="text-xl font-bold">
                                         Response
@@ -2579,7 +2527,7 @@ const ApiCreation = () => {
                                     </div>
 
                                     {/* Status Code Tabs */}
-                                    <div className="flex border-b border-[#333333]">
+                                    <div className="flex border-b border-[#333333] overflow-scroll md:overflow-hidden">
                                       {[
                                         { code: "200", color: "bg-green-500" },
                                         { code: "400", color: "bg-yellow-500" },
@@ -2763,7 +2711,7 @@ const ApiCreation = () => {
                               </div>
                             )}
                             {expandedSection === "deletejobapi" && (
-                              <div className="space-y-6 w-[80%]">
+                              <div className="space-y-6 ">
                                 <div className="">
                                   <h3 className="text-xl font-bold pb-4">
                                     Delete Job API
@@ -2776,7 +2724,7 @@ const ApiCreation = () => {
 
                                 <div>
                                   <div className="flex items-center gap-2 bg-[#242424] rounded-md">
-                                    <code className="flex-1 p-3 rounded-lg text-sm">
+                                    <code className="flex-1 p-3 rounded-lg text-sm  overflow-auto ">
                                       <span className="px-4 py-2 bg-yellow-500 text-xs rounded-full mr-3">
                                         PUT
                                       </span>
@@ -2803,14 +2751,14 @@ const ApiCreation = () => {
                                 {/* Headers Section */}
                                 <div>
                                   <h4 className="text-md mb-2">Headers</h4>
-                                  <div className="bg-[#242424] p-3 rounded-lg">
+                                  <div className="bg-[#242424] p-3 rounded-lg  overflow-auto">
                                     <table className="w-full text-sm">
                                       <tbody>
                                         <tr>
                                           <td className="py-2 text-gray-400 w-1/3">
                                             TriggerX-Api-Key
                                           </td>
-                                          <td className="text-[#C3E88D] ">
+                                          <td className="text-[#C3E88D] pl-4">
                                             string
                                           </td>
                                           <td className="text-red-400 pl-4">
@@ -2818,10 +2766,10 @@ const ApiCreation = () => {
                                           </td>
                                         </tr>
                                         <tr >
-                                          <td className="py-2 text-gray-400">
+                                          <td className="py-2 text-gray-400 ">
                                             Content-Type
                                           </td>
-                                          <td className="text-[#C3E88D]  ">
+                                          <td className="text-[#C3E88D] pl-4 ">
                                             application/json
                                           </td>
                                           <td className="text-red-400 pl-4">
@@ -2926,15 +2874,15 @@ const ApiCreation = () => {
                                 </div>
 
                                 {/* Response Section */}
-                                <div className="mt-5 bg-[#1A1A1A] rounded-lg border border-[#333333] overflow-hidden">
-                                  <div className="flex items-center justify-between p-4 border-b border-[#333333]">
+                                <div className="mt-4 bg-[#1A1A1A] rounded-lg border border-[#333333] overflow-hidden">
+                                  <div className="flex items-center gap-2 justify-between my-5  border-[#4B4A4A] border-b pb-4 mb-4">
                                     <h3 className="text-xl font-bold">
                                       Response
                                     </h3>
                                   </div>
 
                                   {/* Status Code Tabs */}
-                                  <div className="flex border-b border-[#333333]">
+                                  <div className="flex border-b border-[#333333] overflow-scroll md:overflow-hidden">
                                     {[
                                       { code: "200", color: "bg-green-500" },
                                       { code: "400", color: "bg-yellow-500" },
@@ -3048,7 +2996,7 @@ const ApiCreation = () => {
                               </div>
                             )}
                             {expandedSection === "getuserapi" && (
-                              <div className="space-y-6 w-[80%]">
+                              <div className="space-y-6">
                                 <div className="">
                                   <h3 className="text-xl font-bold pb-4">
                                     Get User API
@@ -3061,7 +3009,7 @@ const ApiCreation = () => {
 
                                 <div>
                                   <div className="flex items-center gap-2 bg-[#242424] rounded-md">
-                                    <code className="flex-1 p-3 rounded-lg text-sm">
+                                    <code className="flex-1 p-3 rounded-lg text-sm  overflow-auto ">
                                       <span className="px-3 py-2 bg-blue-500 text-xs rounded-full mr-3">
                                         GET
                                       </span>
@@ -3088,14 +3036,14 @@ const ApiCreation = () => {
                                 {/* Headers Section */}
                                 <div>
                                   <h4 className="text-md mb-2">Headers</h4>
-                                  <div className="bg-[#242424] p-3 rounded-lg">
+                                  <div className="bg-[#242424] p-3 rounded-lg  overflow-auto">
                                     <table className="w-full text-sm">
                                       <tbody>
                                         <tr>
                                           <td className="py-2 text-gray-400 w-1/3">
                                             TriggerX-Api-Key
                                           </td>
-                                          <td className="text-[#C3E88D]  ">
+                                          <td className="text-[#C3E88D]  pl-4">
                                             string
                                           </td>
                                           <td className="text-red-400 pl-4">
@@ -3106,7 +3054,7 @@ const ApiCreation = () => {
                                           <td className="py-2 text-gray-400">
                                             Content-Type
                                           </td>
-                                          <td className="text-[#C3E88D]  ">
+                                          <td className="text-[#C3E88D]  pl-4">
                                             application/json
                                           </td>
                                           <td className="text-red-400 pl-4">
@@ -3117,28 +3065,7 @@ const ApiCreation = () => {
                                     </table>
                                   </div>
                                 </div>
-                                {/* Query Parameters */}
-                                {/* <div>
-                                  <h4 className="text-md mb-2  border-[#4B4A4A] border-b pb-4 mb-4 ">
-                                    Query Parameters
-                                  </h4>
-                                  <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
-                                      <div className="flex items-center gap-2 mb-2">
-                                        <span className="text-[#FF616D]">
-                                          id
-                                        </span>
-                                        <span className="text-[#C3E88D]">
-                                          Integer
-                                        </span>
-                                      </div>
-                                      <p className="text-gray-400 text-sm">
-                                      The ID of the user to retrieve 
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div> */}
-                                {/* Query Parameters */}
+
                                 <div>
                                   <h4 className="text-md mb-2  border-[#4B4A4A] border-b pb-4 mb-4 ">
                                     Query Parameters
@@ -3192,8 +3119,8 @@ const ApiCreation = () => {
 
                                 {/* Response Section */}
                                 <div>
-                                  <div className="flex items-center gap-2 justify-between my-5  border-[#4B4A4A] border-b pb-4 mb-4">
-                                    <div>
+                                <div className=" flex items-center gap-2 justify-between pb-4  border-[#4B4A4A] border-b">
+                                <div>
                                       <h4 className="text-md ">Response</h4>
                                     </div>
                                     <div>
@@ -3210,7 +3137,7 @@ const ApiCreation = () => {
                                         <option value="404">404 </option>
                                         <option value="500">500 </option>
                                       </select>
-                                      <span className="text-[#C3E88D] ml-3">
+                                      <span className="text-[#C3E88D] lg:block hidden">
                                         application/json
                                       </span>
                                     </div>
@@ -3398,14 +3325,14 @@ const ApiCreation = () => {
                                   </div>
                                   {/* Response Section */}
                                   <div className="mt-5 bg-[#1A1A1A] rounded-lg border border-[#333333] overflow-hidden">
-                                    <div className="flex items-center justify-between p-4 border-b border-[#333333]">
+                                    <div className="flex items-center gap-2 justify-between   border-[#4B4A4A] border-b p-4">
                                       <h3 className="text-xl font-bold">
                                         Response
                                       </h3>
                                     </div>
 
                                     {/* Status Code Tabs */}
-                                    <div className="flex border-b border-[#333333]">
+                                    <div className="flex border-b border-[#333333] overflow-scroll md:overflow-hidden">
                                       {[
                                         { code: "200", color: "bg-green-500" },
                                         { code: "400", color: "bg-yellow-500" },
@@ -3433,7 +3360,7 @@ const ApiCreation = () => {
 
                                     <div className="p-4 bg-[#242424]">
                                       {activeStatus === "200" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap">
+                                        <pre className="text-sm  whitespace-pre-wrap">
                                           <div className="text-sm">
                                             {"{"}
                                             <div className="ml-4">

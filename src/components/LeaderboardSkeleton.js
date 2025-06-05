@@ -126,12 +126,100 @@ const LeaderboardSkeleton = ({ activeTab }) => {
     </table>
   );
 
+  const renderKeeperMobileSkeleton = () => (
+    <div className="flex flex-col gap-4 md:hidden">
+      {skeletonRows.map((_, idx) => (
+        <div key={idx} className="bg-[#1A1A1A] rounded-xl p-4 shadow-md border border-[#2A2A2A] w-full">
+          <div className="flex justify-between items-center py-2">
+            <span className="h-4 w-20 bg-gray-700 rounded"></span>
+            <span className="h-4 w-24 bg-gray-700 rounded"></span>
+          </div>
+          <div className="flex justify-between items-center py-2">
+            <span className="h-4 w-20 bg-gray-700 rounded"></span>
+            <span className="h-4 w-24 bg-gray-700 rounded"></span>
+          </div>
+          <div className="flex justify-between items-center py-2">
+            <span className="h-4 w-20 bg-gray-700 rounded"></span>
+            <span className="h-4 w-24 bg-gray-700 rounded"></span>
+          </div>
+          <div className="flex justify-between items-center py-2">
+            <span className="h-4 w-20 bg-gray-700 rounded"></span>
+            <span className="h-4 w-24 bg-gray-700 rounded"></span>
+          </div>
+          <div className="flex justify-between items-center py-2">
+            <span className="h-4 w-20 bg-gray-700 rounded"></span>
+            <span className="h-4 w-24 bg-gray-700 rounded"></span>
+          </div>
+          <div className="flex justify-between items-center py-2">
+            <span className="h-4 w-20 bg-gray-700 rounded"></span>
+            <span className="h-4 w-24 bg-gray-700 rounded"></span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderDeveloperMobileSkeleton = () => (
+    <div className="flex flex-col gap-4 md:hidden">
+      {skeletonRows.map((_, idx) => (
+        <div key={idx} className="bg-[#1A1A1A] rounded-xl p-4 shadow-md border border-[#2A2A2A] w-full">
+          <div className="flex justify-between items-center py-2">
+            <span className="h-4 w-20 bg-gray-700 rounded"></span>
+            <span className="h-4 w-24 bg-gray-700 rounded"></span>
+          </div>
+          <div className="flex justify-between items-center py-2">
+            <span className="h-4 w-20 bg-gray-700 rounded"></span>
+            <span className="h-4 w-24 bg-gray-700 rounded"></span>
+          </div>
+          <div className="flex justify-between items-center py-2">
+            <span className="h-4 w-20 bg-gray-700 rounded"></span>
+            <span className="h-4 w-24 bg-gray-700 rounded"></span>
+          </div>
+          <div className="flex justify-between items-center py-2">
+            <span className="h-4 w-20 bg-gray-700 rounded"></span>
+            <span className="h-4 w-24 bg-gray-700 rounded"></span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderContributorMobileSkeleton = () => (
+    <div className="flex flex-col gap-4 md:hidden">
+      {skeletonRows.map((_, idx) => (
+        <div key={idx} className="bg-[#1A1A1A] rounded-xl p-4 shadow-md border border-[#2A2A2A] w-full">
+          <div className="flex justify-between items-center py-2">
+            <span className="h-4 w-20 bg-gray-700 rounded"></span>
+            <span className="h-4 w-24 bg-gray-700 rounded"></span>
+          </div>
+          <div className="flex justify-between items-center py-2">
+            <span className="h-4 w-20 bg-gray-700 rounded"></span>
+            <span className="h-4 w-24 bg-gray-700 rounded"></span>
+          </div>
+          <div className="flex justify-between items-center py-2">
+            <span className="h-4 w-20 bg-gray-700 rounded"></span>
+            <span className="h-4 w-24 bg-gray-700 rounded"></span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <div className="animate-pulse">
-      <div className=" overflow-y-auto max-w-[1600px] mx-auto w-full bg-[#141414] px-5 rounded-lg">
-        {activeTab === "keeper" && renderKeeperSkeleton()}
-        {activeTab === "developer" && renderDeveloperSkeleton()}
-        {activeTab === "contributor" && renderContributorSkeleton()}
+      <div className="overflow-y-auto max-w-[1600px] mx-auto w-full bg-[#141414] px-5 rounded-lg">
+        {/* Desktop Table Skeleton */}
+        <div className="hidden md:block">
+          {activeTab === "keeper" && renderKeeperSkeleton()}
+          {activeTab === "developer" && renderDeveloperSkeleton()}
+          {activeTab === "contributor" && renderContributorSkeleton()}
+        </div>
+        {/* Mobile Card Skeleton */}
+        <div className="block md:hidden">
+          {activeTab === "keeper" && renderKeeperMobileSkeleton()}
+          {activeTab === "developer" && renderDeveloperMobileSkeleton()}
+          {activeTab === "contributor" && renderContributorMobileSkeleton()}
+        </div>
       </div>
     </div>
   );

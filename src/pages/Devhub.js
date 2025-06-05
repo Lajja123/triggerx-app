@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import sanityClient from "../sanityClient"; 
+import sanityClient from "../sanityClient";
 import { FaArrowUp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -29,18 +29,18 @@ function Devhub() {
     // Update meta tags when activeTab changes
     document.title = 'TriggerX | Devhub';
     document.querySelector('meta[name="description"]').setAttribute('content', 'Automate Tasks Effortlessly');
-    
+
     // Update Open Graph meta tags
     document.querySelector('meta[property="og:title"]').setAttribute('content', 'TriggerX | Devhub');
     document.querySelector('meta[property="og:description"]').setAttribute('content', 'Automate Tasks Effortlessly');
     document.querySelector('meta[property="og:image"]').setAttribute('content', `${baseUrl}/images/devhub-og.png`);
     document.querySelector('meta[property="og:url"]').setAttribute('content', `${baseUrl}/devhub`);
-    
+
     // Update Twitter Card meta tags
     document.querySelector('meta[name="twitter:title"]').setAttribute('content', 'TriggerX | Devhub');
     document.querySelector('meta[name="twitter:description"]').setAttribute('content', 'Automate Tasks Effortlessly');
     document.querySelector('meta[name="twitter:image"]').setAttribute('content', `${baseUrl}/images/devhub-og.png`);
-  }, [ baseUrl]);
+  }, [baseUrl]);
 
 
   useEffect(() => {
@@ -80,7 +80,7 @@ function Devhub() {
           <div className="h-12 w-48 bg-[#222222] rounded-lg animate-pulse"></div>
           <div className="h-12 w-32 bg-[#222222] rounded-full animate-pulse"></div>
         </div>
-        
+
         <div className="max-w-[1600px] mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 mb-40">
             {[1, 2, 3, 4, 5, 6].map((item) => (
@@ -127,11 +127,11 @@ function Devhub() {
 
     navigate(`/devhub/${slug}`);
   };
- 
+
   return (
     <div className="min-h-screen md:mt-[20rem] mt-[10rem] w-[90%] mx-auto">
-     <div className="w-full flex items-center justify-between">
-        <h4 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-left px-4 mb-8 flex items-center gap-3">
+      <div className="w-full flex items-center justify-between mb-8">
+        <h4 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-left px-4  flex items-center gap-3">
           Total{" "}
           <span className="text-[#FBF197] text-[25px]">
             {" "}
@@ -143,7 +143,7 @@ function Devhub() {
           <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
           <span className="absolute inset-0 bg-white rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
           <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
-          API Services
+            API Services
           </span>
         </button>
       </div>

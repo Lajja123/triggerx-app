@@ -754,9 +754,9 @@ function CreateJobPage() {
           timeInterval.minutes === 0 &&
           timeInterval.seconds === 0) ||
         timeInterval.hours * 3600 +
-          timeInterval.minutes * 60 +
-          timeInterval.seconds <
-          30
+        timeInterval.minutes * 60 +
+        timeInterval.seconds <
+        30
       ) {
         setErrorInterval(
           "Please set a valid time interval of at least 30 seconds before submitting."
@@ -1100,18 +1100,16 @@ function CreateJobPage() {
                 <div className="space-y-2">
                   {templates.templates.map((template) => (
                     <div
-                      className={`lg:p-6 md:p-6 p-4 rounded-lg transition-all duration-300 cursor-pointer ${
-                        selectedJob?.id === template.id
+                      className={`lg:p-6 md:p-6 p-4 rounded-lg transition-all duration-300 cursor-pointer ${selectedJob?.id === template.id
                           ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] border-2 border-white shadow-lg "
                           : "bg-[#202020] border border-white/10 hover:bg-white/10 hover:border-white/20"
-                      }`}
+                        }`}
                       onClick={() => handleJobSelect(template)}
                     >
                       <div className="flex justify-between items-center gap-3">
                         <h4
-                          className={`text-sm md:text-base font-medium lg:w-[70%] ${
-                            selectedJob?.id === template.id ? "text-white" : ""
-                          }`}
+                          className={`text-sm md:text-base font-medium lg:w-[70%] ${selectedJob?.id === template.id ? "text-white" : ""
+                            }`}
                         >
                           {template.title}
                         </h4>
@@ -1228,18 +1226,16 @@ function CreateJobPage() {
                                   handleJobTypeChange(e, option.value);
                                 }
                               }}
-                              className={`${
-                                Number(option.value) === jobType
+                              className={`${Number(option.value) === jobType
                                   ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] border border-white"
                                   : "bg-white/5 border border-white/10 "
-                              } text-nowrap relative flex flex-wrap flex-col items-center justify-center w-full md:w-[33%] gap-2 px-4 pb-4 pt-8 rounded-lg transition-all duration-300 text-xs sm:text-sm`}
+                                } text-nowrap relative flex flex-wrap flex-col items-center justify-center w-full md:w-[33%] gap-2 px-4 pb-4 pt-8 rounded-lg transition-all duration-300 text-xs sm:text-sm`}
                             >
                               <div
-                                className={`${
-                                  Number(option.value) === jobType
+                                className={`${Number(option.value) === jobType
                                     ? "bg-white border border-white/10"
                                     : ""
-                                } absolute top-2 left-2 rounded-full w-3 h-3 border`}
+                                  } absolute top-2 left-2 rounded-full w-3 h-3 border`}
                               ></div>
                               {Number(option.value) === jobType ? (
                                 <img
@@ -1488,11 +1484,10 @@ function CreateJobPage() {
                                           >
                                             {eventContractInteraction.events.map(
                                               (func, index) => {
-                                                const signature = `${
-                                                  func.name
-                                                }(${func.inputs
-                                                  .map((input) => input.type)
-                                                  .join(",")})`;
+                                                const signature = `${func.name
+                                                  }(${func.inputs
+                                                    .map((input) => input.type)
+                                                    .join(",")})`;
                                                 return (
                                                   <div
                                                     key={index}
@@ -1790,11 +1785,10 @@ function CreateJobPage() {
                                 <span className="absolute inset-0 bg-white rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
 
                                 <span
-                                  className={`${
-                                    isLoading
+                                  className={`${isLoading
                                       ? "cursor-not-allowed opacity-50 "
                                       : ""
-                                  } font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base`}
+                                    } font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base`}
                                 >
                                   Link Job
                                 </span>
