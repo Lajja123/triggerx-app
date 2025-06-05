@@ -18,10 +18,6 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import BalanceMaintainer from "../../components/BalanceMaintainer";
 import PriceOracle from "../../components/PriceOracle";
 import StakingRewards from "../../components/StakingRewards";
-import { Tooltip } from "antd";
-import timeBasedIcon from "../../assets/time-based.gif";
-import conditionBasedIcon from "../../assets/condition-based.gif";
-import eventBasedIcon from "../../assets/event-based.gif";
 import timeBasedGif from "../../assets/time-based.gif";
 import conditionBasedGif from "../../assets/condition-based.gif";
 import eventBasedGif from "../../assets/event-based.gif";
@@ -31,7 +27,6 @@ import conditionBasedSvg from "../../assets/condition-based.svg";
 import timeBasedSvg from "../../assets/time-based.svg";
 
 import DeleteConfirmationButton from "./components/DeleteConfirmationButton";
-import { WarningOutlined } from "@ant-design/icons";
 
 const SECONDS_PER_MINUTE = 60;
 const SECONDS_PER_HOUR = 60 * SECONDS_PER_MINUTE; // 3600
@@ -208,7 +203,6 @@ function CreateJobPage() {
   const [linkedJobs, setLinkedJobs] = useState({});
   const [isEventOpen, setIsEventOpen] = useState(false);
   const [jobDetails, setJobDetails] = useState([]);
-  const [conditionScript, setConditionScript] = useState("");
   const { address, isConnected } = useAccount();
   const formRef = useRef(null);
   const { handleKeyDown } = useFormKeyboardNavigation();
@@ -336,7 +330,6 @@ function CreateJobPage() {
       if (existingJobs.length < 3) {
         const newJobId = existingJobs.length + 1;
 
-        // Ensure jobType exists in contractDetails
         setContractDetails((prevDetails) => ({
           ...prevDetails,
           [jobType]: {
@@ -1089,13 +1082,17 @@ function CreateJobPage() {
                         setTimeout(() => setShouldAnimate(false), 500);
                       }
                     }}
-                    className={`relative bg-[#222222] text-[#000000] border ${!selectedJob ? "text-white opacity-80 cursor-not-allowed" : "border-[#222222] group"} px-4 py-2 rounded-full transition-all duration-300`}
+                    className={`relative bg-[#222222] text-[#000000] border ${!selectedJob ? "text-white opacity-80 cursor-not-allowed" : "border-[#222222] group"} px-2 sm:px-4 py-1 sm:py-2 rounded-full transition-all duration-300`}
                   >
-                    <span className={`absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out ${!selectedJob ? "" : "group-hover:translate-y-2"}`}></span>
+                    <span
+                      className={`absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out ${!selectedJob ? "" : "group-hover:translate-y-2"}`}
+                    ></span>
                     <span
                       className={`${!selectedJob ? "bg-white opacity-50" : "bg-white group-hover:translate-y-0"} absolute inset-0 rounded-full scale-100 translate-y-0 transition-all duration-300`}
                     ></span>
-                    <span className={`font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 ${!selectedJob ? "" : "group-hover:translate-y-0"} transition-all duration-300 ease-out text-xs lg:text-sm xl:text-base`}>
+                    <span
+                      className={`font-actayRegular relative z-10 px-0 py-1 sm:py-3 sm:px-3 md:px-6 lg:px-0 xl:px-2 rounded-full translate-y-2 ${!selectedJob ? "" : "group-hover:translate-y-0"} transition-all duration-300 ease-out text-xs lg:text-sm xl:text-base text-nowrap`}
+                    >
                       Create Custom Job
                     </span>
                   </button>
@@ -1177,7 +1174,9 @@ function CreateJobPage() {
                           className="mb-3"
                           stroke=""
                           style={{
-                            transform: shouldAnimate ? "scale(1.1)" : "scale(1)",
+                            transform: shouldAnimate
+                              ? "scale(1.1)"
+                              : "scale(1)",
                             transition: "transform 0.3s ease-in-out",
                           }}
                         >
@@ -1189,7 +1188,9 @@ function CreateJobPage() {
                         <p
                           style={{
                             color: shouldAnimate ? "#FFFFFF" : "",
-                            transform: shouldAnimate ? "scale(1.1)" : "scale(1)",
+                            transform: shouldAnimate
+                              ? "scale(1.1)"
+                              : "scale(1)",
                             transition: "transform 0.3s ease-in-out",
                           }}
                           className="text-sm lg:text-lg md:text-lg mb-2"
@@ -1199,7 +1200,9 @@ function CreateJobPage() {
                         <p
                           style={{
                             color: shouldAnimate ? "#FFFFFF" : "",
-                            transform: shouldAnimate ? "scale(1.1)" : "scale(1)",
+                            transform: shouldAnimate
+                              ? "scale(1.1)"
+                              : "scale(1)",
                             transition: "transform 0.4s ease-in-out",
                           }}
                           className="text-sm lg:text-md md:text-md text-center text-[#666666] mb-4 tracking-wide"
@@ -1304,8 +1307,8 @@ function CreateJobPage() {
                                 )}
                               </div>
                             </div>
-                            <div className="relative flex flex-col items-start justify-between gap-6">
-                              <label className="block text-sm sm:text-base font-medium text-gray-300 text-wrap overflow-hidden">
+                            <div className="flex flex-col items-start justify-between gap-6">
+                              <label className="text-sm sm:text-base font-medium text-gray-300 text-wrap overflow-hidden">
                                 Job Title
                               </label>
                               <input
@@ -1420,6 +1423,45 @@ function CreateJobPage() {
                                         )}
                                       </div>
                                     </div>
+
+                                    {!eventContractInteraction.contractABI && (
+                                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                                        <label
+                                          htmlFor="manualEventABI"
+                                          className="block text-sm sm:text-base font-medium text-gray-300 text-nowrap"
+                                        >
+                                          Manual ABI Input
+                                        </label>
+                                        <div className="w-full md:w-[70%] xl:w-[80%]">
+                                          <textarea
+                                            id="manualEventABI"
+                                            value={
+                                              eventContractInteraction.manualABI ||
+                                              ""
+                                            }
+                                            onChange={(e) =>
+                                              eventContractInteraction.handleManualABIChange(
+                                                e
+                                              )
+                                            }
+                                            placeholder={`Enter contract ABI manually (JSON format), e.g.
+[
+  {
+    "inputs": [],
+    "name": "eventName",
+    "type": "event"
+  }
+]`}
+                                            className="text-xs xs:text-sm sm:text-base w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none min-h-[260px]"
+                                          />
+                                          <p className="text-xs text-gray-400 mt-2">
+                                            Enter the contract ABI in JSON
+                                            format if automatic fetch fails
+                                          </p>
+                                        </div>
+                                      </div>
+                                    )}
+
                                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                                       <label
                                         htmlFor="targetEvent"
@@ -1576,28 +1618,6 @@ function CreateJobPage() {
                                 )
                               }
                             />
-
-                            {jobType === 2 && (
-                              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                                <label
-                                  htmlFor="ConditionScript"
-                                  className="block text-sm sm:text-base font-medium text-gray-300 text-nowrap"
-                                >
-                                  Condition Script
-                                </label>
-
-                                <input
-                                  id="ConditionScript"
-                                  value={conditionScript}
-                                  required
-                                  onChange={(e) => {
-                                    setConditionScript(e.target.value);
-                                  }}
-                                  className="text-xs xs:text-sm sm:text-base w-full md:w-[70%] xl:w-[80%] bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none "
-                                  placeholder="Enter your condition script"
-                                />
-                              </div>
-                            )}
                           </div>
 
                           {linkedJobs[jobType]?.length > 0 && (
