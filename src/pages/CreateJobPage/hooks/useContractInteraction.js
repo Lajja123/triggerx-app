@@ -18,6 +18,8 @@ export function useContractInteraction(jobType) {
   const [selectedEvent, setSelectedEvent] = useState(null); // Added for events
   const [targetEvent, setTargetEvent] = useState(""); // Added for event selection
   const [eventInputs, setEventInputs] = useState([]); // Added for event parameters
+  const [manualABI, setManualABI] = useState("");
+  const [showManualABIInput, setShowManualABIInput] = useState(false);
 
   function extractFunctions(abi) {
     try {
@@ -101,13 +103,20 @@ export function useContractInteraction(jobType) {
     const address = e.target.value;
     console.log("Contract address changed to:", address);
     setContractAddress(address);
+    setContractABI(""); // Clear previous ABI
+    setFunctions([]); // Clear previous functions
+    setEvents([]); // Clear previous events
+    setTargetFunction(""); // Clear previous target function
+    setTargetEvent(""); // Clear previous target event
+    setManualABI(""); // Clear manual ABI
+    setShowManualABIInput(false); // Hide manual input initially
 
     if (ethers.isAddress(address)) {
       const url = `https://optimism-sepolia.blockscout.com/api?module=contract&action=getabi&address=${address}`;
       try {
         const response = await axios.get(url);
         const data = response.data;
-        if (data.status === "1") {
+        if (data.status === "1" && data.result && typeof data.result === 'string' && data.result.startsWith('[')) {
           const writableFunctions = extractFunctions(data.result).filter(
             (func) =>
               func.stateMutability === "nonpayable" ||
@@ -122,16 +131,36 @@ export function useContractInteraction(jobType) {
           setEvents(contractEvents);
 
           setContractABI(data.result);
+          setShowManualABIInput(false); // Hide manual input on success
         } else {
-          throw new Error(`Failed to fetch ABI: ${data.message}`);
+          // Handle failure: show manual input
+          console.warn("Failed to fetch ABI automatically. Showing manual input.", data.message);
+          setShowManualABIInput(true);
+          setContractABI("");
+          setFunctions([]);
+          setEvents([]);
+          setTargetFunction("");
+          setTargetEvent("");
         }
       } catch (error) {
         console.error("Error fetching ABI:", error.message);
-        throw error;
+        // Handle network errors or other exceptions by showing manual input
+        setShowManualABIInput(true);
+        setContractABI("");
+        setFunctions([]);
+        setEvents([]);
+        setTargetFunction("");
+        setTargetEvent("");
       }
     } else {
-      console.log("Invalid address, clearing ABI");
+      console.log("Invalid address, clearing ABI and showing manual input option.");
       setContractABI("");
+      setFunctions([]);
+      setEvents([]);
+      setTargetFunction("");
+      setTargetEvent("");
+      setManualABI("");
+      setShowManualABIInput(true); // Show manual input for invalid address too
     }
   };
 
@@ -219,47 +248,34 @@ export function useContractInteraction(jobType) {
     setEventInputs(newInputs);
   };
 
-  // Function to emit an event (for testing or simulation purposes)
-  const emitEvent = async (provider) => {
-    if (!selectedEvent || !contractAddress || !contractABI) {
-      console.error("Missing event details, contract address, or ABI");
-      return;
-    }
-
+  // New handler for manual ABI input
+  const handleManualABIChange = (e) => {
+    const abi = e.target.value;
+    setManualABI(abi);
     try {
-      const contract = new ethers.Contract(
-        contractAddress,
-        JSON.parse(contractABI),
-        provider
+      const parsedAbi = JSON.parse(abi);
+      const writableFunctions = extractFunctions(parsedAbi).filter(
+        (func) =>
+          func.stateMutability === "nonpayable" ||
+          func.stateMutability === "payable"
       );
+      setFunctions(writableFunctions);
 
-      // Create a filter for the event
-      const filter = contract.filters[selectedEvent.name]();
+      const contractEvents = extractEvents(parsedAbi);
+      setEvents(contractEvents);
 
-      // Return a function that allows subscribing to the event
-      return {
-        subscribe: (callback) => {
-          // Listen for the event
-          contract.on(filter, (...args) => {
-            // The last argument is the event object
-            const event = args[args.length - 1];
-            callback(event);
-          });
+      setContractABI(abi);
 
-          // Return a function to unsubscribe
-          return () => {
-            contract.removeAllListeners(filter);
-          };
-        },
-        // Get past events
-        getPastEvents: async (fromBlock = 0, toBlock = "latest") => {
-          const events = await contract.queryFilter(filter, fromBlock, toBlock);
-          return events;
-        },
-      };
+      // Reset target function and event when ABI changes
+      setTargetFunction("");
+      setTargetEvent("");
     } catch (error) {
-      console.error("Error setting up event listener:", error);
-      throw error;
+      console.error("Error processing manual ABI:", error);
+      setFunctions([]);
+      setEvents([]);
+      setContractABI("");
+      setTargetFunction("");
+      setTargetEvent("");
     }
   };
 
@@ -282,24 +298,34 @@ export function useContractInteraction(jobType) {
 
   return {
     contractAddress,
+    setContractAddress,
     contractABI,
+    setContractABI,
     functions,
-    events, // Added
+    setFunctions,
     targetFunction,
-    targetEvent, // Added
+    setTargetFunction,
     selectedFunction,
-    selectedEvent, // Added
+    setSelectedFunction,
     functionInputs,
-    eventInputs, // Added
+    setFunctionInputs,
     argumentsInBytes,
+    setArgumentsInBytes,
     argsArray,
+    setArgArray,
     argumentType,
+    setArgumentType,
     handleContractAddressChange,
     handleFunctionChange,
-    handleEventChange, // Added
-    handleInputChange,
-    handleEventInputChange, // Added
     handleArgumentTypeChange,
-    emitEvent, // Added
+    handleInputChange,
+    events, // Expose events
+    selectedEvent, // Expose selectedEvent
+    targetEvent, // Expose targetEvent
+    eventInputs, // Expose eventInputs
+    handleEventChange, // Expose event handler
+    manualABI, // Expose manual ABI state
+    handleManualABIChange, // Expose manual ABI handler
+    showManualABIInput, // Expose showManualABIInput state
   };
 }
