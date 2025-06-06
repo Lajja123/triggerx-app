@@ -1,6 +1,6 @@
 export function PageHeader() {
   return (
-    <div className="max-w-4xl mx-auto text-center mb-16">
+    <div className="max-w-4xl mx-auto text-center mb-8">
       <h1 className="text-3xl sm:text-4xl lg:text-7xl font-[300] mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-white">
         Create Automation Job
       </h1>

@@ -368,9 +368,8 @@ export function ContractDetails({
             value={contractAddress}
             onChange={handleContractAddressChange}
             placeholder="Your Contract address"
-            className={`text-xs xs:text-sm sm:text-base w-full bg-white/5 border rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none ${
-              addressError ? "border-red-500" : "border-white/10"
-            }`}
+            className={`text-xs xs:text-sm sm:text-base w-full bg-white/5 border rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none ${addressError ? "border-red-500" : "border-white/10"
+              }`}
           />
           {addressError && (
             <p className="text-red-500 text-xs mt-1 ml-1">{addressError}</p>
@@ -457,7 +456,7 @@ export function ContractDetails({
               className="relative w-full md:w-[70%] xl:w-[80%] z-50"
             >
               <div
-                className="break-all text-xs xs:text-sm sm:text-base w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg cursor-pointer border border-white/10 flex items-center justify-between"
+                className="word-break-all text-xs xs:text-sm sm:text-base w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg cursor-pointer border border-white/10 flex items-center justify-between"
                 aria-required
                 onClick={() => setIsFunctionOpen(!isFunctionOpen)}
               >
@@ -473,7 +472,7 @@ export function ContractDetails({
                     return (
                       <div
                         key={index}
-                        className="py-3 px-4 hover:bg-[#333] cursor-pointer rounded-lg text-xs xs:text-sm sm:text-base text-clip"
+                        className="word-break-all py-3 px-4 hover:bg-[#333] cursor-pointer rounded-lg text-xs xs:text-sm sm:text-base text-clip"
                         onClick={() => handleFunctionSelect(signature)}
                       >
                         {signature}
@@ -506,9 +505,8 @@ export function ContractDetails({
                   className="relative w-full md:w-[70%] xl:w-[80%] z-30"
                 >
                   <div
-                    className={`text-xs xs:text-sm sm:text-base w-full bg-[#141414] text-white py-3 px-4 rounded-lg cursor-pointer border border-white/10 flex items-center justify-between ${
-                      !hasArguments ? "opacity-50 cursor-not-allowed" : ""
-                    }`}
+                    className={`text-xs xs:text-sm sm:text-base w-full bg-[#141414] text-white py-3 px-4 rounded-lg cursor-pointer border border-white/10 flex items-center justify-between ${!hasArguments ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                     onClick={() =>
                       hasArguments && setIsArgumentTypeOpen(!isArgumentTypeOpen)
                     }
@@ -571,11 +569,10 @@ export function ContractDetails({
                   type="text"
                   value={argsArray[index] || ""}
                   onChange={(e) => handleInputChange(index, e.target.value)}
-                  className={`text-xs xs:text-sm sm:text-base w-full md:w-[60%] xl:w-[70%] bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none ${
-                    isDisabled
-                      ? "opacity-50 cursor-not-allowed bg-gray-800"
-                      : ""
-                  }`}
+                  className={`text-xs xs:text-sm sm:text-base w-full md:w-[60%] xl:w-[70%] bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none ${isDisabled
+                    ? "opacity-50 cursor-not-allowed bg-gray-800"
+                    : ""
+                    }`}
                   placeholder={`Enter ${input.type}`}
                   disabled={isDisabled}
                   readOnly={isDisabled}
@@ -600,9 +597,8 @@ export function ContractDetails({
               value={ipfsCodeUrl}
               required
               onChange={(e) => handleCodeUrlChange(e)}
-              className={`text-xs xs:text-sm sm:text-base w-full bg-white/5 border rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none ${
-                ipfsCodeUrlError ? "border-red-500" : "border-white/10"
-              }`}
+              className={`text-xs xs:text-sm sm:text-base w-full bg-white/5 border rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none ${ipfsCodeUrlError ? "border-red-500" : "border-white/10"
+                }`}
               placeholder="Enter IPFS URL or CID (e.g., ipfs://... or https://ipfs.io/ipfs/...)"
             />
             {ipfsCodeUrlError && (

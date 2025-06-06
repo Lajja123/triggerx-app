@@ -1011,7 +1011,7 @@ function CreateJobPage() {
                 </h2>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <div className="bg-[#F8FF7C] text-black w-8 h-8 rounded-full flex items-center justify-center font-semibold">
+                    <div className="text-sm md:text-md bg-[#F8FF7C] text-black w-8 h-8 rounded-full flex items-center justify-center font-semibold">
                       20
                     </div>
                     <span className="text-xs sm:text-sm text-gray-300">
@@ -1019,7 +1019,7 @@ function CreateJobPage() {
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="bg-white text-black w-8 h-8 rounded-full flex items-center justify-center font-semibold">
+                    <div className=" text-sm md:text-md bg-white text-black w-8 h-8 rounded-full flex items-center justify-center font-semibold">
                       10
                     </div>
                     <span className="text-xs sm:text-sm text-gray-300">
@@ -1091,7 +1091,7 @@ function CreateJobPage() {
                       className={`${!selectedJob ? "bg-white opacity-50" : "bg-white group-hover:translate-y-0"} absolute inset-0 rounded-full scale-100 translate-y-0 transition-all duration-300`}
                     ></span>
                     <span
-                      className={`font-actayRegular relative z-10 px-0 py-1 sm:py-3 sm:px-3 md:px-6 lg:px-0 xl:px-2 rounded-full translate-y-2 ${!selectedJob ? "" : "group-hover:translate-y-0"} transition-all duration-300 ease-out text-xs lg:text-sm xl:text-base text-nowrap`}
+                      className={`bottom-[1px] font-actayRegular relative z-10 px-0 py-1 sm:py-3 sm:px-3 md:px-6 lg:px-0 xl:px-2 rounded-full translate-y-2 ${!selectedJob ? "" : "group-hover:translate-y-0"} transition-all duration-300 ease-out text-xs lg:text-sm xl:text-base text-nowrap`}
                     >
                       Create Custom Job
                     </span>
@@ -1101,20 +1101,20 @@ function CreateJobPage() {
                   {templates.templates.map((template) => (
                     <div
                       className={`lg:p-6 md:p-6 p-4 rounded-lg transition-all duration-300 cursor-pointer ${selectedJob?.id === template.id
-                          ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] border-2 border-white shadow-lg "
-                          : "bg-[#202020] border border-white/10 hover:bg-white/10 hover:border-white/20"
+                        ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] border-2 border-white shadow-lg "
+                        : "bg-[#202020] border border-white/10 hover:bg-white/10 hover:border-white/20"
                         }`}
                       onClick={() => handleJobSelect(template)}
                     >
                       <div className="flex justify-between items-center gap-3">
                         <h4
-                          className={`text-sm md:text-base font-medium lg:w-[70%] ${selectedJob?.id === template.id ? "text-white" : ""
+                          className={`sm:word-break-all text-xs md:text-base font-medium lg:w-[70%] ${selectedJob?.id === template.id ? "text-white" : ""
                             }`}
                         >
                           {template.title}
                         </h4>
                         <span
-                          className={`text-sm px-4 py-2 rounded-full bg-[#FBF197] text-[#202020] traking-wider`}
+                          className={`text-xs md:text-sm px-4 py-2 rounded-full bg-[#FBF197] text-[#202020] traking-wider`}
                         >
                           Use
                         </span>
@@ -1227,14 +1227,14 @@ function CreateJobPage() {
                                 }
                               }}
                               className={`${Number(option.value) === jobType
-                                  ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] border border-white"
-                                  : "bg-white/5 border border-white/10 "
+                                ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] border border-white"
+                                : "bg-white/5 border border-white/10 "
                                 } text-nowrap relative flex flex-wrap flex-col items-center justify-center w-full md:w-[33%] gap-2 px-4 pb-4 pt-8 rounded-lg transition-all duration-300 text-xs sm:text-sm`}
                             >
                               <div
                                 className={`${Number(option.value) === jobType
-                                    ? "bg-white border border-white/10"
-                                    : ""
+                                  ? "bg-white border border-white/10"
+                                  : ""
                                   } absolute top-2 left-2 rounded-full w-3 h-3 border`}
                               ></div>
                               {Number(option.value) === jobType ? (
@@ -1267,7 +1267,7 @@ function CreateJobPage() {
                               </label>
                               <div
                                 ref={dropdownRef}
-                                className="relative w-full md:w-[70%] xl:w-[80%]"
+                                className="relative w-full md:w-[70%] xl:w-[80%] "
                               >
                                 <div
                                   className="w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg cursor-pointer border border-white/10 flex items-center gap-5"
@@ -1275,9 +1275,9 @@ function CreateJobPage() {
                                     setIsNetworkOpen((prev) => !prev)
                                   }
                                 >
-                                  <div className="w-6 h-6 text-xs xs:text-sm sm:text-base">
+                                  <p className="w-6 h-6 font-actayRegular ">
                                     {networkIcons[selectedNetwork]}
-                                  </div>
+                                  </p>
                                   {selectedNetwork}
                                   <ChevronDown className="absolute top-3 right-4 text-white text-xs" />
                                 </div>
@@ -1293,9 +1293,9 @@ function CreateJobPage() {
                                           setIsNetworkOpen(false);
                                         }}
                                       >
-                                        <div className="w-6 h-6">
+                                        <p className="w-6 h-6">
                                           {networkIcons[network.name] || null}
-                                        </div>
+                                        </p>
                                         {network.name}
                                       </div>
                                     ))}
@@ -1643,9 +1643,9 @@ function CreateJobPage() {
                                       </label>
                                       <div className="relative w-full md:w-[70%] xl:w-[80%]">
                                         <div className="text-xs xs:text-sm sm:text-base w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg border border-white/10 flex items-center gap-5">
-                                          <div className="w-6 h-6">
+                                          <p className="w-6 h-6 ">
                                             {networkIcons[selectedNetwork]}
-                                          </div>
+                                          </p>
                                           {selectedNetwork}
                                         </div>
                                       </div>
@@ -1770,7 +1770,7 @@ function CreateJobPage() {
                                   </svg>
                                 </span>
                               ) : (
-                                <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
+                                <span className="bottom-[2px] font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
                                   Create Job
                                 </span>
                               )}
@@ -1786,9 +1786,9 @@ function CreateJobPage() {
 
                                 <span
                                   className={`${isLoading
-                                      ? "cursor-not-allowed opacity-50 "
-                                      : ""
-                                    } font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base`}
+                                    ? "cursor-not-allowed opacity-50 "
+                                    : ""
+                                    } bottom-[2px] font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base`}
                                 >
                                   Link Job
                                 </span>

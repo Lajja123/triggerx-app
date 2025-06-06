@@ -603,11 +603,10 @@ function DevhubItem() {
                           window.scrollTo({ top: y, behavior: "smooth" });
                         }
                       }}
-                      className={`text-xs hover:underline ${
-                        activeHeading === pair.h2Heading
+                      className={`text-xs hover:underline ${activeHeading === pair.h2Heading
                           ? "text-green-400 font-bold"
                           : "text-gray-300"
-                      }`}
+                        }`}
                     >
                       [ {index + 1} ] {pair.displayHeading}
                     </a>
@@ -639,11 +638,10 @@ function DevhubItem() {
                       window.scrollTo({ top: y, behavior: "smooth" });
                     }
                   }}
-                  className={`text-xs lg:text-sm 2xl:text-base hover:underline ${
-                    activeHeading === pair.h2Heading
+                  className={`text-xs lg:text-sm 2xl:text-base hover:underline ${activeHeading === pair.h2Heading
                       ? "text-green-400 font-bold"
                       : "text-gray-300"
-                  }`}
+                    }`}
                 >
                   [ {index + 1} ] {pair.displayHeading}
                 </a>
@@ -653,7 +651,7 @@ function DevhubItem() {
         </aside>
 
         {/* Blog Content */}
-        <article className="w-full md:w-3/4 mt-10">
+        <article className="w-full md:w-3/4 md:mt-10">
           <PortableText
             value={postData.body}
             components={portableTextComponents}
@@ -673,20 +671,20 @@ function DevhubItem() {
           </div>
 
           <div className="relative bg-[#222222] text-[#000000] my-16 border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform w-max mx-auto flex items-center justify-center">
-        <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
-        <span className="absolute inset-0 bg-white rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
-        <div className="w-max relative z-10 rounded-full transition-all duration-300 ease-out text-xs sm:text-base flex items-center">
-          <a
-            href={"/devhub"}
-            className="w-max relative z-10 rounded-full transition-all duration-300 ease-out text-xs sm:text-base flex items-center text-black"
-          >
-            Go Back to DevHub
-          </a>
-        </div>
-      </div>
+            <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
+            <span className="absolute inset-0 bg-white rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
+            <div className="w-max relative z-10 rounded-full transition-all duration-300 ease-out text-xs sm:text-base flex items-center">
+              <a
+                href={"/devhub"}
+                className="w-max relative z-10 rounded-full transition-all duration-300 ease-out text-xs sm:text-base flex items-center text-black"
+              >
+                Go Back to DevHub
+              </a>
+            </div>
+          </div>
         </article>
       </div>
-     
+
       <Modal
         isOpen={isModalOpen}
         onRequestClose={handleClose}

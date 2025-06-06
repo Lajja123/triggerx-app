@@ -610,7 +610,7 @@ const BalanceMaintainerExample = () => {
               <button
                 onClick={showAddAddressModal}
                 disabled={isLoading || !newAddress || !newBalance}
-                className={`bg-[#FFFFFF] text-black px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-colors whitespace-nowrap text-sm sm:text-base ${(isLoading || !newAddress || !newBalance) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`bg-[#FFFFFF] text-black rounded-full px-4 sm:px-6 py-2 sm:py-3  transition-colors whitespace-nowrap text-sm sm:text-base ${(isLoading || !newAddress || !newBalance) ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 {isLoading && modalType === "addAddress" ? 'Adding...' : 'Add Address'}
               </button>
@@ -719,7 +719,7 @@ const BalanceMaintainerExample = () => {
             >
               <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
               <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
-              <span className="font-actayRegular relative z-10 px-0 py-2 sm:py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
+              <span className="bottom-[2px] font-actayRegular relative z-10 px-0 py-2 sm:py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
                 Create Job
               </span>
             </button>
