@@ -129,11 +129,11 @@ function Devhub() {
   };
 
   return (
-    <div className="min-h-screen md:mt-[20rem] mt-[10rem] w-[90%] mx-auto">
+    <div className="min-h-screen lg:mt-[20rem] mt-[10rem] w-[90%] mx-auto md:mt-[15rem] max-w-[1600px]">
       <div className="w-full flex items-center justify-between mb-8">
-        <h4 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-left px-4  flex items-center gap-3">
+        <h4 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-left   flex items-center gap-3">
           Total{" "}
-          <span className="text-[#FBF197] text-[25px]">
+          <span className="text-[#FBF197] text-2xl sm:text-4xl lg:text-5xl">
             {" "}
             {` { ${posts.length} } `}
           </span>
@@ -142,12 +142,12 @@ function Devhub() {
         <button onClick={() => navigate('/api')} className="relative bg-[#222222] text-black border border-black px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
           <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
           <span className="absolute inset-0 bg-white rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
-          <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
+          <span className="font-actayRegular relative z-10 bottom-[1px] px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-md sm:text-base">
             API Services
           </span>
         </button>
       </div>
-      <div className="max-w-[1600px] mx-auto">
+      <div className=" mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 mb-40">
           {posts.map((item) => {
             const currentSlug = item?.slug?.current;
@@ -164,10 +164,10 @@ function Devhub() {
                     <img
                       src={item.image.asset.url}
                       alt={item.title}
-                      className="h-full w-auto object-cover"
+                      className="w-full h-full object-cover object-center"
                     />
                   ) : (
-                    <div className="w-full h-[200px] rounded-lg border border-[#5F5F5F] relative overflow-hidden">
+                    <div className="w-full h-full rounded-lg border border-[#5F5F5F] relative overflow-hidden flex items-center justify-center">
                       <span>No Image</span>
                     </div>
                   )}

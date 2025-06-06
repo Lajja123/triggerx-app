@@ -97,7 +97,7 @@ const App = () => {
     <HelmetProvider>
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <RainbowKitProvider theme={myCustomTheme} modalSize="compact">
+          <RainbowKitProvider theme={myCustomTheme}>
             <ErrorProvider>
               <ServerErrorModal />
               <WalletProvider>

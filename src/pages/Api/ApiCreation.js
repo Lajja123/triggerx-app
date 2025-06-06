@@ -20,6 +20,8 @@ const ApiCreation = () => {
       status: "Inactive",
     },
   ]);
+  const [isStatusOpen, setIsStatusOpen] = useState(false);
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
 
   const generateNewApiKey = async () => {
     try {
@@ -65,14 +67,14 @@ const ApiCreation = () => {
 
   const QuickStartGuide = () => (
     <div className="bg-[#141414] rounded-lg mb-8  border border-[#4B4A4A]">
-      <div className="p-8 ">
-        <h2 className="text-xl font-semibold mb-4">Quick Start Guide</h2>
-        <ol className="space-y-4">
+      <div className=" md:p-8  p-6 sm:p-6 ">
+        <h2 className="text-xl font-semibold ">Quick Start Guide</h2>
+        <ol className="space-y-4 my-6">
           <li className="flex flex-row gap-5 sm:gap-5 items-center">
             <div className="border border-[#C07AF6] bg-[#371B58] w-10 h-10 flex items-center justify-center rounded-lg text-lg font-semibold">
               1
             </div>
-            <span className="w-full text-xs sm:text-sm md:text-base">
+            <span className="md:text-base w-full sm:text-md text-sm">
               Generate an API key in the "API Key Generator" tab
             </span>
           </li>
@@ -80,7 +82,7 @@ const ApiCreation = () => {
             <div className="border border-[#C07AF6] bg-[#371B58] w-10 h-10 flex items-center justify-center rounded-lg text-lg font-semibold">
               2
             </div>
-            <span className="md:text-base w-full sm:text-sm text-sm">
+            <span className="md:text-base w-full sm:text-md text-sm">
               Review the API documentation for available endpoints
             </span>
           </li>
@@ -88,7 +90,7 @@ const ApiCreation = () => {
             <div className="border border-[#C07AF6] bg-[#371B58] w-10 h-10 flex items-center justify-center rounded-lg text-lg font-semibold">
               3
             </div>
-            <span className="md:text-base w-full sm:text-sm text-sm">
+            <span className="md:text-base w-full sm:text-md text-sm">
               Make API requests using your generated key
             </span>
           </li>
@@ -96,19 +98,19 @@ const ApiCreation = () => {
             <div className="border border-[#C07AF6] bg-[#371B58] w-10 h-10 flex items-center justify-center rounded-lg text-lg font-semibold">
               4
             </div>
-            <span className="md:text-base w-full sm:text-sm text-sm">Monitor your usage and rate limits</span>
+            <span className="md:text-base w-full sm:text-md text-sm">Monitor your usage and rate limits</span>
           </li>
         </ol>
       </div>
-      <div className="mt-6 bg-[#313131] p-5 rounded-bl-md rounded-br-md">
-        <h3 className="text-lg font-semibold mb-2">Need Help?</h3>
-        <p>
+      <div className=" bg-[#313131] p-5 rounded-bl-md rounded-br-md">
+        <h3 className="text-lg font-semibold mb-2 md:text-base sm:text-md text-sm">Need Help?</h3>
+        <p className="md:text-base sm:text-md text-sm">
           If you have any questions or need assistance, please don't hesitate to
           contact our support team at{" "}
           <a className="underline">hello@triggerx.network</a>
         </p>
       </div>
-    </div>
+    </div >
   );
 
   const copyToClipboard = (text) => {
@@ -123,9 +125,9 @@ const ApiCreation = () => {
         API Documentation & Key Management
       </h1>
 
-      <div className="max-w-[1600px] w-[95%] sm:w-[85%] mx-auto flex flex-col md:flex-row justify-between items-center my-8 sm:my-12 bg-[#181818F0] p-2 rounded-lg">
+      <div className="max-w-[1600px] w-[95%] sm:w-[85%] mx-auto flex flex-row justify-between items-center my-8 sm:my-12 bg-[#181818F0] p-2 rounded-lg">
         <button
-          className={`w-full text-[#FFFFFF] font-bold md:text-lg xs:text-sm p-4 rounded-lg ${activeTab === "documetation"
+          className={` text-xs w-full text-[#FFFFFF] font-bold md:text-lg xs:text-sm p-4 rounded-lg ${activeTab === "documetation"
             ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] border border-[#4B4A4A]"
             : "bg-transparent"
             }`}
@@ -134,7 +136,7 @@ const ApiCreation = () => {
           Documentation
         </button>
         <button
-          className={`w-full text-[#FFFFFF] font-bold md:text-lg xs:text-sm p-4 rounded-lg ${activeTab === "apikey"
+          className={`w-full text-xs text-[#FFFFFF] font-bold md:text-lg xs:text-sm p-4 rounded-lg ${activeTab === "apikey"
             ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] border border-[#4B4A4A]"
             : "bg-transparent"
             }`}
@@ -144,21 +146,22 @@ const ApiCreation = () => {
         </button>
       </div>
 
-      <div className="max-w-[1600px] mx-auto w-[95%] sm:w-[85%] px-3 sm:px-5 rounded-lg">
+      <div className="max-w-[1600px] mx-auto w-[95%] sm:w-[85%] rounded-lg">
         {activeTab === "apikey" ? (
           <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 w-full justify-between ">
             {apiKeys.map((apiKey, index) => (
               <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 w-full justify-between ">
                 <div
                   key={index}
-                  className="bg-[#181818] p-6 rounded-lg mb-4 flex-1 h-[350px]  border border-[#4B4A4A]"
+                  className="bg-[#181818] md:p-8  p-6 sm:p-6 rounded-lg mb-4 flex-1 h-[350px] flex-col border border-[#4B4A4A] flex justify-between items-center"
                 >
+
                   <h2 className="text-xl sm:text-2xl font-bold text-[#FBF197] text-center">
                     Generate API Key
                   </h2>
                   {!isConnected ? (
 
-                    <div className="flex flex-col items-center justify-center lg:h-[200px] h-[150px] text-[#A2A2A2]">
+                    <div className="flex flex-col items-center justify-center lg:h-[350px] h-[150px] text-[#A2A2A2]">
                       <svg width="38" height="38" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg " className="mb-3" stroke="">
                         <path d="M12 17C12.2833 17 12.521 16.904 12.713 16.712C12.905 16.52 13.0007 16.2827 13 16C12.9993 15.7173 12.9033 15.48 12.712 15.288C12.5207 15.096 12.2833 15 12 15C11.7167 15 11.4793 15.096 11.288 15.288C11.0967 15.48 11.0007 15.7173 11 16C10.9993 16.2827 11.0953 16.5203 11.288 16.713C11.4807 16.9057 11.718 17.0013 12 17ZM12 13C12.2833 13 12.521 12.904 12.713 12.712C12.905 12.52 13.0007 12.2827 13 12V8C13 7.71667 12.904 7.47933 12.712 7.288C12.52 7.09667 12.2827 7.00067 12 7C11.7173 6.99933 11.48 7.09533 11.288 7.288C11.096 7.48067 11 7.718 11 8V12C11 12.2833 11.096 12.521 11.288 12.713C11.48 12.905 11.7173 13.0007 12 13ZM12 22C10.6167 22 9.31667 21.7373 8.1 21.212C6.88334 20.6867 5.825 19.9743 4.925 19.075C4.025 18.1757 3.31267 17.1173 2.788 15.9C2.26333 14.6827 2.00067 13.3827 2 12C1.99933 10.6173 2.262 9.31733 2.788 8.1C3.314 6.88267 4.02633 5.82433 4.925 4.925C5.82367 4.02567 6.882 3.31333 8.1 2.788C9.318 2.26267 10.618 2 12 2C13.382 2 14.682 2.26267 15.9 2.788C17.118 3.31333 18.1763 4.02567 19.075 4.925C19.9737 5.82433 20.6863 6.88267 21.213 8.1C21.7397 9.31733 22.002 10.6173 22 12C21.998 13.3827 21.7353 14.6827 21.212 15.9C20.6887 17.1173 19.9763 18.1757 19.075 19.075C18.1737 19.9743 17.1153 20.687 15.9 21.213C14.6847 21.739 13.3847 22.0013 12 22Z" fill="#A2A2A2" />
                       </svg>
@@ -171,14 +174,14 @@ const ApiCreation = () => {
                     </div>
                   ) : (
                     <>
-                      <div>
+                      <div className="w-full">
                         <button
                           className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 my-8 sm:px-8 sm:py-3 rounded-full group transition-transform w-full"
                           onClick={generateNewApiKey}
                         >
                           <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-lg scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
                           <span className="absolute inset-0 bg-[#FFFFFF] rounded-lg scale-100 translate-y-0 group-hover:translate-y-0"></span>
-                          <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-lg translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs lg:text-sm xl:text-base">
+                          <span className="font-actayRegular relative z-10 bottom-[1px] px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-lg translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs lg:text-sm xl:text-base">
                             Generate New API Key
                           </span>
                         </button>
@@ -189,36 +192,38 @@ const ApiCreation = () => {
                             readOnly
                             className="flex-1  bg-[#242424]  p-3  text-sm rounded"
                           />
-                          <button
-                            onClick={() => copyToClipboard(apiKey.key)}
-                            className={`p-2 rounded text-gray-400 hover:text-white transition-colors ${copiedEndpoint ? "text-green-500" : ""
-                              }`}
-                          >
-                            {copiedEndpoint ? (
-                              <FiCheck size={20} />
-                            ) : (
-                              <FiCopy size={20} />
-                            )}
-                          </button>
+                          {apiKey.key !== "No API key generated yet" && (
+                            <button
+                              onClick={() => copyToClipboard(apiKey.key)}
+                              className={`p-2 rounded text-gray-400 hover:text-white transition-colors ${copiedEndpoint ? "text-green-500" : ""}`}
+                            >
+                              {copiedEndpoint ? (
+                                <FiCheck size={20} />
+                              ) : (
+                                <FiCopy size={20} />
+                              )}
+                            </button>
+                          )}
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-6">
+                          <div>
+                            <p className="text-gray-400 mb-2 md:text-base sm:text-md text-sm">Created</p>
+                            <p className="text-white md:text-base sm:text-md text-sm">{apiKey.created}</p>
+                          </div>
+                          <div>
+                            <p className="text-gray-400 mb-2 md:text-base sm:text-md text-sm">Rate Limit</p>
+                            <p className="text-white md:text-base sm:text-md text-sm">{apiKey.rateLimit}</p>
+                          </div>
+                          <div>
+                            <p className="text-gray-400 mb-2 md:text-base sm:text-md text-sm">Status</p>
+                            <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full md:text-base sm:text-md text-sm">
+                              {apiKey.status}
+                            </span>
+                          </div>
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-6">
-                        <div>
-                          <p className="text-gray-400 mb-2">Created</p>
-                          <p className="text-white">{apiKey.created}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-400 mb-2">Rate Limit</p>
-                          <p className="text-white">{apiKey.rateLimit}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-400 mb-2">Status</p>
-                          <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">
-                            {apiKey.status}
-                          </span>
-                        </div>
-                      </div>
+
                     </>
                   )}
                 </div>
@@ -235,10 +240,10 @@ const ApiCreation = () => {
                 <div className="">
                   <div className="flex flex-col sm:flex-col items-start sm:items-start justify-between gap-2 p-4">
                     {" "}
-                    <h2 className="text-md sm:text-3xl font-bold text-[#FBF197]">
+                    <h2 className="text-md sm:text-3xl font-bold text-[#FBF197] ">
                       API Documentation
                     </h2>
-                    <p className="mt-5 text-gray-400">
+                    <p className="mt-5 text-gray-400 md:text-md text-sm">
                       Explore and integrate with our Concentration Power Index
                       (CPI) calculation APIs.
                     </p>
@@ -246,19 +251,16 @@ const ApiCreation = () => {
                 </div>
                 {/* Get Calculated CPI Value */}
                 <div
-                  className="max-h-[500px] overflow-y-auto space-y-4"
-                  style={{
-                    scrollbarWidth: "none",
-                    msOverflowStyle: "none",
-                  }}
+                  className="max-h-[500px] overflow-y-auto space-y-4 px-4"
+
                 >
                   <div className=" flex-1 space-y-4  rounded-xl">
                     {activeTab === "documetation" && (
-                      <div className="px-2 sm:px-0">
+                      <div className="sm:px-0">
                         <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
                           {/* Column 1: API List */}
                           <div className="w-full lg:w-[30%] py-2 lg:py-4 lg:sticky top-0 h-fit">
-                            <h3 className="text-xl font-bold mb-2 lg:mb-4">
+                            <h3 className="text-xl font-bold mb-4 lg:mb-4">
                               Present APIs
                             </h3>
                             <div className="space-y-1 lg:space-y-2">
@@ -323,10 +325,10 @@ const ApiCreation = () => {
                             {expandedSection === "createautomationjob" && (
                               <div className="space-y-6 ">
                                 <div className="">
-                                  <h3 className="text-sm font-bold pb-4">
+                                  <h3 className="md:text-xl text-md font-bold pb-4">
                                     Create Automation Job
                                   </h3>
-                                  <p className=" text-gray-400 text-md">
+                                  <p className=" text-gray-400 md:text-md text-sm">
                                     Creates a new blockchain automation job with specified parameters. Define trigger conditions, target actions, security levels, and scheduling options. Supports both one-time and recurring executions with customizable time intervals.
                                   </p>
                                 </div>
@@ -395,7 +397,7 @@ const ApiCreation = () => {
                                     Query Parameters
                                   </h4>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           api_key
@@ -410,7 +412,7 @@ const ApiCreation = () => {
                                     </div>
                                   </div>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           columns
@@ -425,7 +427,7 @@ const ApiCreation = () => {
                                     </div>
                                   </div>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           filters
@@ -447,20 +449,32 @@ const ApiCreation = () => {
                                     <div>
                                       <h4 className="text-md ">Response</h4>
                                     </div>
-                                    <div className="flex items-center gap-3 ">
-                                      <select
-                                        value={activeStatus}
-                                        onChange={(e) =>
-                                          setActiveStatus(e.target.value)
-                                        }
-                                        className="bg-[#1A1A1A] text-gray-400 px-3 py-2 rounded-md border border-[#333333] focus:outline-none focus:border-[#5047FF]"
-                                      >
-                                        <option value="200">200</option>
-                                        <option value="400">400 </option>
-                                        <option value="401">401 </option>
-                                        <option value="404">404 </option>
-                                        <option value="500">500 </option>
-                                      </select>
+                                    <div className="flex items-center gap-2">
+                                      <div className="relative">
+                                        <div
+                                          onClick={() => setIsStatusOpen(!isStatusOpen)}
+                                          className="text-xs xs:text-sm sm:text-base w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg border border-white/10 flex items-center gap-5 cursor-pointer"
+                                        >
+                                          {activeStatus}
+                                          <IoIosArrowDown className={`ml-auto transition-transform ${isStatusOpen ? 'rotate-180' : ''}`} />
+                                        </div>
+                                        {isStatusOpen && (
+                                          <div className="absolute top-full left-0 w-full mt-1 bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden z-10">
+                                            {["200", "400", "401", "404", "500"].map((status) => (
+                                              <div
+                                                key={status}
+                                                className="py-3 px-4 hover:bg-[#333] cursor-pointer flex items-center gap-5 text-xs xs:text-sm sm:text-base rounded-lg"
+                                                onClick={() => {
+                                                  setActiveStatus(status);
+                                                  setIsStatusOpen(false);
+                                                }}
+                                              >
+                                                {status}
+                                              </div>
+                                            ))}
+                                          </div>
+                                        )}
+                                      </div>
                                       <span className="text-[#C3E88D] lg:block hidden">
                                         application/json
                                       </span>
@@ -470,7 +484,7 @@ const ApiCreation = () => {
                                     <div className="">
                                       {activeStatus === "200" && (
                                         <>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 account_balance
@@ -484,7 +498,7 @@ const ApiCreation = () => {
                                               return_balance
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 token_balance
@@ -498,7 +512,7 @@ const ApiCreation = () => {
                                               return
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 time_frames
@@ -512,7 +526,7 @@ const ApiCreation = () => {
                                               return
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 task_definition_ids
@@ -529,7 +543,7 @@ const ApiCreation = () => {
                                         </>
                                       )}
                                       {activeStatus === "400" && (
-                                        <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                        <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                           <p className="text-gray-400 mb-2">
                                             Bad Request
                                           </p>
@@ -548,7 +562,7 @@ const ApiCreation = () => {
                                         </div>
                                       )}
                                       {activeStatus === "401" && (
-                                        <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                        <div className=" border-[#4B4A4A] border-b pb-4 my-4 overflow-scroll">
                                           <p className="text-gray-400 mb-2">
                                             Unauthorized
                                           </p>
@@ -562,12 +576,12 @@ const ApiCreation = () => {
                                             <span className="text-white">
                                               Example :{" "}
                                             </span>
-                                            "Invalid or missing API key" "
+                                            "Invalid or missing API key"
                                           </pre>
                                         </div>
                                       )}
                                       {activeStatus === "404" && (
-                                        <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                        <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                           <p className="text-gray-400 mb-2">
                                             Not Found
                                           </p>
@@ -588,7 +602,7 @@ const ApiCreation = () => {
                                       )}
 
                                       {activeStatus === "500" && (
-                                        <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                        <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                           <p className="text-gray-400 mb-2">
                                             Internal Server Error
                                           </p>
@@ -626,40 +640,38 @@ const ApiCreation = () => {
                                     {/* Language Tabs */}
                                     <div className="flex border-b border-[#333333] overflow-o
                                     auto">
-                                      {["cURL"].map((lang) => (
-                                        <button
-                                          key={lang}
-                                          onClick={() =>
-                                            setActiveLanguage(`cURL`)
-                                          }
-                                          className={`px-4 py-2 text-sm font-medium ${activeLanguage === lang
-                                            ? "bg-[#242424] text-white border-b-2 border-[#5047FF]"
-                                            : "text-gray-400 hover:text-white hover:bg-[#242424]/50"
-                                            }`}
+                                      <div className="relative">
+                                        <div
+                                          onClick={() => setIsLanguageOpen(!isLanguageOpen)}
+                                          className="text-xs xs:text-sm sm:text-base bg-[#1a1a1a] text-white py-2 px-4 flex items-center gap-5 cursor-pointer"
                                         >
-                                          {lang}
-                                        </button>
-                                      ))}
+                                          {activeLanguage}
+                                          <IoIosArrowDown className={`ml-auto transition-transform ${isLanguageOpen ? 'rotate-180' : ''}`} />
+                                        </div>
+                                        {isLanguageOpen && (
+                                          <div className="absolute top-full left-0 w-full mt-1 bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden z-10">
+                                            {["cURL"].map((lang) => (
+                                              <div
+                                                key={lang}
+                                                className="py-3 px-4 hover:bg-[#333] cursor-pointer flex items-center gap-5 text-xs xs:text-sm sm:text-base rounded-lg"
+                                                onClick={() => {
+                                                  setActiveLanguage(lang);
+                                                  setIsLanguageOpen(false);
+                                                }}
+                                              >
+                                                {lang}
+                                              </div>
+                                            ))}
+                                          </div>
+                                        )}
+                                      </div>
                                     </div>
 
-                                    <div className="p-4 bg-[#242424]">
+                                    <div className="p-4 bg-[#242424] overflow-auto">
                                       {activeLanguage === "cURL" && (
                                         <pre
                                           className="text-sm  whitespace-pre-wrap"
-                                          style={{
-                                            scrollbarWidth: "thin",
-                                            "&::-webkit-scrollbar": {
-                                              width: "4px",
-                                              height: "4px",
-                                            },
-                                            "&::-webkit-scrollbar-track": {
-                                              backgroundColor: "#1A1A1A",
-                                            },
-                                            "&::-webkit-scrollbar-thumb": {
-                                              backgroundColor: "#333333",
-                                              borderRadius: "4px",
-                                            },
-                                          }}
+                                         
                                         >
                                           <div className="text-sm">
                                             {"{"}
@@ -942,7 +954,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "400" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -958,7 +970,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "401" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -974,7 +986,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "403" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -990,7 +1002,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "500" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -1014,10 +1026,10 @@ const ApiCreation = () => {
                             {expandedSection === "retrievejobdata" && (
                               <div className="space-y-6 ">
                                 <div className="">
-                                  <h3 className="text-sm font-bold pb-4">
+                                  <h3 className="md:text-xl text-md  font-bold pb-4">
                                     Retrive Job Data
                                   </h3>
-                                  <p className="text-gray-400 text-md">
+                                  <p className="text-gray-400 md:text-md text-sm">
                                     Fetches detailed information about a specific automation job using its unique ID. Returns comprehensive data including job status, configuration, execution history, and associated parameters.
                                   </p>
                                 </div>
@@ -1050,14 +1062,14 @@ const ApiCreation = () => {
                                 {/* Headers Section */}
                                 <div>
                                   <h4 className="text-md  mb-2">Headers</h4>
-                                  <div className="bg-[#242424] p-3 rounded-lg overflow-auto">
-                                    <table className="w-full text-sm ">
+                                  <div className="bg-[#242424] p-3 rounded-lg overflow-auto ">
+                                    <table className="w-full text-sm  ">
                                       <tbody>
                                         <tr>
                                           <td className="py-2 text-gray-400 w-1/3">
                                             TriggerX-Api-Key
                                           </td>
-                                          <td className="text-[#C3E88D] pl-4 ">
+                                          <td className="text-[#C3E88D] pl-4">
                                             string
                                           </td>
                                           <td className="text-red-400 pl-4">
@@ -1068,7 +1080,7 @@ const ApiCreation = () => {
                                           <td className="py-2 text-gray-400">
                                             Content-Type
                                           </td>
-                                          <td className="text-[#C3E88D] pl-4">
+                                          <td className="text-[#C3E88D] pl-4 ">
                                             application/json
                                           </td>
                                           <td className="text-red-400 pl-4">
@@ -1086,7 +1098,7 @@ const ApiCreation = () => {
                                     Query Parameters
                                   </h4>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           api_key
@@ -1101,7 +1113,7 @@ const ApiCreation = () => {
                                     </div>
                                   </div>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           columns
@@ -1116,7 +1128,7 @@ const ApiCreation = () => {
                                     </div>
                                   </div>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           filters
@@ -1134,24 +1146,36 @@ const ApiCreation = () => {
 
                                 {/* Response Section */}
                                 <div>
-                                  <div className="flex items-center gap-2 justify-between pb-4  border-[#4B4A4A] border-b">
+                                  <div className=" flex items-center gap-2 justify-between pb-4  border-[#4B4A4A] border-b">
                                     <div>
                                       <h4 className="text-md ">Response</h4>
                                     </div>
-                                    <div className="flex items-center gap-3 ">
-                                      <select
-                                        value={activeStatus}
-                                        onChange={(e) =>
-                                          setActiveStatus(e.target.value)
-                                        }
-                                        className="bg-[#1A1A1A] text-gray-400 px-3 py-2 rounded-md border border-[#333333] focus:outline-none focus:border-[#5047FF]"
-                                      >
-                                        <option value="200">200</option>
-                                        <option value="400">400 </option>
-                                        <option value="401">401 </option>
-                                        <option value="404">404 </option>
-                                        <option value="500">500 </option>
-                                      </select>
+                                    <div className="flex items-center gap-2">
+                                      <div className="relative">
+                                        <div
+                                          onClick={() => setIsStatusOpen(!isStatusOpen)}
+                                          className="text-xs xs:text-sm sm:text-base w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg border border-white/10 flex items-center gap-5 cursor-pointer"
+                                        >
+                                          {activeStatus}
+                                          <IoIosArrowDown className={`ml-auto transition-transform ${isStatusOpen ? 'rotate-180' : ''}`} />
+                                        </div>
+                                        {isStatusOpen && (
+                                          <div className="absolute top-full left-0 w-full mt-1 bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden z-10">
+                                            {["200", "400", "401", "404", "500"].map((status) => (
+                                              <div
+                                                key={status}
+                                                className="py-3 px-4 hover:bg-[#333] cursor-pointer flex items-center gap-5 text-xs xs:text-sm sm:text-base rounded-lg"
+                                                onClick={() => {
+                                                  setActiveStatus(status);
+                                                  setIsStatusOpen(false);
+                                                }}
+                                              >
+                                                {status}
+                                              </div>
+                                            ))}
+                                          </div>
+                                        )}
+                                      </div>
                                       <span className="text-[#C3E88D] lg:block hidden">
                                         application/json
                                       </span>
@@ -1161,7 +1185,7 @@ const ApiCreation = () => {
                                     <div className="">
                                       {activeStatus === "200" && (
                                         <>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 time_frame
@@ -1175,7 +1199,7 @@ const ApiCreation = () => {
                                               return_balance
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 last_executed_at
@@ -1189,7 +1213,7 @@ const ApiCreation = () => {
                                               return
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 task_definition_id
@@ -1203,7 +1227,7 @@ const ApiCreation = () => {
                                               return
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 chain_status
@@ -1217,7 +1241,7 @@ const ApiCreation = () => {
                                               return
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 recurring
@@ -1231,7 +1255,7 @@ const ApiCreation = () => {
                                               return
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 job_cost_prediction
@@ -1245,7 +1269,7 @@ const ApiCreation = () => {
                                               return
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 created_at
@@ -1262,7 +1286,7 @@ const ApiCreation = () => {
                                         </>
                                       )}
                                       {activeStatus === "400" && (
-                                        <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                        <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                           <p className="text-gray-400 mb-2">
                                             Bad Request
                                           </p>
@@ -1281,7 +1305,7 @@ const ApiCreation = () => {
                                         </div>
                                       )}
                                       {activeStatus === "401" && (
-                                        <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                        <div className=" border-[#4B4A4A] border-b pb-4 my-4 overflow-scroll">
                                           <p className="text-gray-400 mb-2">
                                             Unauthorized
                                           </p>
@@ -1300,7 +1324,7 @@ const ApiCreation = () => {
                                         </div>
                                       )}
                                       {activeStatus === "404" && (
-                                        <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                        <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                           <p className="text-gray-400 mb-2">
                                             Not Found
                                           </p>
@@ -1321,7 +1345,7 @@ const ApiCreation = () => {
                                       )}
 
                                       {activeStatus === "500" && (
-                                        <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                        <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                           <p className="text-gray-400 mb-2">
                                             Internal Server Error
                                           </p>
@@ -1350,8 +1374,8 @@ const ApiCreation = () => {
                                         API Request
                                       </h3>
                                       <div className="flex gap-2">
-                                        <span className="px-5 py-2 bg-blue-500  text-xs rounded-full">
-                                          GET
+                                        <span className="px-2 py-1 bg-green-500 text-xs rounded-full">
+                                          POST
                                         </span>
                                       </div>
                                     </div>
@@ -1359,53 +1383,39 @@ const ApiCreation = () => {
                                     {/* Language Tabs */}
                                     <div className="flex border-b border-[#333333] overflow-o
                                     auto">
-                                      {["cURL"].map((lang) => (
-                                        <button
-                                          key={lang}
-                                          onClick={() =>
-                                            setActiveLanguage(`cURL`)
-                                          }
-                                          className={`px-4 py-2 text-sm font-medium ${activeLanguage === lang
-                                            ? "bg-[#242424] text-white border-b-2 border-[#5047FF]"
-                                            : "text-gray-400 hover:text-white hover:bg-[#242424]/50"
-                                            }`}
+                                      <div className="relative">
+                                        <div
+                                          onClick={() => setIsLanguageOpen(!isLanguageOpen)}
+                                          className="text-xs xs:text-sm sm:text-base bg-[#1a1a1a] text-white py-2 px-4 flex items-center gap-5 cursor-pointer"
                                         >
-                                          {lang}
-                                        </button>
-                                      ))}
+                                          {activeLanguage}
+                                          <IoIosArrowDown className={`ml-auto transition-transform ${isLanguageOpen ? 'rotate-180' : ''}`} />
+                                        </div>
+                                        {isLanguageOpen && (
+                                          <div className="absolute top-full left-0 w-full mt-1 bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden z-10">
+                                            {["cURL"].map((lang) => (
+                                              <div
+                                                key={lang}
+                                                className="py-3 px-4 hover:bg-[#333] cursor-pointer flex items-center gap-5 text-xs xs:text-sm sm:text-base rounded-lg"
+                                                onClick={() => {
+                                                  setActiveLanguage(lang);
+                                                  setIsLanguageOpen(false);
+                                                }}
+                                              >
+                                                {lang}
+                                              </div>
+                                            ))}
+                                          </div>
+                                        )}
+                                      </div>
                                     </div>
 
-                                    <div className="p-4 bg-[#242424]">
+                                    <div className="p-4 bg-[#242424] overflow-auto">
                                       {activeLanguage === "cURL" && (
                                         <pre
-                                          className="text-sm overflow-x-auto whitespace-pre-wrap"
-                                          style={{
-                                            scrollbarWidth: "thin",
-                                            "&::-webkit-scrollbar": {
-                                              width: "4px",
-                                              height: "4px",
-                                            },
-                                            "&::-webkit-scrollbar-track": {
-                                              backgroundColor: "#1A1A1A",
-                                            },
-                                            "&::-webkit-scrollbar-thumb": {
-                                              backgroundColor: "#333333",
-                                              borderRadius: "4px",
-                                            },
-                                          }}
+                                          className="text-sm  whitespace-pre-wrap"
+                                          
                                         >
-                                          <div>curl --request GET \ </div>
-                                          <div>
-                                            {" "}
-                                            --url
-                                            https://data.triggerx.network/api/jobs/1
-                                            \
-                                          </div>
-                                          <div>
-                                            --header 'X-Api-Key:
-                                            {"<your-api-key>"}'
-                                          </div>
-                                          <div>-data</div>
                                           <div className="text-sm">
                                             {"{"}
                                             <div className="ml-4">
@@ -1488,7 +1498,7 @@ const ApiCreation = () => {
 
                                     <div className="p-4 bg-[#242424]">
                                       {activeStatus === "200" && (
-                                        <pre className="text-sm whitespace-pre-wrap">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap">
                                           <div className="text-sm">
                                             {"{"}
                                             <div className="ml-4">
@@ -1649,7 +1659,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "400" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -1665,7 +1675,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "401" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -1681,7 +1691,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "403" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -1697,7 +1707,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "500" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -1722,10 +1732,10 @@ const ApiCreation = () => {
                             {expandedSection === "joblastexecutedtimeapi" && (
                               <div className="space-y-6 ">
                                 <div className="">
-                                  <h3 className="text-xl font-bold pb-4">
+                                  <h3 className="md:text-xl text-md  font-bold pb-4">
                                     Job Last Executed Time API
                                   </h3>
-                                  <p className=" text-gray-400 text-md">
+                                  <p className=" text-gray-400 md:text-md text-sm">
                                     Updates the last execution timestamp for a specific automation job. This is used to track when the job was last run and manage scheduling for recurring tasks.
                                   </p>
                                 </div>
@@ -1733,7 +1743,7 @@ const ApiCreation = () => {
                                 <div>
                                   <div className="flex items-center gap-2 bg-[#242424] rounded-md overflow-auto">
                                     <code className="flex-1 p-3 rounded-lg text-sm">
-                                      <span className="px-3 py-2 bg-green-500 text-xs  mr-3">
+                                      <span className="px-3 py-2 bg--500 text-xs rounded-full mr-3">
                                         PUT
                                       </span>
                                       https://data.triggerx.network/api/jobs/
@@ -1794,7 +1804,7 @@ const ApiCreation = () => {
                                     Query Parameters
                                   </h4>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           job_id
@@ -1809,7 +1819,7 @@ const ApiCreation = () => {
                                       </p>
                                     </div>
 
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-1">
                                         <span className="text-[#FF616D]">
                                           recurring
@@ -1824,7 +1834,7 @@ const ApiCreation = () => {
                                       </p>
                                     </div>
 
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-1">
                                         <span className="text-[#FF616D]">
                                           time_frame
@@ -1846,7 +1856,7 @@ const ApiCreation = () => {
                                     Query Parameters
                                   </h4>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           api_key
@@ -1861,7 +1871,7 @@ const ApiCreation = () => {
                                     </div>
                                   </div>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           columns
@@ -1876,7 +1886,7 @@ const ApiCreation = () => {
                                     </div>
                                   </div>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           filters
@@ -1900,8 +1910,8 @@ const ApiCreation = () => {
                                         API Request
                                       </h3>
                                       <div className="flex gap-2">
-                                        <span className="px-5 py-2 bg-blue-500  text-xs rounded-full">
-                                          GET
+                                        <span className="px-2 py-1 bg-green-500 text-xs rounded-full">
+                                          POST
                                         </span>
                                       </div>
                                     </div>
@@ -1909,40 +1919,38 @@ const ApiCreation = () => {
                                     {/* Language Tabs */}
                                     <div className="flex border-b border-[#333333] overflow-o
                                     auto">
-                                      {["cURL"].map((lang) => (
-                                        <button
-                                          key={lang}
-                                          onClick={() =>
-                                            setActiveLanguage(`cURL`)
-                                          }
-                                          className={`px-4 py-2 text-sm font-medium ${activeLanguage === lang
-                                            ? "bg-[#242424] text-white border-b-2 border-[#5047FF]"
-                                            : "text-gray-400 hover:text-white hover:bg-[#242424]/50"
-                                            }`}
+                                      <div className="relative">
+                                        <div
+                                          onClick={() => setIsLanguageOpen(!isLanguageOpen)}
+                                          className="text-xs xs:text-sm sm:text-base bg-[#1a1a1a] text-white py-2 px-4 flex items-center gap-5 cursor-pointer"
                                         >
-                                          {lang}
-                                        </button>
-                                      ))}
+                                          {activeLanguage}
+                                          <IoIosArrowDown className={`ml-auto transition-transform ${isLanguageOpen ? 'rotate-180' : ''}`} />
+                                        </div>
+                                        {isLanguageOpen && (
+                                          <div className="absolute top-full left-0 w-full mt-1 bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden z-10">
+                                            {["cURL"].map((lang) => (
+                                              <div
+                                                key={lang}
+                                                className="py-3 px-4 hover:bg-[#333] cursor-pointer flex items-center gap-5 text-xs xs:text-sm sm:text-base rounded-lg"
+                                                onClick={() => {
+                                                  setActiveLanguage(lang);
+                                                  setIsLanguageOpen(false);
+                                                }}
+                                              >
+                                                {lang}
+                                              </div>
+                                            ))}
+                                          </div>
+                                        )}
+                                      </div>
                                     </div>
 
-                                    <div className="p-4 bg-[#242424]">
+                                    <div className="p-4 bg-[#242424] overflow-auto">
                                       {activeLanguage === "cURL" && (
                                         <pre
-                                          className="text-sm overflow-x-auto whitespace-pre-wrap"
-                                          style={{
-                                            scrollbarWidth: "thin",
-                                            "&::-webkit-scrollbar": {
-                                              width: "4px",
-                                              height: "4px",
-                                            },
-                                            "&::-webkit-scrollbar-track": {
-                                              backgroundColor: "#1A1A1A",
-                                            },
-                                            "&::-webkit-scrollbar-thumb": {
-                                              backgroundColor: "#333333",
-                                              borderRadius: "4px",
-                                            },
-                                          }}
+                                          className="text-sm whitespace-pre-wrap"
+                                         
                                         >
                                           <div>curl --request PUT \ </div>
                                           <div>
@@ -2052,7 +2060,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "400" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -2068,7 +2076,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "401" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -2084,7 +2092,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "403" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -2100,7 +2108,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "500" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -2124,10 +2132,10 @@ const ApiCreation = () => {
                             {expandedSection === "getjobsbyuseraddressapi" && (
                               <div className="space-y-6 ">
                                 <div className="">
-                                  <h3 className="text-xl font-bold pb-4">
+                                  <h3 className="md:text-xl text-md  font-bold pb-4">
                                     Get Jobs By User Address API
                                   </h3>
-                                  <p className=" text-gray-400 text-md">
+                                  <p className=" text-gray-400 md:text-md text-sm">
                                     Retrieve all automation jobs associated with
                                     a specific user's Ethereum wallet address.
                                     This endpoint returns detailed information
@@ -2199,7 +2207,7 @@ const ApiCreation = () => {
                                     Query Parameters
                                   </h4>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           user_address
@@ -2221,7 +2229,7 @@ const ApiCreation = () => {
                                     Query Parameters
                                   </h4>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           api_key
@@ -2236,7 +2244,7 @@ const ApiCreation = () => {
                                     </div>
                                   </div>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           columns
@@ -2251,7 +2259,7 @@ const ApiCreation = () => {
                                     </div>
                                   </div>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           filters
@@ -2273,20 +2281,32 @@ const ApiCreation = () => {
                                     <div>
                                       <h4 className="text-md ">Response</h4>
                                     </div>
-                                    <div>
-                                      <select
-                                        value={activeStatus}
-                                        onChange={(e) =>
-                                          setActiveStatus(e.target.value)
-                                        }
-                                        className="bg-[#1A1A1A] text-gray-400 px-3 py-2 rounded-md border border-[#333333] focus:outline-none focus:border-[#5047FF]"
-                                      >
-                                        <option value="200">200</option>
-                                        <option value="400">400 </option>
-                                        <option value="401">401 </option>
-                                        <option value="404">404 </option>
-                                        <option value="500">500 </option>
-                                      </select>
+                                    <div className="flex items-center gap-2">
+                                      <div className="relative">
+                                        <div
+                                          onClick={() => setIsStatusOpen(!isStatusOpen)}
+                                          className="text-xs xs:text-sm sm:text-base w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg border border-white/10 flex items-center gap-5 cursor-pointer"
+                                        >
+                                          {activeStatus}
+                                          <IoIosArrowDown className={`ml-auto transition-transform ${isStatusOpen ? 'rotate-180' : ''}`} />
+                                        </div>
+                                        {isStatusOpen && (
+                                          <div className="absolute top-full left-0 w-full mt-1 bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden z-10">
+                                            {["200", "400", "401", "404", "500"].map((status) => (
+                                              <div
+                                                key={status}
+                                                className="py-3 px-4 hover:bg-[#333] cursor-pointer flex items-center gap-5 text-xs xs:text-sm sm:text-base rounded-lg"
+                                                onClick={() => {
+                                                  setActiveStatus(status);
+                                                  setIsStatusOpen(false);
+                                                }}
+                                              >
+                                                {status}
+                                              </div>
+                                            ))}
+                                          </div>
+                                        )}
+                                      </div>
                                       <span className="text-[#C3E88D] lg:block hidden">
                                         application/json
                                       </span>
@@ -2296,7 +2316,7 @@ const ApiCreation = () => {
                                     <div className="">
                                       {activeStatus === "200" && (
                                         <>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 job_id{" "}
@@ -2309,7 +2329,7 @@ const ApiCreation = () => {
                                               ""
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 job_type
@@ -2322,7 +2342,7 @@ const ApiCreation = () => {
                                               ""
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 status
@@ -2336,7 +2356,7 @@ const ApiCreation = () => {
                                               return
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 chain_status
@@ -2350,7 +2370,7 @@ const ApiCreation = () => {
                                               return
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 link_job_id
@@ -2367,7 +2387,7 @@ const ApiCreation = () => {
                                         </>
                                       )}
                                       {activeStatus === "400" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -2383,7 +2403,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "401" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -2399,7 +2419,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "404" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -2415,7 +2435,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "500" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -2441,8 +2461,8 @@ const ApiCreation = () => {
                                         API Request
                                       </h3>
                                       <div className="flex gap-2">
-                                        <span className="px-5 py-2 bg-blue-500  text-xs rounded-full">
-                                          GET
+                                        <span className="px-2 py-1 bg-green-500 text-xs rounded-full">
+                                          POST
                                         </span>
                                       </div>
                                     </div>
@@ -2450,31 +2470,42 @@ const ApiCreation = () => {
                                     {/* Language Tabs */}
                                     <div className="flex border-b border-[#333333] overflow-o
                                     auto">
-                                      {["cURL"].map((lang) => (
-                                        <button
-                                          key={lang}
-                                          onClick={() =>
-                                            setActiveLanguage(`cURL`)
-                                          }
-                                          className={`px-4 py-2 text-sm font-medium ${activeLanguage === lang
-                                            ? "bg-[#242424] text-white border-b-2 border-[#5047FF]"
-                                            : "text-gray-400 hover:text-white hover:bg-[#242424]/50"
-                                            }`}
+                                      <div className="relative">
+                                        <div
+                                          onClick={() => setIsLanguageOpen(!isLanguageOpen)}
+                                          className="text-xs xs:text-sm sm:text-base bg-[#1a1a1a] text-white py-2 px-4 flex items-center gap-5 cursor-pointer"
                                         >
-                                          {lang}
-                                        </button>
-                                      ))}
+                                          {activeLanguage}
+                                          <IoIosArrowDown className={`ml-auto transition-transform ${isLanguageOpen ? 'rotate-180' : ''}`} />
+                                        </div>
+                                        {isLanguageOpen && (
+                                          <div className="absolute top-full left-0 w-full mt-1 bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden z-10">
+                                            {["cURL"].map((lang) => (
+                                              <div
+                                                key={lang}
+                                                className="py-3 px-4 hover:bg-[#333] cursor-pointer flex items-center gap-5 text-xs xs:text-sm sm:text-base rounded-lg"
+                                                onClick={() => {
+                                                  setActiveLanguage(lang);
+                                                  setIsLanguageOpen(false);
+                                                }}
+                                              >
+                                                {lang}
+                                              </div>
+                                            ))}
+                                          </div>
+                                        )}
+                                      </div>
                                     </div>
 
-                                    <div className="p-4 bg-[#242424]">
+                                    <div className="p-4 bg-[#242424] overflow-auto">
                                       {activeLanguage === "cURL" && (
                                         <pre
-                                          className="text-sm overflow-x-auto whitespace-pre-wrap"
+                                          className="text-sm  whitespace-pre-wrap"
                                           style={{
                                             scrollbarWidth: "thin",
                                             "&::-webkit-scrollbar": {
-                                              width: "4px",
-                                              height: "4px",
+                                              width: "2px",
+                                              height: "2px",
                                             },
                                             "&::-webkit-scrollbar-track": {
                                               backgroundColor: "#1A1A1A",
@@ -2641,7 +2672,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "400" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -2657,7 +2688,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "401" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -2673,7 +2704,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "403" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -2689,7 +2720,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "500" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -2713,10 +2744,10 @@ const ApiCreation = () => {
                             {expandedSection === "deletejobapi" && (
                               <div className="space-y-6 ">
                                 <div className="">
-                                  <h3 className="text-xl font-bold pb-4">
+                                  <h3 className="md:text-xl text-md  font-bold pb-4">
                                     Delete Job API
                                   </h3>
-                                  <p className="text-gray-400 text-md">
+                                  <p className="text-gray-400 md:text-md text-sm">
                                     Delete an existing automation job by its ID.
                                     This action cannot be undone.
                                   </p>
@@ -2786,7 +2817,7 @@ const ApiCreation = () => {
                                     Query Parameters
                                   </h4>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           api_key
@@ -2801,7 +2832,7 @@ const ApiCreation = () => {
                                     </div>
                                   </div>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           columns
@@ -2816,7 +2847,7 @@ const ApiCreation = () => {
                                     </div>
                                   </div>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           filters
@@ -2839,10 +2870,15 @@ const ApiCreation = () => {
                                       <h3 className="text-xl font-bold">
                                         API Request
                                       </h3>
+                                      <div className="flex gap-2">
+                                        <span className="px-2 py-1 bg-green-500 text-xs rounded-full">
+                                          POST
+                                        </span>
+                                      </div>
                                     </div>
 
-                                    <div className="p-4 bg-[#242424]">
-                                      <pre className="text-sm overflow-x-auto whitespace-pre-wrap">
+                                    <div className="p-4 bg-[#242424] overflow-auto">
+                                      <pre className="text-sm  whitespace-pre-wrap">
                                         <div>curl --request DELETE \ </div>
                                         <div>
                                           --url
@@ -2927,7 +2963,7 @@ const ApiCreation = () => {
                                       </pre>
                                     )}
                                     {activeStatus === "400" && (
-                                      <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                      <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                         {"{"}{" "}
                                         <div className="ml-4">
                                           <span className="text-[#FF616D]">
@@ -2943,7 +2979,7 @@ const ApiCreation = () => {
                                       </pre>
                                     )}
                                     {activeStatus === "401" && (
-                                      <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                      <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                         {"{"}{" "}
                                         <div className="ml-4">
                                           <span className="text-[#FF616D]">
@@ -2959,7 +2995,7 @@ const ApiCreation = () => {
                                       </pre>
                                     )}
                                     {activeStatus === "403" && (
-                                      <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                      <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                         {"{"}{" "}
                                         <div className="ml-4">
                                           <span className="text-[#FF616D]">
@@ -2975,7 +3011,7 @@ const ApiCreation = () => {
                                       </pre>
                                     )}
                                     {activeStatus === "500" && (
-                                      <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                      <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                         {"{"}{" "}
                                         <div className="ml-4">
                                           <span className="text-[#FF616D]">
@@ -2998,10 +3034,10 @@ const ApiCreation = () => {
                             {expandedSection === "getuserapi" && (
                               <div className="space-y-6">
                                 <div className="">
-                                  <h3 className="text-xl font-bold pb-4">
+                                  <h3 className="md:text-xl text-md font-bold pb-4">
                                     Get User API
                                   </h3>
-                                  <p className="text-gray-400 text-md">
+                                  <p className="text-gray-400 md:text-md text-sm">
                                     Retrieve user information including their
                                     job IDs and account balance.
                                   </p>
@@ -3071,7 +3107,7 @@ const ApiCreation = () => {
                                     Query Parameters
                                   </h4>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           api_key
@@ -3086,7 +3122,7 @@ const ApiCreation = () => {
                                     </div>
                                   </div>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           columns
@@ -3101,7 +3137,7 @@ const ApiCreation = () => {
                                     </div>
                                   </div>
                                   <div className=" rounded-lg space-y-6">
-                                    <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                    <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#FF616D]">
                                           filters
@@ -3119,24 +3155,36 @@ const ApiCreation = () => {
 
                                 {/* Response Section */}
                                 <div>
-                                <div className=" flex items-center gap-2 justify-between pb-4  border-[#4B4A4A] border-b">
-                                <div>
+                                  <div className=" flex items-center gap-2 justify-between pb-4  border-[#4B4A4A] border-b">
+                                    <div>
                                       <h4 className="text-md ">Response</h4>
                                     </div>
-                                    <div>
-                                      <select
-                                        value={activeStatus}
-                                        onChange={(e) =>
-                                          setActiveStatus(e.target.value)
-                                        }
-                                        className="bg-[#1A1A1A] text-gray-400 px-3 py-2 rounded-md border border-[#333333] focus:outline-none focus:border-[#5047FF]"
-                                      >
-                                        <option value="200">200</option>
-                                        <option value="400">400 </option>
-                                        <option value="401">401 </option>
-                                        <option value="404">404 </option>
-                                        <option value="500">500 </option>
-                                      </select>
+                                    <div className="flex items-center gap-2">
+                                      <div className="relative">
+                                        <div
+                                          onClick={() => setIsStatusOpen(!isStatusOpen)}
+                                          className="text-xs xs:text-sm sm:text-base w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg border border-white/10 flex items-center gap-5 cursor-pointer"
+                                        >
+                                          {activeStatus}
+                                          <IoIosArrowDown className={`ml-auto transition-transform ${isStatusOpen ? 'rotate-180' : ''}`} />
+                                        </div>
+                                        {isStatusOpen && (
+                                          <div className="absolute top-full left-0 w-full mt-1 bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden z-10">
+                                            {["200", "400", "401", "404", "500"].map((status) => (
+                                              <div
+                                                key={status}
+                                                className="py-3 px-4 hover:bg-[#333] cursor-pointer flex items-center gap-5 text-xs xs:text-sm sm:text-base rounded-lg"
+                                                onClick={() => {
+                                                  setActiveStatus(status);
+                                                  setIsStatusOpen(false);
+                                                }}
+                                              >
+                                                {status}
+                                              </div>
+                                            ))}
+                                          </div>
+                                        )}
+                                      </div>
                                       <span className="text-[#C3E88D] lg:block hidden">
                                         application/json
                                       </span>
@@ -3146,7 +3194,7 @@ const ApiCreation = () => {
                                     <div className="">
                                       {activeStatus === "200" && (
                                         <>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 user_id
@@ -3159,7 +3207,7 @@ const ApiCreation = () => {
                                               ""
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 user_address
@@ -3172,7 +3220,7 @@ const ApiCreation = () => {
                                               ""
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 job_ids
@@ -3185,7 +3233,7 @@ const ApiCreation = () => {
                                               ""
                                             </p>
                                           </div>
-                                          <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                          <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                             <div className="flex items-center gap-2 mb-1">
                                               <span className="text-[#FF616D]">
                                                 account_balance
@@ -3202,7 +3250,7 @@ const ApiCreation = () => {
                                         </>
                                       )}
                                       {activeStatus === "400" && (
-                                        <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                        <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                           <p className="text-gray-400 mb-2">
                                             Bad Request
                                           </p>
@@ -3221,7 +3269,7 @@ const ApiCreation = () => {
                                         </div>
                                       )}
                                       {activeStatus === "401" && (
-                                        <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                        <div className=" border-[#4B4A4A] border-b pb-4 my-4 overflow-scroll">
                                           <p className="text-gray-400 mb-2">
                                             Unauthorized
                                           </p>
@@ -3240,7 +3288,7 @@ const ApiCreation = () => {
                                         </div>
                                       )}
                                       {activeStatus === "404" && (
-                                        <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                        <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                           <p className="text-gray-400 mb-2">
                                             Not Found
                                           </p>
@@ -3261,7 +3309,7 @@ const ApiCreation = () => {
                                       )}
 
                                       {activeStatus === "500" && (
-                                        <div className=" border-[#4B4A4A] border-b pb-4 mb-4">
+                                        <div className=" border-[#4B4A4A] border-b pb-4 my-4">
                                           <p className="text-gray-400 mb-2">
                                             Internal Server Error
                                           </p>
@@ -3290,9 +3338,14 @@ const ApiCreation = () => {
                                       <h3 className="text-xl font-bold">
                                         API Request
                                       </h3>
+                                      <div className="flex gap-2">
+                                        <span className="px-2 py-1 bg-green-500 text-xs rounded-full">
+                                          POST
+                                        </span>
+                                      </div>
                                     </div>
-                                    <div className="p-4 bg-[#242424]">
-                                      <pre className="text-sm overflow-x-auto whitespace-pre-wrap">
+                                    <div className="p-4 bg-[#242424] overflow-auto">
+                                      <pre className="text-sm  whitespace-pre-wrap">
                                         <div>curl --request GET \ </div>
                                         <div>
                                           {" "}
@@ -3405,7 +3458,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "400" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -3421,7 +3474,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "401" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -3437,7 +3490,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "403" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
@@ -3453,7 +3506,7 @@ const ApiCreation = () => {
                                         </pre>
                                       )}
                                       {activeStatus === "500" && (
-                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6]">
+                                        <pre className="text-sm overflow-x-auto whitespace-pre-wrap text-[#E6E6E6] mt-4">
                                           {"{"}{" "}
                                           <div className="ml-4">
                                             <span className="text-[#FF616D]">
