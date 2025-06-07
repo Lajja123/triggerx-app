@@ -374,7 +374,7 @@ export function EstimatedFeeModal({
                 <div className="text-gray-300 flex flex-row  justify-between gap-1 sm:gap-0  items-center">
                   <div className="flex items-center">
                     <p className="text-sm sm:text-base">Required TG</p>
-                    <div className="relative">
+                    <div className="">
                       <FiInfo
                         className="text-gray-400 hover:text-white cursor-pointer ml-2"
                         size={15}
@@ -382,9 +382,12 @@ export function EstimatedFeeModal({
                         onMouseLeave={() => setShowRequiredTGTooltip(false)}
                       />
                       {showRequiredTGTooltip && (
-                        <div className="absolute right-0 mt-2 p-4 bg-[#181818] rounded-xl border border-[#4B4A4A] shadow-lg z-50 w-[280px]">
-                          <div className="flex flex-col gap-2 text-sm text-gray-300">
-                            <div className="flex items-center gap-2">
+                        <div className="absolute left-1/2 -translate-x-1/2 sm:right-0 sm:left-auto sm:translate-x-0 top-7 sm:top-auto sm:mt-2 mt-2 p-2 sm:p-3 md:p-4 bg-[#181818] rounded-xl border border-[#4B4A4A] shadow-lg z-50 w-[200px] xs:w-[240px] sm:w-[280px] md:w-[320px]">
+                          {/* Arrow */}
+                          <div className="hidden sm:block absolute -right-2 top-3 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-8 border-l-[#181818]"></div>
+                          <div className="block sm:hidden absolute left-1/2 -translate-x-1/2 -top-2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-[#181818]"></div>
+                          <div className="flex flex-col gap-1 sm:gap-2 text-[11px] xs:text-xs sm:text-sm text-gray-300">
+                            <div className="flex items-center gap-1 sm:gap-2">
                               <span>
                                 TriggerGas (TG) is the standard unit for calculating
                                 computational and resource costs on the TriggerX
@@ -417,7 +420,7 @@ export function EstimatedFeeModal({
                   <div className="text-gray-300 flex flex-row justify-between gap-1 sm:gap-0 items-center">
                     <div className="flex items-center">
                       <p className="text-sm sm:text-base">Required ETH to TG</p>
-                      <div className="relative">
+                      <div className="">
                         <FiInfo
                           className="text-gray-400 hover:text-white cursor-pointer ml-2"
                           size={15}
@@ -425,9 +428,12 @@ export function EstimatedFeeModal({
                           onMouseLeave={() => setShowStakeTooltip(false)}
                         />
                         {showStakeTooltip && (
-                          <div className="absolute right-0 mt-2 p-4 bg-[#181818] rounded-xl border border-[#4B4A4A] shadow-lg z-50 w-[280px]">
-                            <div className="flex flex-col gap-2 text-sm text-gray-300">
-                              <div className="flex items-center gap-2">
+                          <div className="absolute left-1/2 -translate-x-1/2 sm:right-0 sm:left-auto sm:translate-x-0 top-7 sm:top-auto sm:mt-2 mt-2 p-2 sm:p-3 md:p-4 bg-[#181818] rounded-xl border border-[#4B4A4A] shadow-lg z-50 w-[200px] xs:w-[240px] sm:w-[280px] md:w-[320px]">
+                            {/* Arrow */}
+                            <div className="hidden sm:block absolute -right-2 top-3 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-8 border-l-[#181818]"></div>
+                            <div className="block sm:hidden absolute left-1/2 -translate-x-1/2 -top-2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-[#181818]"></div>
+                            <div className="flex flex-col gap-1 sm:gap-2 text-[11px] xs:text-xs sm:text-sm text-gray-300">
+                              <div className="flex items-center gap-1 sm:gap-2">
                                 <span>
                                   Required ETH to Stake is based on the total
                                   TriggerXGas consumed and TriggerXGas Unit Price.

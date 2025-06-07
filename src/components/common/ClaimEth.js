@@ -179,11 +179,11 @@ const ClaimModal = ({ isOpen, onClose, onConfirm, address, claimAmount }) => {
                 </div>
               </div>
 
-              <div>
-                <span className="text-sm sm:text-base text-gray-400">Claim Amount</span>
-                <div className="mt-1 text-[#F8FF7C] font-bold text-lg sm:text-xl">
+              <div className="mt-1 flex items-center gap-2">
+              <span className="text-sm sm:text-base text-gray-400">Claim Amount</span>
+                <span className="mt-1 text-[#F8FF7C] font-bold text-sm sm:text-base">
                   {claimAmount} ETH
-                </div>
+                </span>
               </div>
             </div>
           </div>
