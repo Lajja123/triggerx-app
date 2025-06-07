@@ -26,6 +26,8 @@ function AnimatedRoleTabs({ activeTab, setActiveTab }) {
     contributor: contributorButtonRef,
   };
 
+  const tabRefs = useRef([]);
+
   // Function to update the highlight's style
   // It positions the highlight under the given targetElement
   const updateHighlightPosition = (targetElement, animate = true) => {
@@ -43,7 +45,7 @@ function AnimatedRoleTabs({ activeTab, setActiveTab }) {
         opacity: 1, // Make it visible
         width: `${targetWidth}px`,
         height: `${targetHeight}px`,
-        transform: `translate(${targetOffsetLeft}px, ${targetOffsetTop}px)`,        transition: animate ? 'all 0.25s ease-out' : 'none',
+        transform: `translate(${targetOffsetLeft}px, ${targetOffsetTop}px)`, transition: animate ? 'all 0.25s ease-out' : 'none',
       });
     } else {
       // If targetElement is not valid, try to reset to active or hide
@@ -67,6 +69,21 @@ function AnimatedRoleTabs({ activeTab, setActiveTab }) {
     }
   }, [activeTab]); // Rerun this effect when activeTab changes
 
+  useEffect(() => {
+    const handleResize = () => {
+      const node = tabRefs.current[activeTab];
+      if (node) {
+        setHighlightStyle({
+          left: node.offsetLeft,
+          width: node.offsetWidth,
+        });
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [activeTab]);
+
   const handleMouseEnter = (event) => {
     updateHighlightPosition(event.currentTarget, true);
   };
@@ -76,7 +93,7 @@ function AnimatedRoleTabs({ activeTab, setActiveTab }) {
     if (currentActiveButton) {
       updateHighlightPosition(currentActiveButton, true);
     } else {
-        setHighlightStyle(prev => ({ ...prev, opacity: 0, transition: 'opacity 0.25s ease-out'}));
+      setHighlightStyle(prev => ({ ...prev, opacity: 0, transition: 'opacity 0.25s ease-out' }));
     }
   };
 
@@ -97,15 +114,14 @@ function AnimatedRoleTabs({ activeTab, setActiveTab }) {
         style={highlightStyle}
       />
 
-      {TABS_DATA.map((tabInfo) => (
+      {TABS_DATA.map((tabInfo, idx) => (
         <button
           key={tabInfo.id}
-          ref={tabInfo.ref}
-          className={`w-[33%] text-[#FFFFFF] text-[10px] xs:text-xs md:text-lg lg:text-xl p-2 xs:p-3 sm:p-4 rounded-lg relative z-[1] ${
-            activeTab === tabInfo.id
-              ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] border border-[#4B4A4A]" // Active button style
-              : "bg-transparent" // Inactive button style (allows highlight to show through on hover)
-          }`}
+          ref={el => tabRefs.current[idx] = el}
+          className={`w-[33%] text-[#FFFFFF] text-[10px] xs:text-xs md:text-lg lg:text-xl p-2 xs:p-3 sm:p-4 rounded-lg relative z-[1] ${activeTab === tabInfo.id
+            ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] border border-[#4B4A4A]" // Active button style
+            : "bg-transparent" // Inactive button style (allows highlight to show through on hover)
+            }`}
           onClick={() => setActiveTab(tabInfo.id)}
           onMouseEnter={handleMouseEnter}
         >

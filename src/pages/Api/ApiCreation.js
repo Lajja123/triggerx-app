@@ -671,7 +671,7 @@ const ApiCreation = () => {
                                       {activeLanguage === "cURL" && (
                                         <pre
                                           className="text-sm  whitespace-pre-wrap"
-                                         
+
                                         >
                                           <div className="text-sm">
                                             {"{"}
@@ -1414,7 +1414,7 @@ const ApiCreation = () => {
                                       {activeLanguage === "cURL" && (
                                         <pre
                                           className="text-sm  whitespace-pre-wrap"
-                                          
+
                                         >
                                           <div className="text-sm">
                                             {"{"}
@@ -1950,7 +1950,7 @@ const ApiCreation = () => {
                                       {activeLanguage === "cURL" && (
                                         <pre
                                           className="text-sm whitespace-pre-wrap"
-                                         
+
                                         >
                                           <div>curl --request PUT \ </div>
                                           <div>
