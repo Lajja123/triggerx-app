@@ -119,6 +119,10 @@ export function ContractDetails({
 
     console.log("Contract address changed to:", address);
     setContractAddress(address);
+    // Clear target function and manual ABI when contract address changes
+    setTargetFunction("");
+    setManualABI("");
+    setShowManualABIInput(false);
 
     const processSuccessfulAbi = (abiResult, source) => {
       console.log(`ABI fetched successfully from ${source}`);
@@ -441,7 +445,7 @@ export function ContractDetails({
         </div>
       )}
 
-      {(contractAddress || manualABI) && !addressError && (
+      {contractAddress && contractABI && !addressError && (
         <>
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <label
