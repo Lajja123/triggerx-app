@@ -261,7 +261,7 @@ function DashboardPage() {
               linkJobId: nextJob.job_data.link_job_id,
               chainStatus: nextJob.job_data.chain_status,
               custom: nextJob.job_data.custom,
-              timeFrame: typeSpecificData.time_frame || {},
+              timeFrame: nextJob.job_data.time_frame || {},
               recurring: typeSpecificData.recurring,
               timeInterval: typeSpecificData.time_interval || {},
               triggerChainId: typeSpecificData.trigger_chain_id,
@@ -314,7 +314,7 @@ function DashboardPage() {
             linkJobId: jobDetail.job_data.link_job_id,
             chainStatus: jobDetail.job_data.chain_status,
             custom: jobDetail.job_data.custom,
-            timeFrame: typeSpecificData.time_frame || {},
+            timeFrame: jobDetail.job_data.time_frame || {},
             timeInterval: typeSpecificData.time_interval || {},
             targetChainId: typeSpecificData.target_chain_id,
             targetContractAddress: typeSpecificData.target_contract_address,
@@ -750,7 +750,7 @@ function DashboardPage() {
       <div className=" mx-auto  lg:my-15 md:my-20 my-10 sm:my-20 ">
         <div className="flex max-w-[1600px] mx-auto justify-evenly gap-5 lg:flex-row flex-col ">
           <div className="xl:w-[73%] lg:w-[70%] w-full">
-            <div className="bg-[#141414] backdrop-blur-xl rounded-2xl p-8">
+            <div className="bg-[#141414] backdrop-blur-xl rounded-2xl p-4 md:p-8">
               <div className="flex justify-between items-center mb-6 flex-col lg:flex-row gap-3 md:flex-row">
                 <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-white">
                   Active Jobs
@@ -883,10 +883,10 @@ function DashboardPage() {
                                   <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Avg Type :</span><span className="text-[#A2A2A2] text-sm">{job.argType}</span></div>
                                   <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Interval :</span><span className="text-[#A2A2A2] text-sm"> {job.timeInterval}</span></div>
 
-                                  <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target Contract :</span><span className="text-[#A2A2A2] text-sm"> {sliceAddress(job.targetContractAddress)} </span></div>
-                                  <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Created At:</span><span className="text-[#A2A2A2] text-sm"> {formatDate(job.createdAt)}</span></div>
-                                  <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target Function :</span><span className="text-[#A2A2A2] text-sm"> {truncateText(job.targetFunction)}</span></div>
-                                  <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target ChainId :</span><span className="text-[#A2A2A2] text-sm"> {job.targetChainId}</span></div>
+                                  <div className="flex items-start justify-between flex-col md:flex-row md:items-center gap-2 py-1"><span className="text-sm text-white">Target Contract :</span><span className="text-[#A2A2A2] text-sm"> {sliceAddress(job.targetContractAddress)} </span></div>
+                                  <div className="flex items-start justify-between flex-col md:flex-row md:items-center gap-2 py-1"><span className="text-sm text-white">Created At:</span><span className="text-[#A2A2A2] text-sm"> {formatDate(job.createdAt)}</span></div>
+                                  <div className="flex items-start justify-between flex-col md:flex-row md:items-center gap-2 py-1"><span className="text-sm text-white">Target Function :</span><span className="text-[#A2A2A2] text-sm"> {truncateText(job.targetFunction)}</span></div>
+                                  <div className="flex items-start justify-between flex-col md:flex-row md:items-center gap-2 py-1"><span className="text-sm text-white">Target ChainId :</span><span className="text-[#A2A2A2] text-sm"> {job.targetChainId}</span></div>
                                   {/* <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Last Execution :</span><span className="text-[#A2A2A2] text-sm"> {job.lastExecutedAt}</span></div> */}
                                 </div>
                               )}
@@ -992,10 +992,10 @@ function DashboardPage() {
                                           <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Avg Type :</span><span className="text-[#A2A2A2] text-sm">{linkedJob.argType}</span></div>
                                           <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Interval :</span><span className="text-[#A2A2A2] text-sm"> {linkedJob.timeInterval}</span></div>
 
-                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target Contract :</span><span className="text-[#A2A2A2] text-sm"> {sliceAddress(linkedJob.targetContractAddress)} </span></div>
-                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Created At:</span><span className="text-[#A2A2A2] text-sm"> {formatDate(linkedJob.createdAt)}</span></div>
-                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target Function :</span><span className="text-[#A2A2A2] text-sm"> {truncateText(linkedJob.targetFunction)}</span></div>
-                                          <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Target ChainId :</span><span className="text-[#A2A2A2] text-sm"> {linkedJob.targetChainId}</span></div>
+                                          <div className="flex items-start justify-between flex-col md:flex-row md:items-center gap-2 py-1"><span className="text-sm text-white">Target Contract :</span><span className="text-[#A2A2A2] text-sm"> {sliceAddress(linkedJob.targetContractAddress)} </span></div>
+                                          <div className="flex items-start justify-between flex-col md:flex-row md:items-center gap-2 py-1"><span className="text-sm text-white">Created At:</span><span className="text-[#A2A2A2] text-sm"> {formatDate(linkedJob.createdAt)}</span></div>
+                                          <div className="flex items-start justify-between flex-col md:flex-row md:items-center gap-2 py-1"><span className="text-sm text-white">Target Function :</span><span className="text-[#A2A2A2] text-sm"> {truncateText(linkedJob.targetFunction)}</span></div>
+                                          <div className="flex items-start justify-between flex-col md:flex-row md:items-center gap-2 py-1"><span className="text-sm text-white">Target ChainId :</span><span className="text-[#A2A2A2] text-sm"> {linkedJob.targetChainId}</span></div>
                                           {/* <div className="flex items-center justify-between gap-2 py-1"><span className="text-sm text-white">Last Execution :</span><span className="text-[#A2A2A2] text-sm"> {linkedJob.lastExecutedAt}</span></div> */}
                                         </div>
                                       )}

@@ -371,7 +371,7 @@ export function EstimatedFeeModal({
                 Estimated Fee
               </h2>
               <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
-                <div className="text-gray-300 flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
+                <div className="text-gray-300 flex flex-row  justify-between gap-1 sm:gap-0  items-center">
                   <div className="flex items-center">
                     <p className="text-sm sm:text-base">Required TG</p>
                     <div className="relative">
@@ -404,7 +404,7 @@ export function EstimatedFeeModal({
                   </p>
                 </div>
 
-                <div className="text-gray-300 flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
+                <div className="text-gray-300 flex flex-row justify-between gap-1 sm:gap-0">
                   <p className="text-sm sm:text-base">Your TG Balance</p>
                   <Tooltip title={userBalance || "0"} placement="top">
                     <p className="cursor-help text-sm sm:text-base">
@@ -414,7 +414,7 @@ export function EstimatedFeeModal({
                 </div>
 
                 {!hasEnoughBalance && (
-                  <div className="text-gray-300 flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
+                  <div className="text-gray-300 flex flex-row justify-between gap-1 sm:gap-0 items-center">
                     <div className="flex items-center">
                       <p className="text-sm sm:text-base">Required ETH to TG</p>
                       <div className="relative">
