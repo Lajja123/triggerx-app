@@ -500,7 +500,7 @@ const BalanceMaintainerExample = () => {
           <div className="text-[#A2A2A2]">
             {isPageLoading ? (
               <div className="bg-white/5 border border-white/10 p-4 sm:p-5 rounded-lg mt-4 sm:mt-6">
-                <span className="text-white text-center text-md lg:text-md">Loading contract details...</span>
+                <span className="text-white text-center text-sm lg:text-md">Loading contract details...</span>
               </div>
             ) : !isConnected ? (
               <div className="flex flex-col items-center justify-center h-[150px] sm:h-[200px] text-[#A2A2A2] my-3">

@@ -58,44 +58,7 @@ const HighlightedData = ({ data, type, onCopyAddress, copyStatus, onViewProfile 
           <div className="bg-[#181818] p-2 sm:p-3 flex items-center gap-1 rounded-lg w-full">
             <h4 className="text-base sm:text-xl font-medium text-[#A2A2A2] break-all">
               {data.operator} : {data.address}{' '}
-              <button
-                onClick={() => onCopyAddress(data.address)}
-                className="p-1 sm:p-1.5 hover:bg-[#252525] rounded-md transition-all ml-2"
-                title="Copy address"
-              >
-                {copyStatus[data.address] ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#82FBD0"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="sm:w-4 sm:h-4"
-                  >
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#FBF197"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="sm:w-4 sm:h-4"
-                  >
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
-                  </svg>
-                )}
-              </button>
+
             </h4>
           </div>
         );
@@ -112,44 +75,7 @@ const HighlightedData = ({ data, type, onCopyAddress, copyStatus, onViewProfile 
                 {data.address}
 
               </span>
-              <button
-                onClick={() => onCopyAddress(data.address)}
-                className="p-1 sm:p-1.5 hover:bg-[#252525] rounded-md transition-all ml-2"
-                title="Copy address"
-              >
-                {copyStatus[data.address] ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#82FBD0"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="sm:w-4 sm:h-4"
-                  >
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#FBF197"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="sm:w-4 sm:h-4"
-                  >
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
-                  </svg>
-                )}
-              </button>
+
             </p>
           </div>
         );

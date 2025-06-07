@@ -399,7 +399,7 @@ export function ContractDetails({
               </svg>
             ) : (
               <div className="flex items-center ml-3">
-                <h4 className="text-gray-400 pr-2 text-xs xs:text-sm sm:text-base">
+                <h4 className="text-gray-400 pr-2 text-xs xs:text-sm sm:text-base hidden md:block">
                   Not Available{" "}
                 </h4>
                 <h4 className="text-red-400 mt-[2px]"> ✕</h4>
@@ -455,16 +455,16 @@ export function ContractDetails({
               ref={dropdownRef}
               className="relative w-full md:w-[70%] xl:w-[80%] z-50"
             >
-              <div
-                className="word-break-all text-xs xs:text-sm sm:text-base w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg cursor-pointer border border-white/10 flex items-center justify-between"
+              <li
+                className="break-all text-sm xs:text-sm sm:text-base w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg cursor-pointer border border-white/10 flex items-center justify-between"
                 aria-required
                 onClick={() => setIsFunctionOpen(!isFunctionOpen)}
               >
                 {targetFunction || "Select a function"}
                 <ChevronDown className="text-white text-xs ml-4" />
-              </div>
+              </li>
               {isFunctionOpen && (
-                <div className="absolute top-14 w-full bg-[#1a1a1a] border border-white/10 rounded-lg overflow-visible shadow-lg z-50">
+                <li className="list-none absolute top-14 w-full bg-[#1a1a1a] border border-white/10 rounded-lg overflow-visible shadow-lg z-50">
                   {functions.map((func, index) => {
                     const signature = `${func.name}(${func.inputs
                       .map((input) => input.type)
@@ -472,14 +472,14 @@ export function ContractDetails({
                     return (
                       <div
                         key={index}
-                        className="word-break-all py-3 px-4 hover:bg-[#333] cursor-pointer rounded-lg text-xs xs:text-sm sm:text-base text-clip"
+                        className="break-all py-3 px-4 hover:bg-[#333] cursor-pointer rounded-lg text-sm xs:text-sm sm:text-base text-clip"
                         onClick={() => handleFunctionSelect(signature)}
                       >
                         {signature}
                       </div>
                     );
                   })}
-                </div>
+                </li>
               )}
             </div>
           </div>
@@ -504,8 +504,8 @@ export function ContractDetails({
                   ref={dropdown2Ref}
                   className="relative w-full md:w-[70%] xl:w-[80%] z-30"
                 >
-                  <div
-                    className={`text-xs xs:text-sm sm:text-base w-full bg-[#141414] text-white py-3 px-4 rounded-lg cursor-pointer border border-white/10 flex items-center justify-between ${!hasArguments ? "opacity-50 cursor-not-allowed" : ""
+                  <li
+                    className={`list-none text-sm xs:text-sm sm:text-base w-full bg-[#141414] text-white py-3 px-4 rounded-lg cursor-pointer border border-white/10 flex items-center justify-between ${!hasArguments ? "opacity-50 cursor-not-allowed" : ""
                       }`}
                     onClick={() =>
                       hasArguments && setIsArgumentTypeOpen(!isArgumentTypeOpen)
@@ -513,7 +513,7 @@ export function ContractDetails({
                   >
                     {argumentType === "static" ? "Static" : "Dynamic"}
                     <ChevronDown className="text-white text-xs" />
-                  </div>
+                  </li>
                   <h4 className="w-full ml-1 mt-3 text-xs text-gray-400">
                     {hasArguments
                       ? "Select how function arguments should be handled during execution"
@@ -522,9 +522,9 @@ export function ContractDetails({
                   {isArgumentTypeOpen && hasArguments && (
                     <div className="absolute top-14 w-full bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden shadow-lg">
                       {["static", "dynamic"].map((type) => (
-                        <div
+                        <li
                           key={type}
-                          className="py-3 px-4 hover:bg-[#333] cursor-pointer rounded-lg text-xs xs:text-sm sm:text-base"
+                          className="list-none py-3 px-4 hover:bg-[#333] cursor-pointer rounded-lg text-sm xs:text-sm sm:text-base"
                           onClick={() => {
                             handleArgumentTypeChange({
                               target: { value: type },
@@ -533,7 +533,7 @@ export function ContractDetails({
                           }}
                         >
                           {type.charAt(0).toUpperCase() + type.slice(1)}
-                        </div>
+                        </li>
                       ))}
                     </div>
                   )}
@@ -562,8 +562,8 @@ export function ContractDetails({
                 key={index}
                 className="flex flex-col md:flex-row items-start md:items-center gap-6 justify-between mt-6"
               >
-                <label className="block text-sm text-gray-400 text-nowrap tracking-wide">
-                  {input.name || `Argument ${index + 1}`} ({input.type})
+                <label className="break-all block text-sm text-gray-400 text-nowrap tracking-wide">
+                  {input.name || `Argument ${index + 1}`} ()
                 </label>
                 <input
                   type="text"

@@ -323,152 +323,41 @@ const Leaderboard = () => {
   };
 
   const renderContributorTable = () => {
-    // const paginatedContributors = getPaginatedData(filteredContributors);
-    // const totalPages = getTotalPages(filteredContributors);
-
     return (
-      <>
-        <HighlightedData
-          data={highlightedContributor}
-          type="contributor"
-          onCopyAddress={(address) => copyAddressToClipboard(address, address)}
-          copyStatus={copyStatus}
-          onViewProfile={(address) =>
-            window.open(
-              `https://app.eigenlayer.xyz/contributor/${address}`,
-              "_blank"
-            )
-          }
-        />
-
-        <div className="bg-[#141414] p-3 sm:p-7 rounded-lg overflow-auto">
-          <table className="w-full border-separate border-spacing-y-4 max-h-[650px] h-auto">
-            <thead className="sticky top-0 bg-[#303030] text-nowrap">
-              <tr>
-                <th className="px-6 py-5 text-left text-[#FFFFFF] font-bold text-xs md:text-lg rounded-tl-lg rounded-bl-lg">
-                  Name
-                </th>
-                <th
-                  className="px-6 py-5 text-left text-[#FFFFFF] font-bold text-xs md:text-lg cursor-pointer select-none"
-                  onClick={() => {
-                    setSortConfig((prev) => ({
-                      key: "points",
-                      direction:
-                        prev.key === "points" && prev.direction === "desc"
-                          ? "asc"
-                          : "desc",
-                    }));
-                  }}
-                >
-                  Points
-                  {sortConfig.key === "points" ? (
-                    sortConfig.direction === "asc" ? (
-                      <Tooltip title="Sort ascending">
-                        <FiChevronUp className="inline ml-1 text-[#C07AF6]" />
-                      </Tooltip>
-                    ) : (
-                      <Tooltip title="Sort descending">
-                        <FiChevronDown className="inline ml-1 text-[#C07AF6]" />
-                      </Tooltip>
-                    )
-                  ) : (
-                    <Tooltip title="Sort descending">
-                      <FiChevronDown className="inline ml-1 text-[#A2A2A2]" />
-                    </Tooltip>
-                  )}
-                </th>
-                <th className="px-6 py-5 text-left text-[#FFFFFF] font-bold text-xs md:text-lg rounded-tr-lg rounded-br-lg">
-                  Profile
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* {paginatedContributors.length > 0
-                ? paginatedContributors.map((item, index) => (
-                  <tr key={index} className={isConnected && item.address === connectedAddress ? "bg-[#271039] border-2 border-[#C07AF6]" : ""}>
-                    <td className="bg-[#1A1A1A] px-6 py-5 text-[#A2A2A2] md:text-md lg:text-lg xs:text-[12px] border border-r-0 border-[#2A2A2A] rounded-tl-lg rounded-bl-lg">
-                      {item.name}
-                    </td>
-                    <td className="bg-[#1A1A1A] px-6 py-5 text-[#A2A2A2] border border-l-0 border-[#2A2A2A] border-r-0">
-                      <span className="px-7 py-3 bg-[#F8FF7C] text-md border-none text-[#C1BEFF] text-black md:text-md xs:text-[12px] rounded-lg">
-                        {Number(item.points).toFixed(2)}
-                      </span>
-                    </td>
-                    <Tooltip title="View Profile" color="#2A2A2A">
-                      <td className="bg-[#1A1A1A] px-6 py-5 space-x-2 text-white flex-row justify-between border border-l-0 border-[#2A2A2A] rounded-tr-lg rounded-br-lg">
-                        <button
-                          onClick={() =>
-                            window.open(
-                              `https://app.eigenlayer.xyz/contributor/${item.address}`,
-                              "_blank"
-                            )
-                          }
-                          className="px-5 py-2 text-sm text-white underline decoration-2 decoration-white underline-offset-4"
-                        >
-                          View
-                        </button>
-                      </td>
-                    </Tooltip>
-                  </tr>
-                ))
-                : !isLoading && (
-                  <tr>
-                    <td colSpan="3" className="text-center text-[#A2A2A2] py-5">
-                      <div className="flex flex-col items-center justify-center h-[200px] text-[#A2A2A2]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="48"
-                          height="48"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="mb-4"
-                        >
-                          <rect width="18" height="18" x="3" y="3" rx="2" />
-                          <path d="M3 9h18" />
-                          <path d="M9 21V9" />
-                        </svg>
-                        <p className="text-lg mb-2">     No contributor data available</p>
-                      </div>
-
-                    </td>
-                  </tr>
-                )} */}
-
-              <tr>
-                <td colSpan="3" className="text-center text-[#A2A2A2] py-5">
-                  <div className="flex flex-col items-center justify-center h-[200px] text-[#A2A2A2]">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="48"
-                      height="48"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="mb-4"
-                    >
-                      <rect width="18" height="18" x="3" y="3" rx="2" />
-                      <path d="M3 9h18" />
-                      <path d="M9 21V9" />
-                    </svg>
-                    <p className="text-sm sm:text-base lg:text-lg mb-2">
-                      {" "}
-                      No contributor data available
-                    </p>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        {/* {renderPagination(totalPages)} */}
-      </>
+      <div className="bg-[#141414] p-3 sm:p-7 rounded-lg overflow-auto">
+        <table className="w-full border-separate border-spacing-y-4 max-h-[650px] h-auto">
+          <tbody>
+            <tr>
+              <td className="text-center text-[#A2A2A2] py-5" colSpan={3}>
+                <div className="flex flex-col items-center justify-center h-[200px] text-[#A2A2A2]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="48"
+                    height="48"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="mb-4"
+                  >
+                    <rect width="18" height="18" x="3" y="3" rx="2" />
+                    <path d="M3 9h18" />
+                    <path d="M9 21V9" />
+                  </svg>
+                  <p className="text-sm sm:text-base lg:text-lg mb-2">
+                    Contributor Leaderboard Coming Soon
+                  </p>
+                  <p className="text-sm text-[#A2A2A2]">
+                    Stay tuned for exciting updates!
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     );
   };
 
@@ -592,7 +481,7 @@ const Leaderboard = () => {
 
   return (
     <>
-      <div className="min-h-screen mt-[10rem] lg:mt-[17rem] max-w-[1600px] w-[85%] mx-auto">
+      <div className=" my-[10rem] lg:mt-[17rem] max-w-[1600px] w-[85%] mx-auto">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center tracking-wider">
           Leaderboard
         </h1>
@@ -627,7 +516,7 @@ const Leaderboard = () => {
               />
               <button
                 onClick={() => setSearchTerm("")}
-                className="bg-[#C07AF6] hover:bg-[#a46be0] transition-colors w-11 h-11 sm:w-12 sm:h-12 xl:w-14 xl:h-14 flex items-center justify-center -ml-5 sm:-ml-6 xl:-ml-5 z-10 border border-[#A2A2A2] rounded-full"
+                className="bg-[#C07AF6] hover:bg-[#a46be0] transition-colors w-12 h-12 sm:w-12 sm:h-12 xl:w-14 xl:h-14 flex items-center justify-center -ml-5 sm:-ml-6 xl:-ml-5 z-10 border border-[#A2A2A2] rounded-full"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -144,7 +144,7 @@ function DashboardPage() {
   useEffect(() => {
     const initializeProvider = async () => {
       if (typeof window.ethereum !== "undefined") {
-    
+
         if (address) {
           const ethProvider = new ethers.BrowserProvider(window.ethereum);
           setProvider(ethProvider);
@@ -747,9 +747,9 @@ function DashboardPage() {
       <div className="fixed inset-0  pointer-events-none" />
       <div className="fixed  pointer-events-none" />
 
-      <div className=" mx-auto  lg:my-15 md:my-20 my-20 sm:my-20 ">
-        <div className="flex max-w-[1600px] mx-auto justify-evenly gap-10 lg:flex-row flex-col ">
-          <div className="lg:w-[75%] w-full">
+      <div className=" mx-auto  lg:my-15 md:my-20 my-10 sm:my-20 ">
+        <div className="flex max-w-[1600px] mx-auto justify-evenly gap-5 lg:flex-row flex-col ">
+          <div className="xl:w-[73%] lg:w-[70%] w-full">
             <div className="bg-[#141414] backdrop-blur-xl rounded-2xl p-8">
               <div className="flex justify-between items-center mb-6 flex-col lg:flex-row gap-3 md:flex-row">
                 <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-white">
@@ -760,7 +760,7 @@ function DashboardPage() {
                   <div className="relative">
                     {/* Visible Select Button */}
                     <div
-                      className="dropdown-button bg-[#1A1A1A] text-[#A2A2A2] border border-[#2A2A2A] rounded-lg px-4 py-2 focus:outline-none focus:border-[#C07AF6] cursor-pointer hover:border-[#C07AF6] transition-colors duration-200 flex items-center justify-between w-[200px]"
+                      className="dropdown-button bg-[#1A1A1A] text-[#A2A2A2] border border-[#2A2A2A] rounded-lg px-4 py-2 focus:outline-none focus:border-none  cursor-pointer  rounded-full transition-colors duration-200 flex items-center justify-between w-[200px]"
                       onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                     >
                       <li className="text-[#A2A2A2] list-none">{selectedType === "all" ? "All Types" : selectedType}</li>
@@ -780,7 +780,7 @@ function DashboardPage() {
                     {/* Dropdown Options List */}
                     {isDropdownOpen && (
                       <div ref={dropdownRef} className="dropdown-menu absolute z-10 mt-1 w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg shadow-lg">
-                        <ul className="py-1">
+                        <ul className="py-0">
                           {[
                             { type: 'all', label: 'All Types', icon: null },
                             { type: 'Time-based', label: 'Time-based', icon: timeBasedSvg },
@@ -789,7 +789,7 @@ function DashboardPage() {
                           ].map(({ type, label, icon }) => (
                             <li
                               key={type}
-                              className={`px-4 py-2 cursor-pointer text-[#A2A2A2] hover:bg-[#2A2A2A] ${selectedType === type ? 'bg-[#2A2A2A] text-white' : ''}`}
+                              className={`rounded-lg px-4 py-2 cursor-pointer my-2 text-[#A2A2A2] hover:bg-[#2A2A2A] ${selectedType === type ? 'bg-[#2A2A2A] text-white' : ''}`}
                               onClick={() => {
                                 setSelectedType(type === 'all' ? 'all' : type);
                                 setIsDropdownOpen(false);
@@ -1077,14 +1077,14 @@ function DashboardPage() {
                       <path d="M3 9h18" />
                       <path d="M9 21V9" />
                     </svg>
-                    <p className="text-lg mb-2">No {selectedType === 'all' ? '' : selectedType} jobs found</p>
-                    <p className="text-md text-[#666666] mb-4">
+                    <p className="text-sm lg:text-lg md:text-md mb-2 text-center">No {selectedType === 'all' ? '' : selectedType} jobs found</p>
+                    <p className="text-md text-[#666666] mb-4 text-sm lg:text-lg md:text-md text-center" >
                       {selectedType === 'all' ? (
                         <Link to="/" className="text-[#666666] underline transition-all underline-offset-4 hover:text-[#F8ff7c]/60">
                           Create your first job to get started
                         </Link>
                       ) : (
-                        <span>Try selecting a different job type.</span>
+                        <span className="text-sm lg:text-md md:text-md">Try selecting a different job type.</span>
                       )}
                     </p>
                   </div>
@@ -1097,7 +1097,7 @@ function DashboardPage() {
             </div>
           </div>
 
-          <div className="space-y-8 h-full lg:w-[23%] w-full">
+          <div className="space-y-8 h-full xl:w-[25%] lg:w-[30%] w-full">
             <div className="bg-[#1C1C1C] backdrop-blur-xl rounded-2xl p-8 ">
               <h3 className="xl:text-2xl text-lg font-bold mb-6  text-white">
                 Your Balance
@@ -1112,7 +1112,7 @@ function DashboardPage() {
               </div>
             </div>
 
-            <div className="bg-[#1C1C1C] backdrop-blur-xl rounded-2xl p-8 ">
+            <div className="bg-[#1C1C1C] backdrop-blur-xl rounded-2xl p-6 ">
               <div>
                 <h3 className=" xl:text-2xl text-lg font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-white">
                   Quick Actions
@@ -1127,7 +1127,7 @@ function DashboardPage() {
                     >
                       <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
                       <span className="absolute inset-0 bg-[#FFFFFF] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
-                      <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs lg:text-sm xl:text-base">
+                      <span className="bottom-[3px] font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs lg:text-sm xl:text-base">
                         Top Up TG
                       </span>
                     </button>
@@ -1137,7 +1137,7 @@ function DashboardPage() {
                     <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform w-full">
                       <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
                       <span className="absolute inset-0 bg-[#FFFFFF] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
-                      <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs lg:text-sm xl:text-base">
+                      <span className="bottom-[3px] font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs lg:text-sm xl:text-base">
                         Create New Job
                       </span>
                     </button>

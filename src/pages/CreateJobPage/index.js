@@ -1001,9 +1001,9 @@ function CreateJobPage() {
         <div className="mx-auto px-6 relative z-30">
           <PageHeader />
 
-          <div className="flex flex-col lg:flex-row gap-6 justify-center max-w-[1600px] mx-auto">
+          <div className="flex flex-col xl:flex-row lg:flex-col gap-6 justify-center max-w-[1600px] mx-auto">
             {/* Sidebar with actual posts */}
-            <div className="w-full lg:w-1/3 space-y-4">
+            <div className="w-full xl:w-1/3 space-y-4">
               {/* Points System Box */}
               <div className="bg-[#141414] backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300">
                 <h2 className="text-lg md:text-xl font-semibold mb-4">
@@ -1108,7 +1108,7 @@ function CreateJobPage() {
                     >
                       <div className="flex justify-between items-center gap-3">
                         <h4
-                          className={`sm:word-break-all text-xs md:text-base font-medium lg:w-[70%] ${selectedJob?.id === template.id ? "text-white" : ""
+                          className={`break-all	 text-xs md:text-base font-medium lg:w-[70%] ${selectedJob?.id === template.id ? "text-white" : ""
                             }`}
                         >
                           {template.title}
@@ -1124,7 +1124,7 @@ function CreateJobPage() {
                 </div>
               </div>
             </div>
-            <div className="w-full lg:w-3/4">
+            <div className="w-full xl:w-3/4">
               {selectedJob ? (
                 <div className="bg-[#141414] backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300">
                   {renderSelectedTemplate()}
@@ -1269,37 +1269,37 @@ function CreateJobPage() {
                                 ref={dropdownRef}
                                 className="relative w-full md:w-[70%] xl:w-[80%] "
                               >
-                                <div
-                                  className="w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg cursor-pointer border border-white/10 flex items-center gap-5"
+                                <li
+                                  className="text-sm xs:text-sm sm:text-base w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg cursor-pointer border border-white/10 flex items-center gap-5"
                                   onClick={() =>
                                     setIsNetworkOpen((prev) => !prev)
                                   }
                                 >
-                                  <p className="w-6 h-6 font-actayRegular ">
+                                  <p className="w-6 h-6 font-actayRegular text-xs xs:text-sm sm:text-base">
                                     {networkIcons[selectedNetwork]}
                                   </p>
                                   {selectedNetwork}
                                   <ChevronDown className="absolute top-3 right-4 text-white text-xs" />
-                                </div>
+                                </li>
                                 {isNetworkOpen && (
-                                  <div className="absolute top-14 w-full bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden shadow-lg">
+                                  <p className="absolute top-14 w-full bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden shadow-lg">
                                     {supportedNetworks.map((network) => (
-                                      <div
+                                      <p
                                         key={network.id}
-                                        className="py-3 px-4 hover:bg-[#333] cursor-pointer rounded-lg flex items-center gap-5 text-xs xs:text-sm sm:text-base"
+                                        className="py-3 px-4 hover:bg-[#333] cursor-pointer rounded-lg flex items-center gap-5 text-sm xs:text-sm sm:text-base"
                                         onClick={() => {
                                           setSelectedNetwork(network.name);
                                           setTriggerChainId(network.id);
                                           setIsNetworkOpen(false);
                                         }}
                                       >
-                                        <p className="w-6 h-6">
+                                        <p className="w-6 h-6 ">
                                           {networkIcons[network.name] || null}
                                         </p>
                                         {network.name}
-                                      </div>
+                                      </p>
                                     ))}
-                                  </div>
+                                  </p>
                                 )}
                               </div>
                             </div>
@@ -1467,8 +1467,8 @@ function CreateJobPage() {
                                       </label>
 
                                       <div className="relative w-full md:w-[70%] xl:w-[80%] z-50">
-                                        <div
-                                          className="w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg cursor-pointer border border-white/10 flex items-center justify-between"
+                                        <li
+                                          className="break-all list-none w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg cursor-pointer border border-white/10 flex items-center justify-between text-sm xs:text-sm sm:text-base"
                                           onClick={() =>
                                             setIsEventOpen(!isEventOpen)
                                           }
@@ -1476,7 +1476,7 @@ function CreateJobPage() {
                                           {eventContractInteraction.targetEvent ||
                                             "Select an event"}
                                           <ChevronDown className="text-white text-xs" />
-                                        </div>
+                                        </li>
                                         {isEventOpen && (
                                           <div
                                             ref={eventdropdownRef}
@@ -1489,9 +1489,9 @@ function CreateJobPage() {
                                                     .map((input) => input.type)
                                                     .join(",")})`;
                                                 return (
-                                                  <div
+                                                  <li
                                                     key={index}
-                                                    className="py-3 px-4 hover:bg-[#333] cursor-pointer rounded-lg"
+                                                    className="list-none break-all py-3 px-4 hover:bg-[#333] cursor-pointer rounded-lg text-sm xs:text-sm sm:text-base"
                                                     onClick={() => {
                                                       eventContractInteraction.handleEventChange(
                                                         {
@@ -1504,7 +1504,7 @@ function CreateJobPage() {
                                                     }}
                                                   >
                                                     {signature}
-                                                  </div>
+                                                  </li>
                                                 );
                                               }
                                             )}
@@ -1642,12 +1642,12 @@ function CreateJobPage() {
                                         Network
                                       </label>
                                       <div className="relative w-full md:w-[70%] xl:w-[80%]">
-                                        <div className="text-xs xs:text-sm sm:text-base w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg border border-white/10 flex items-center gap-5">
+                                        <li className="text-sm xs:text-sm sm:text-base w-full bg-[#1a1a1a] text-white py-3 px-4 rounded-lg border border-white/10 flex items-center gap-5">
                                           <p className="w-6 h-6 ">
                                             {networkIcons[selectedNetwork]}
                                           </p>
                                           {selectedNetwork}
-                                        </div>
+                                        </li>
                                       </div>
                                     </div>
 

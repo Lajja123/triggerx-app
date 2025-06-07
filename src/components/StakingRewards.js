@@ -718,16 +718,16 @@ const StakingReward = () => {
 
                 {stakingContract && (
                   <>
-                    <h2 className="text-lg lg:text-xl text-white  flex items-center my-6">
+                    <h2 className="text-md md:text-lg lg:text-xl text-white  flex items-center my-6">
                       Staking Reward Information
                     </h2>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
                       <div className="bg-white/5 border border-white/10 p-3 sm:p-5 rounded-lg">
-                        <h3 className="text-white text-base sm:text-lg mb-2">
+                        <h3 className="text-white text-md sm:text-lg mb-2">
                           Your Staked Amount
                         </h3>
-                        <p className="text-[#F8FF7C] text-md sm:text-2xl font-semibold">
+                        <p className="text-[#F8FF7C] text-sm sm:text-2xl font-semibold">
                           {parseFloat(stakedAmount).toFixed(2)} Tokens
                         </p>
                       </div>
@@ -735,13 +735,13 @@ const StakingReward = () => {
                         <h3 className="text-white text-base sm:text-lg mb-2">
                           Total Staked
                         </h3>
-                        <p className="text-[#77E8A3] text-md sm:text-2xl font-semibold">
+                        <p className="text-[#77E8A3] text-sm sm:text-2xl font-semibold">
                           {parseFloat(totalStaked).toFixed(2)} Tokens
                         </p>
                       </div>
                       <div className="bg-white/5 border border-white/10 p-3 sm:p-5 rounded-lg">
                         <h3 className="text-white text-base sm:text-lg mb-2">NFT Reward</h3>
-                        <p className="text-md sm:text-2xl font-semibold">
+                        <p className="text-sm sm:text-2xl font-semibold">
                           {hasNFT ? (
                             <span className="text-[#77E8A3]">Received ✓</span>
                           ) : (
@@ -753,7 +753,7 @@ const StakingReward = () => {
                         <h3 className="text-white text-base sm:text-lg mb-2">
                           Threshold for NFT Reward
                         </h3>
-                        <p className="text-[#77E8A3]  text-md sm:text-2xl font-semibold">
+                        <p className="text-[#77E8A3]  text-sm sm:text-2xl font-semibold">
                           {THRESHOLD} STK
                         </p>
                       </div>
@@ -761,13 +761,13 @@ const StakingReward = () => {
                         <h3 className="text-white text-base sm:text-lg mb-2">
                           Next Threshold for Reward Distribution
                         </h3>
-                        <p className="text-[#77E8A3] text-md sm:text-2xl font-semibold">
+                        <p className="text-[#77E8A3] text-sm sm:text-2xl font-semibold">
                           {parseFloat(nextThreshold).toFixed(2)} Tokens
                         </p>
                       </div>
                     </div>
                     <div className="bg-white/5 border border-white/10 p-3 sm:p-5 rounded-lg my-4 sm:my-6">
-                      <h2 className="text-lg sm:text-xl text-white mb-4 sm:mb-6">
+                      <h2 className="text-md sm:text-xl text-white mb-4 sm:mb-6">
                         Stake/Unstake Tokens
                       </h2>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
@@ -782,7 +782,7 @@ const StakingReward = () => {
                                 value={stakeAmount}
                                 onChange={(e) => setStakeAmount(e.target.value)}
                                 placeholder="Amount to stake"
-                                className="bg-white/5 border border-white/10 rounded-lg px-3 sm:px-4 py-3 sm:py-4 w-full pr-20 sm:pr-24 focus:outline-none focus:ring-2 focus:ring-[#F8FF7C]/30 transition-all"
+                                className="bg-white/5 border border-white/10 rounded-lg px-2 sm:px-4 py-3 sm:py-4 w-full pr-20 sm:pr-24 focus:outline-none focus:ring-2 focus:ring-[#F8FF7C]/30 transition-all"
                                 step="0.1"
                                 min="0"
                                 disabled={
@@ -914,7 +914,7 @@ const StakingReward = () => {
 
                     {/* Job Configuration Form Layout */}
                     <div className=" rounded-lg mb-10">
-                      <h2 className="text-xl text-white my-6 flex items-center">
+                      <h2 className="text-md lg:text-lg md:text-md text-white my-6 flex items-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="h-6 w-6 mr-2 text-[#F8FF7C]"
@@ -939,7 +939,7 @@ const StakingReward = () => {
                       </h2>
 
                       {isConnected ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-5">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-5 text-base sm:text-lg ">
                           {[
                             {
                               key: "jobType",
@@ -1096,7 +1096,7 @@ const StakingReward = () => {
                                   </div>
                                 </div>
                               ) : (
-                                <p className="text-[#A2A2A2] text-base sm:text-lg break-all">
+                                <p className="text-[#A2A2A2] text-sm sm:text-lg break-all">
                                   {item.value}
                                 </p>
                               )}
@@ -1104,8 +1104,8 @@ const StakingReward = () => {
                           ))}
 
                           <div className="bg-gradient-to-br from-black/40 to-white/5 border border-white/10 p-3 sm:p-5 rounded-xl md:col-span-2">
-                            <div className="flex items-center justify-between mb-4">
-                              <div className="flex items-center">
+                            <div className="flex gap-3 md:items-center justify-start mb-4 flex-col md:flex-row md:justify-between">
+                              <div className="flex items-center ">
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   className="h-5 w-5 text-blue-400"
@@ -1124,7 +1124,7 @@ const StakingReward = () => {
                               </div>
                               <button
                                 onClick={toggleAbiExpansion}
-                                className="flex items-center gap-2 bg-white/5 hover:bg-white/10 px-3 py-2 rounded-lg transition-all hover:scale-105"
+                                className="flex items-center gap-2 bg-white/5 hover:bg-white/10 px-3 py-2 rounded-lg transition-all hover:scale-105 justify-between"
                               >
                                 <span className="text-white text-sm">
                                   {!isAbiExpanded ? "View ABI" : "Hide ABI"}
@@ -1145,22 +1145,12 @@ const StakingReward = () => {
                             </div>
 
                             <div className="flex items-center mb-3">
-                              <p className="text-[#A2A2A2]">
+                              <p className="text-[#A2A2A2] text-sm md:text:lg">
                                 The interface for the contract's
                                 distributeNFTRewards function
                               </p>
                             </div>
 
-                            {/* {!isAbiExpanded && (
-                      <div className="flex justify-center">
-                        <button
-                          onClick={toggleAbiExpansion}
-                          className="mt-3 flex items-center justify-center hover:underline text-[#77E8A3]"
-                        >
-                          Click to expand and see the full ABI
-                        </button>
-                      </div>
-                    )} */}
 
                             {isAbiExpanded && (
                               <div className="mt-4">
